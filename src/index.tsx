@@ -3,11 +3,29 @@
  * @date 2024-11-14
  * @author poohlaha
  */
-
-const Parser = () => {
-
-}
+import './assets/common.less'
+import {
+    OpacityProps,
+    BackgroundProps,
+    FontSizeProps,
+    AlignmentProps,
+    MarginProps,
+    PaddingProps,
+    RoundProps,
+    FillProps,
+    Stroke,
+    Shadow
+} from './utils/common'
 
 export {
-  Parser
+    OpacityProps,
+    BackgroundProps,
+    FontSizeProps,
+    AlignmentProps,
+    MarginProps,
+    PaddingProps,
+    RoundProps,
+    FillProps,
+    Stroke,
+    Shadow
 }
