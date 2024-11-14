@@ -17,7 +17,7 @@ const Utils = {
 
   // 获取区间数字
   getIntervalNumbers: (value?: number, defaultValue: number = 0, min: number = 0, max: number = 100) => {
-     let num: number = value ?? max // null || undefined 为 defaultValue 的值
+    let num: number = value ?? max // null || undefined 为 defaultValue 的值
 
     // 是否大于 max
     num = Math.min(max, num)
@@ -51,7 +51,7 @@ const Utils = {
     }
 
     return `${className} flex-jsc-between`
-  }
+  },
 }
 
 export default Utils

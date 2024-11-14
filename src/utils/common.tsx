@@ -21,7 +21,7 @@ export const OpacityProps: ICommonProps = {
   name: 'Opacity',
   title: '不透明度',
   setter: 'OpacitySetter',
-  default: 100
+  default: 100,
 }
 
 // 背景
@@ -29,7 +29,7 @@ export const BackgroundProps: ICommonProps = {
   name: 'Background',
   title: '背景颜色',
   setter: ['ColorSetter', 'OpacitySetter'],
-  default: 100
+  default: 100,
 }
 
 // 字体
@@ -37,7 +37,7 @@ export const FontSizeProps: ICommonProps = {
   name: 'FontSize',
   title: '',
   setter: 'FontSizeSetter',
-  default: [12, 13, 14, 16, 18, 20, 28, 36, 48, 72]
+  default: [12, 13, 14, 16, 18, 20, 28, 36, 48, 72],
 }
 
 // 对齐方式
@@ -45,7 +45,7 @@ export const AlignmentProps: ICommonProps = {
   name: 'Alignment',
   title: '对齐方式',
   setter: 'AlignmentSetter',
-  default: 'left'
+  default: 'left',
 }
 
 // 外边距
@@ -53,7 +53,7 @@ export const MarginProps: ICommonProps = {
   name: 'Margin',
   title: '外边距',
   setter: 'MarginSetter',
-  default: [0, 0]
+  default: [0, 0],
 }
 
 // 内边距
@@ -61,7 +61,7 @@ export const PaddingProps: ICommonProps = {
   name: 'Padding',
   title: '内边距',
   setter: 'PaddingSetter',
-  default: [0, 0]
+  default: [0, 0],
 }
 
 // 圆角
@@ -69,7 +69,7 @@ export const RoundProps: ICommonProps = {
   name: 'Round',
   title: '圆角',
   setter: 'RoundSetter',
-  default: 0 // 0: 圆角 1: 独立圆角
+  default: 0, // 0: 圆角 1: 独立圆角
 }
 
 // 填充
@@ -84,7 +84,7 @@ export const Stroke: ICommonProps = {
   name: 'Stroke',
   title: '填充',
   setter: ['CheckboxSetter', 'StrokeSetter'],
-  default: '#bbbbbb'
+  default: '#bbbbbb',
 }
 
 // 阴影
@@ -94,14 +94,3 @@ export const Shadow: ICommonProps = {
   setter: 'ShadowSetter',
   default: [0, 0, 0, 0],
 }
-
-
-
-
-
-
-
-
-
-
-

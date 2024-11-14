@@ -3,10 +3,10 @@
  * @date 2024-11-14
  * @author poohlaha
  */
-import React, {ReactElement} from 'react'
-import {ICommonProps} from '../../utils/common'
+import React, { ReactElement } from 'react'
+import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
-import {Slider, InputNumber} from 'antd'
+import { Slider, InputNumber } from 'antd'
 
 export interface IOpacityProps extends ICommonProps {
   className?: string
@@ -17,7 +17,6 @@ export interface IOpacityProps extends ICommonProps {
 }
 
 const Opacity = (props: IOpacityProps): ReactElement => {
-
   const getProps = () => {
     const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
     const min = props.min ?? 0
@@ -32,13 +31,13 @@ const Opacity = (props: IOpacityProps): ReactElement => {
     }
     const reverse = props.reverse ?? false
 
-    return {alignmentClassName, min, max, defaultValue, reverse, isDefaultValueArray}
+    return { alignmentClassName, min, max, defaultValue, reverse, isDefaultValueArray }
   }
 
   const render = () => {
-   const {alignmentClassName, min, max, defaultValue, reverse, isDefaultValueArray} = getProps()
+    const { alignmentClassName, min, max, defaultValue, reverse, isDefaultValueArray } = getProps()
 
-    let inputProps: {[K: string]: any} = {
+    let inputProps: { [K: string]: any } = {
       min,
       max,
       defaultValue,
@@ -53,28 +52,20 @@ const Opacity = (props: IOpacityProps): ReactElement => {
         }
 
         props.onInputChange?.(newValue)
-      }
+      },
     }
 
     return (
       <div className={`lower-opacity ${props.className || ''} ${alignmentClassName || ''}`}>
-          {
-            !Utils.isBlank(props.title || '') && <p>{props.title || ''}</p>
-          }
+        {!Utils.isBlank(props.title || '') && <p>{props.title || ''}</p>}
 
-          <div className="lower-opacity-slider">
-            <Slider
-                disabled={props.disabled}
-                defaultValue={defaultValue}
-                min={min}
-                max={max}
-                reverse={reverse}
-            />
-          </div>
+        <div className="lower-opacity-slider">
+          <Slider disabled={props.disabled} defaultValue={defaultValue} min={min} max={max} reverse={reverse} />
+        </div>
 
-          <div className="lower-opacity-input">
-            <InputNumber {...inputProps} />
-          </div>
+        <div className="lower-opacity-input">
+          <InputNumber {...inputProps} />
+        </div>
       </div>
     )
   }

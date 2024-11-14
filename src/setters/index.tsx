@@ -6,10 +6,6 @@
 import Opacity from './opacity'
 import { IOpacityProps } from './opacity'
 
-export  {
-  Opacity
-}
+export { Opacity }
 
-export type {
-  IOpacityProps
-}
+export type { IOpacityProps }
