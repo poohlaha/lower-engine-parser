@@ -1,5 +1,5 @@
 /**
- * @fileOverview Parser
+ * @fileOverview export
  * @date 2024-11-14
  * @author poohlaha
  */
@@ -17,6 +17,11 @@ import {
     Shadow
 } from './utils/common'
 
+import {
+    Opacity as OpacitySetter,
+    IOpacityProps as IOpacitySetterProps
+} from './setters'
+
 export {
     OpacityProps,
     BackgroundProps,
@@ -28,4 +33,12 @@ export {
     FillProps,
     Stroke,
     Shadow
+}
+
+export {
+    OpacitySetter,
+}
+
+export type {
+    IOpacitySetterProps
 }
