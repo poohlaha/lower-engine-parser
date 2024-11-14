@@ -68,7 +68,7 @@ const Parser = (props: IParserProps): ReactElement | null => {
 
   const map = getComponentMap()
   return (
-    <div className="parser-box">
+    <div className="lower-engine-parser-box">
       {panel.map((item: { [K: string]: any } = {}, index: number) => {
         let componentNameList = getComponentNameList(item || {}) || []
         if (componentNameList.length === 0) {
@@ -76,7 +76,7 @@ const Parser = (props: IParserProps): ReactElement | null => {
         }
 
         return (
-          <div className="parser-setter">
+          <div className="lower-engine-parser-setter" key={index}>
             {componentNameList.map((componentName: string = '', i: number) => {
               const Component = map.get(componentName) || null
               if (!Component) {

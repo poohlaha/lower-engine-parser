@@ -80,7 +80,7 @@ export const FillProps: ICommonProps = {
 }
 
 // 描边
-export const Stroke: ICommonProps = {
+export const StrokeProps: ICommonProps = {
   name: 'Stroke',
   title: '填充',
   setter: ['CheckboxSetter', 'StrokeSetter'],
@@ -88,7 +88,7 @@ export const Stroke: ICommonProps = {
 }
 
 // 阴影
-export const Shadow: ICommonProps = {
+export const ShadowProps: ICommonProps = {
   name: 'Stroke',
   title: '填充',
   setter: 'ShadowSetter',

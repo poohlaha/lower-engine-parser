@@ -3,7 +3,7 @@
  * @date 2024-11-14
  * @author poohlaha
  */
-import React, { ReactElement } from 'react'
+import React, {ReactElement, useEffect, useState} from 'react'
 import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
 import { Slider, InputNumber } from 'antd'
@@ -17,54 +17,76 @@ export interface IOpacityProps extends ICommonProps {
 }
 
 const Opacity = (props: IOpacityProps): ReactElement => {
-  const getProps = () => {
-    const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
+  const [value, setValue] = useState<number>(0)
+
+  useEffect(() => {
+    const {defaultValue} = getDefaultValue()
+    setValue(defaultValue)
+  }, [props.default])
+
+  const getDefaultValue = () => {
     const min = props.min ?? 0
     const max = props.max ?? 100
+
     let defaultValue: any
-    let isDefaultValueArray = false
     if (Array.isArray(props.default)) {
-      defaultValue = props.default ?? [min, max]
-      isDefaultValueArray = true
+      defaultValue = props.default.length > 0 ? props.default[0] : min
     } else {
       defaultValue = Utils.getIntervalNumbers(props.default, 100, min, max)
     }
-    const reverse = props.reverse ?? false
 
-    return { alignmentClassName, min, max, defaultValue, reverse, isDefaultValueArray }
+    return {min, max, defaultValue}
+  }
+
+  const getProps = () => {
+    const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
+    const {min, max, defaultValue} = getDefaultValue()
+    const reverse = props.reverse ?? false
+    return { alignmentClassName, min, max, defaultValue, reverse }
+  }
+
+  const onChange = (value: number | string | null, min: number) => {
+    let newValue: number = min
+    if (typeof value === 'string') {
+      if (!Utils.isBlank(value || '')) {
+        newValue = parseInt(value)
+      }
+    } else {
+      newValue = newValue ?? min
+    }
+
+    setValue(newValue)
+    props.onInputChange?.(newValue)
   }
 
   const render = () => {
-    const { alignmentClassName, min, max, defaultValue, reverse, isDefaultValueArray } = getProps()
+    const { alignmentClassName, min, max, defaultValue, reverse } = getProps()
 
     let inputProps: { [K: string]: any } = {
       min,
       max,
       defaultValue,
-      onChange: (value: number | string | null) => {
-        let newValue: number = min
-        if (typeof value === 'string') {
-          if (!Utils.isBlank(value || '')) {
-            newValue = parseInt(value)
-          }
-        } else {
-          newValue = newValue ?? min
-        }
-
-        props.onInputChange?.(newValue)
-      },
+      onChange: (value: number | string | null) => onChange(value, min),
     }
 
     return (
-      <div className={`lower-opacity ${props.className || ''} ${alignmentClassName || ''}`}>
+      <div className={`lower-engine-opacity ${props.className || ''} ${alignmentClassName || ''}`}>
         {!Utils.isBlank(props.title || '') && <p>{props.title || ''}</p>}
 
-        <div className="lower-opacity-slider">
-          <Slider disabled={props.disabled} defaultValue={defaultValue} min={min} max={max} reverse={reverse} />
-        </div>
+        <div className="lower-engine-opacity-content flex-1 flex-align-center">
+          <div className="lower-engine-opacity-slider flex-1 flex-jsc-end">
+            <Slider
+                disabled={props.disabled}
+                defaultValue={defaultValue}
+                min={min} max={max}
+                reverse={reverse}
+                onChange={(value: number | string | null) => onChange(value, min)}
+            />
+          </div>
 
-        <div className="lower-opacity-input">
-          <InputNumber {...inputProps} />
+          <div className="lower-engine-opacity-input">
+            <InputNumber {...inputProps} />
+          </div>
         </div>
       </div>
     )

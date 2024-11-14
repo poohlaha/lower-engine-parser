@@ -12,6 +12,18 @@ export {
     PaddingProps,
     RoundProps,
     FillProps,
-    Stroke,
-    Shadow
+    StrokeProps,
+    ShadowProps
+} from './src/index'
+
+export {
+    LowerEngineParser,
+    OpacitySetter,
+} from './src/index'
+
+export type {
+    IParserProps,
+    IParserSchemaProps,
+    IParserSchemaParamsProps,
+    IOpacitySetterProps
 } from './src/index'

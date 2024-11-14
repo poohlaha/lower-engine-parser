@@ -1,320 +1,90 @@
 /**
- * @fileOverview 定义全局公共样式
+ * @fileOverview 定义 Setter 样式
  * @date 2024-11-14
  * @author poohlaha
  */
-@charset "utf-8";
-
-/* 1. 浮动布局 */
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
-}
-
-/* 2. flex布局 */
-.flex,
-.flex-center,
-.flex-align-start,
-.flex-align-center,
-.flex-align-end,
-.flex-jsc-start,
-.flex-jsc-center,
-.flex-jsc-end,
-.flex-jsc-between,
-.flex-jsc-around,
-.flex-direction-column,
-.flex-wrap,
-.flex-reverse,
-.flex-nowrap {
-  display: flex;
-}
-
-.flex-center {
-  justify-content: center;
-  align-items: center;
-}
-
-.flex-align-start {
-  align-items: start;
-}
-
-.flex-align-center {
-  align-items: center;
-}
-
-.flex-align-end {
-  align-items: end;
-}
-
-.flex-jsc-start {
-  justify-content: flex-start;
-}
-
-.flex-jsc-center {
-  justify-content: center;
-}
-
-.flex-jsc-end {
-  justify-content: flex-end;
-}
-
-.flex-jsc-between {
-  justify-content: space-between;
-}
-
-.flex-jsc-around {
-  justify-content: space-around;
-}
-
-.flex-direction-column {
-  flex-direction: column;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.flex-nowrap {
-  flex-wrap: nowrap;
-}
-
-.flex-reverse {
-  flex-direction: row-reverse;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-.flex-2 {
-  flex: 2;
-}
-
-.flex-3 {
-  flex: 3;
-}
-
-.flex-4 {
-  flex: 4;
-}
-
-.flex-5 {
-  flex: 5;
-}
-
-/* 2. 定位 */
-.position-relative {
-  position: relative;
-}
-
-.position-absolute {
-  position: absolute;
-}
-
-.position-static {
-  position: static;
-}
-
-.position-sticky {
-  position: sticky;
-}
-
-.position-fixed {
-  position: fixed;
-}
-
-/* 3. 文字对齐 */
-.text-l {
-  text-align: left;
-}
+@border_color: #e5e5e5;
+@theme: #1684fc;
 
-.text-c {
-  text-align: center;
-}
-
-.text-r {
-  text-align: right;
-}
-
-/* 4. 宽高百分比 */
-.wh100 {
-  width: 100%;
-  height: 100%;
-}
-
-.w100 {
-  width: 100%;
-}
-
-.w33 {
-  width: calc(100% / 3);
-}
-
-.w50 {
-  width: 50%;
-}
-
-.w25 {
-  width: 25%;
-}
-
-.h100 {
-  height: 100%;
-}
-
-.mwh100 {
-  min-width: 100%;
-  min-height: 100%;
-}
-
-.min-h100 {
-  min-width: 100%;
-}
-
-/* 5. 文字超出省略 */
-.over-ellipsis {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* 文字超出三行省略*/
-.over-three-ellipsis,
-.over-two-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
-/* 文字超出两行省略*/
-.over-two-ellipsis {
-  -webkit-line-clamp: 2;
-}
-
-/* 文字超出三行省略*/
-.over-three-ellipsis {
-  -webkit-line-clamp: 3;
-}
+.lower-engine-parser-box {
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
-.overflow-auto {
-  overflow: auto;
-}
-
-.overflow-x-auto {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.overflow-y-auto {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-/* 换行 */
-.line-break {
-  word-wrap: break-word;
-  word-break: break-all;
-  white-space: normal;
-}
-
-/* 不换行 */
-.no-line-break {
-  word-break: keep-all;
-  white-space: normal;
-}
-
-/* 6. 滚动条 */
-/* x轴滚动 */
-.x-scroll {
-  overflow-x: scroll;
-}
+  .lower-engine-parser-setter {
 
-/* y轴滚动 */
-.y-scroll {
-  overflow-y: scroll;
-}
-
-/* 遮罩层 */
-.mask {
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  transition: all 0.2s ease-in;
-}
+  }
 
-/* 鼠标 */
-.cursor-pointer {
-  cursor: pointer;
 }
 
-.cursor-not-allowed {
-  cursor: not-allowed;
-}
+// slider
+.ant-slider {
+  height: 10px;
+  width: 100px;
+  margin: 0!important;
 
-.disabled {
-  cursor: not-allowed !important;
-  opacity: 0.6;
-}
+  .ant-slider-track {
+    background: @theme!important;
+  }
 
-.grid {
-  display: grid;
-}
+  .ant-slider-handle {
+    width: 12px!important;
+    height: 12px!important;
+    inset-block-start: 0!important;
 
-/* padding margin */
-.page-padding {
-  padding: 20px;
-}
+    &::after {
+      box-shadow: unset!important;
+      inset-inline-start: 0!important;
+      inset-block-start: 0!important;
+      transition: none!important;
+    }
 
-.page-padding-top {
-  padding-top: 20px;
-}
+    &::before {
+      inset-inline-start: 0!important;
+      inset-block-start: 0!important;
+      background-color: #ffffff!important;
+      box-shadow: rgba(34, 34, 34, 0.36) 0 1px 2px;
+      border-radius: 50%;
+      width: 12px!important;
+      height: 12px!important;
+    }
 
-.page-padding-bottom {
-  padding-bottom: 20px;
+    &:hover {
+      &::after {
+        outline: unset!important;
+        background: #cccccc;
+      }
+    }
+  }
 }
 
-.page-padding-left {
-  padding-left: 20px;
-}
+// input
+.ant-input-number {
+  border-color: #ffffff;
+  width: 55px !important;
+  height: 28px;
 
-.page-padding-right {
-  padding-right: 20px;
-}
+  &:hover {
+    border-color: @border_color!important;
+    border-radius: 2px;
+  }
 
-.page-margin-top {
-  margin-top: 20px;
-}
+  .ant-input-number-handler-wrap {
+    width: 18px!important;
+  }
 
-.page-margin-bottom {
-  margin-bottom: 20px;
-}
+  .ant-input-number-input-wrap {
+    height: 100%;
 
-.page-margin-left {
-  margin-left: 20px;
+    input {
+      height: 100%;
+      padding: 0 0 0 5px!important;
+    }
+  }
 }
 
-.page-margin-right {
-  margin-right: 20px;
-}
 
-.cursor-pointer {
-  cursor: pointer;
-}
 
-.font-bold {
-  font-weight: bold;
+// slider
+.lower-engine-opacity {
+  .lower-engine-opacity-slider {
+    margin-right: 10px;
+  }
 }
