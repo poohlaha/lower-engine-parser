@@ -4,8 +4,10 @@
  * @author poohlaha
  */
 import Opacity from './opacity'
+import Round from './round'
 import { IOpacityProps } from './opacity'
+import { IRoundProps } from './round'
 
-export { Opacity }
+export { Opacity, Round }
 
-export type { IOpacityProps }
+export type { IOpacityProps, IRoundProps }

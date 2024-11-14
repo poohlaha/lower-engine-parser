@@ -3,24 +3,25 @@
  * @date 2024-11-14
  * @author poohlaha
  */
-import React, {ReactElement, useEffect, useState} from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
 import { Slider, InputNumber } from 'antd'
+import MLowerEngine from '../lower'
 
 export interface IOpacityProps extends ICommonProps {
   className?: string
   min?: number
   max?: number
   reverse?: boolean
-  onInputChange?: (value: number) => void
+  onChange?: (value: number) => void
 }
 
 const Opacity = (props: IOpacityProps): ReactElement => {
   const [value, setValue] = useState<number>(0)
 
   useEffect(() => {
-    const {defaultValue} = getDefaultValue()
+    const { defaultValue } = getDefaultValue()
     setValue(defaultValue)
   }, [props.default])
 
@@ -35,28 +36,20 @@ const Opacity = (props: IOpacityProps): ReactElement => {
       defaultValue = Utils.getIntervalNumbers(props.default, 100, min, max)
     }
 
-    return {min, max, defaultValue}
+    return { min, max, defaultValue }
   }
 
   const getProps = () => {
     const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
-    const {min, max, defaultValue} = getDefaultValue()
+    const { min, max, defaultValue } = getDefaultValue()
     const reverse = props.reverse ?? false
     return { alignmentClassName, min, max, defaultValue, reverse }
   }
 
   const onChange = (value: number | string | null, min: number) => {
-    let newValue: number = min
-    if (typeof value === 'string') {
-      if (!Utils.isBlank(value || '')) {
-        newValue = parseInt(value)
-      }
-    } else {
-      newValue = newValue ?? min
-    }
-
+    let newValue: number = Utils.getInputNumberValue(value, min)
     setValue(newValue)
-    props.onInputChange?.(newValue)
+    props.onChange?.(newValue)
   }
 
   const render = () => {
@@ -70,25 +63,15 @@ const Opacity = (props: IOpacityProps): ReactElement => {
     }
 
     return (
-      <div className={`lower-engine-opacity ${props.className || ''} ${alignmentClassName || ''}`}>
-        {!Utils.isBlank(props.title || '') && <p>{props.title || ''}</p>}
-
-        <div className="lower-engine-opacity-content flex-1 flex-align-center">
-          <div className="lower-engine-opacity-slider flex-1 flex-jsc-end">
-            <Slider
-                disabled={props.disabled}
-                defaultValue={defaultValue}
-                min={min} max={max}
-                reverse={reverse}
-                onChange={(value: number | string | null) => onChange(value, min)}
-            />
-          </div>
-
-          <div className="lower-engine-opacity-input">
-            <InputNumber {...inputProps} />
-          </div>
+      <MLowerEngine className={props.className || ''} title={props.title || ''} alignment={props.alignment}>
+        <div className="lower-engine-opacity-slider flex-1 flex-jsc-end">
+          <Slider disabled={props.disabled} defaultValue={defaultValue} min={min} max={max} reverse={reverse} value={value} onChange={(value: number | string | null) => onChange(value, min)} />
         </div>
-      </div>
+
+        <div className="lower-engine-opacity-input">
+          <InputNumber value={value} {...inputProps} />
+        </div>
+      </MLowerEngine>
     )
   }
 

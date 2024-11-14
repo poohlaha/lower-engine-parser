@@ -15,6 +15,27 @@ const Utils = {
     return !target || (JSON.stringify(target) === '{}' && (Object.keys(target) || []).length === 0)
   },
 
+  /**
+   * 深拷贝
+   */
+  deepCopy: (o: any) => {
+    if (o instanceof Array) {
+      let n: Array<any> = []
+      for (let i = 0; i < o.length; ++i) {
+        n[i] = Utils.deepCopy(o[i])
+      }
+      return n
+    } else if (o instanceof Object) {
+      let n: any = {}
+      for (let i in o) {
+        n[i] = Utils.deepCopy(o[i])
+      }
+      return n
+    } else {
+      return o
+    }
+  },
+
   // 获取区间数字
   getIntervalNumbers: (value?: number, defaultValue: number = 0, min: number = 0, max: number = 100) => {
     let num: number = value ?? max // null || undefined 为 defaultValue 的值
@@ -51,6 +72,20 @@ const Utils = {
     }
 
     return `${className} flex-jsc-between`
+  },
+
+  // 获取输入框数字
+  getInputNumberValue: (value: number | string | null, min: number) => {
+    let newValue: number = min
+    if (typeof value === 'string') {
+      if (!Utils.isBlank(value || '')) {
+        newValue = parseInt(value)
+      }
+    } else {
+      newValue = value ?? min
+    }
+
+    return newValue
   },
 }
 

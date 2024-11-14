@@ -3,10 +3,10 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import Utils from '../utils/utils'
-import { Opacity as OpacitySetter } from '../setters'
-import {ICommonProps} from '../utils/common'
+import { Opacity as OpacitySetter, Round as RoundSetter } from '../setters'
+import { ICommonProps } from '../utils/common'
 
 export interface IParserProps extends ICommonProps {
   [K: string]: any
@@ -22,7 +22,15 @@ export interface IParserSchemaParamsProps {
   type: string
 }
 
-const componentNameList: Array<string> = ['OpacitySetter']
+const componentNameList: Array<string> = ['OpacitySetter', 'RoundSetter']
+
+const getComponentMap = () => {
+  const map = new Map()
+  map.set(componentNameList[0], OpacitySetter)
+  map.set(componentNameList[1], RoundSetter)
+
+  return map
+}
 
 const getComponentNameList = (item: { [K: string]: any } = {}) => {
   let setter: string | Array<string> = item.setter || ''
@@ -49,14 +57,6 @@ const getComponentNameList = (item: { [K: string]: any } = {}) => {
 
   return newComponentNames
 }
-
-const getComponentMap = () => {
-  const map = new Map()
-  map.set(componentNameList[0], OpacitySetter)
-
-  return map
-}
-
 
 const Parser = (props: IParserProps): ReactElement | null => {
   const map = getComponentMap()
