@@ -3,16 +3,13 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, { ReactElement } from 'react'
+import React, {ReactElement} from 'react'
 import Utils from '../utils/utils'
 import { Opacity as OpacitySetter } from '../setters'
+import {ICommonProps} from '../utils/common'
 
-export interface IParserProps {
-  componentName: string
-  title: string
-  screenshot?: React.ReactNode // 图标
-  panel: Array<{ [K: string]: any }>
-  schema: IParserSchemaProps
+export interface IParserProps extends ICommonProps {
+  [K: string]: any
 }
 
 export interface IParserSchemaProps {
@@ -60,34 +57,26 @@ const getComponentMap = () => {
   return map
 }
 
+
 const Parser = (props: IParserProps): ReactElement | null => {
-  let panel = props.panel || []
-  if (panel.length === 0) {
+  const map = getComponentMap()
+  let componentNameList = getComponentNameList(props || {}) || []
+  if (componentNameList.length === 0) {
     return null
   }
 
-  const map = getComponentMap()
   return (
     <div className="lower-engine-parser-box">
-      {panel.map((item: { [K: string]: any } = {}, index: number) => {
-        let componentNameList = getComponentNameList(item || {}) || []
-        if (componentNameList.length === 0) {
-          return null
-        }
+      <div className="lower-engine-parser-paragraph">
+        {componentNameList.map((componentName: string = '', i: number) => {
+          const Component = map.get(componentName) || null
+          if (!Component) {
+            return null
+          }
 
-        return (
-          <div className="lower-engine-parser-setter" key={index}>
-            {componentNameList.map((componentName: string = '', i: number) => {
-              const Component = map.get(componentName) || null
-              if (!Component) {
-                return null
-              }
-
-              return <Component key={`${index}_${i}`} {...item} />
-            })}
-          </div>
-        )
-      })}
+          return <Component key={i} {...props} />
+        })}
+      </div>
     </div>
   )
 }

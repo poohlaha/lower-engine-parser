@@ -14,6 +14,7 @@ export interface ICommonProps {
   unit?: string // 单位, 用于字体, padding, margin 等, 默认为 px, 手机端为 rem, 可全局定义
   alignment?: Alignment // 文字和组件的对齐方式, 默认两端对齐(Justify)
   disabled?: boolean
+  [K: string]: any
 }
 
 // 不透明度
@@ -82,15 +83,15 @@ export const FillProps: ICommonProps = {
 // 描边
 export const StrokeProps: ICommonProps = {
   name: 'Stroke',
-  title: '填充',
+  title: '描边',
   setter: ['CheckboxSetter', 'StrokeSetter'],
   default: '#bbbbbb',
 }
 
 // 阴影
 export const ShadowProps: ICommonProps = {
-  name: 'Stroke',
-  title: '填充',
+  name: 'Shadow',
+  title: '阴影',
   setter: 'ShadowSetter',
   default: [0, 0, 0, 0],
 }
