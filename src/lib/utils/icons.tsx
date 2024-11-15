@@ -9,7 +9,7 @@ const Icons = {
   // 对勾
   getSuccessNode: () => {
     return (
-      <span className="svg-box-small no-hover flex-center success-svg-box">
+      <div className="svg-box-small no-hover flex-center success-svg-box">
         <svg xmlns="http://www.w3.org/2000/svg" className="success-svg svg-icon" viewBox="0 0 8 6" aria-hidden="true">
           <path
             fillRule="evenodd"
@@ -18,9 +18,23 @@ const Icons = {
             fill="currentColor"
           ></path>
         </svg>
-      </span>
+      </div>
     )
   },
+
+    // 向下箭头
+    getArrowNode: () => {
+      return (
+          <div className="svg-box-small no-hover flex-center arrow-svg-box">
+              <svg className="arrow-svg svg-icon"
+                   viewBox="0 0 26 26">
+                  <path fill="#000" fillRule="evenodd"
+                        d="M9.65 11.15c.2-.2.5-.2.7 0L13 13.79l2.65-2.64a.5.5 0 0 1 .7.7l-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 0 1 0-.7Z"
+                        clipRule="evenodd"></path>
+              </svg>
+          </div>
+      )
+    }
 }
 
 export default Icons

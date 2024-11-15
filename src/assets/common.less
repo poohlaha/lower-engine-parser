@@ -366,7 +366,7 @@
     &.ant-select-item-option-selected {
       border-end-start-radius: 4px !important;
       border-end-end-radius: 4px !important;
-      background: @active_background!important;
+      background: @hover_background!important;
 
       .svg-box-small {
         .svg-icon {
@@ -497,4 +497,116 @@
       box-shadow: unset !important;
     }
   }
+}
+
+.lower-engine-input-box {
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+
+  &:hover, &.visible {
+    border: 1px solid @border_color!important;
+
+    .lower-engine-input-action {
+      visibility: visible!important;
+      background: @hover_background!important;
+    }
+  }
+
+  .ant-input-number:not(.ant-input-number-focused) {
+    border-width: 0;
+    background: unset!important;
+    width: 38px!important;
+  }
+
+  .ant-input-number {
+    .ant-input-number-handler-wrap {
+      display: none!important;
+    }
+  }
+
+  .ant-input-number:focus{
+    box-shadow: unset!important;
+  }
+
+  .ant-input-number-focused {
+    width: 38px;
+    border-width: 1px!important;
+    box-shadow: unset!important;
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    border-top-left-radius: 4px!important;
+    border-bottom-left-radius: 4px!important;
+  }
+
+  .ant-input-number-focused + .lower-engine-input-action {
+    visibility: visible;
+    background: #ffffff;
+  }
+
+  .lower-engine-input-action {
+    width: 26px;
+    height: 26px;
+    background: @hover_background;
+    visibility: hidden;
+
+    .arrow-svg-box {
+      width: 26px;
+      height: 26px;
+
+      .svg-icon {
+        color: rgba(0, 0, 0, 0.85);
+      }
+    }
+  }
+}
+
+.lower-engine-popover, .lower-engine-dropdown {
+  max-width: 176px;
+  .lower-engine-content-item:not(:last-child) {
+    margin-bottom: 4px;
+  }
+
+  .ant-dropdown-menu-item {
+    &:hover {
+      background-color: #ffffff!important;
+    }
+  }
+
+  .lower-engine-content-item {
+    &:hover, &.active {
+      background: @hover_background;
+      border-radius: 4px;
+
+      .svg-box-small, .svg-box, .success-svg-box {
+        .svg-icon {
+          color: @theme;
+        }
+      }
+
+      .lower-engine-content-item-text {
+        color: @theme;
+      }
+    }
+
+    &.active {
+      .svg-box-small, .svg-box, .success-svg-box {
+        visibility: visible!important;
+      }
+    }
+
+    .svg-box-small, .svg-box, .success-svg-box {
+      visibility: hidden;
+
+      .svg-icon {
+        width: 8px;
+        height: 6px;
+      }
+    }
+
+    .lower-engine-content-item-text {
+      margin-left: 6px;
+    }
+  }
+
 }

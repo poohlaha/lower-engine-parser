@@ -6,10 +6,10 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
-import { Select, InputNumber, Popover } from 'antd'
+import { Select, InputNumber } from 'antd'
 import Fill from '../fill'
-import Icons from '../../utils/icons'
 import Page from '../../utils/page'
+import {MPopover} from '../../components'
 
 export interface IStrokeProps extends ICommonProps {
   className?: string
@@ -146,7 +146,11 @@ const Stroke = (props: IStrokeProps): ReactElement => {
             }}
           />
 
-          <Popover overlayClassName="lower-engine-stroke-border-popover" trigger="click" placement="topRight" content={getBorderNode()} arrow={false}>
+          <MPopover
+              className="lower-engine-popover lower-engine-stroke-border-popover"
+              placement="topRight"
+              content={getBorderNode()}
+          >
             <div className="stroke-menu">
               <div className="svg-box-small no-hover border-svg-box">
                 <svg className="border-svg svg-icon" viewBox="0 0 24 24">
@@ -156,7 +160,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
                 </svg>
               </div>
             </div>
-          </Popover>
+          </MPopover>
         </div>
       </div>
     )
