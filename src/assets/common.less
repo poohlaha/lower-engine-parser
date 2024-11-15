@@ -150,6 +150,9 @@
 
 // opacity
 .lower-engine-widget {
+  .lower-engine-widget-header {
+    margin-right: 10px;
+  }
   .lower-engine-opacity-input {
     margin-left: 10px;
   }
@@ -158,7 +161,12 @@
     margin-right: 10px;
   }
 
-  &.lower-engine-round {
+  .lower-engine-round, .lower-engine-fill {
+    height: 32px;
+  }
+
+  // round
+  .lower-engine-round {
     .round-control {
       width: 24px;
       cursor: pointer;
@@ -182,6 +190,33 @@
 
     .round-control {
       margin-right: 5px;
+    }
+  }
+
+  // fill
+  .lower-engine-fill {
+
+  }
+
+  // color
+  .lower-engine-color {
+    margin: 0 6px;
+    width: 24px;
+    height: 24px;
+
+    .lower-engine-color-thumbnail {
+      width: 16px;
+      height: 16px;
+
+      .thumbnail {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        border-radius: 2px;
+        background-size: cover;
+        border: 1px solid rgba(0, 0, 0, 0.17);
+        box-sizing: border-box;
+      }
     }
   }
 }

@@ -7,7 +7,6 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
 import { InputNumber } from 'antd'
-import MLowerEngine from '../lower'
 
 export interface IRoundProps extends ICommonProps {
   className?: string
@@ -38,7 +37,7 @@ const Round = (props: IRoundProps): ReactElement => {
 
   const render = () => {
     return (
-      <MLowerEngine className={`${props.className || ''} lower-engine-round`} title={props.title || ''} alignment={props.alignment}>
+      <div className={`${props.className || ''} lower-engine-round flex-align-center`}>
         <div
           className={`round-control flex-jsc-around flex-align-center ${type === 0 ? 'active' : ''}`}
           onClick={() => {
@@ -125,7 +124,7 @@ const Round = (props: IRoundProps): ReactElement => {
             </>
           )}
         </div>
-      </MLowerEngine>
+      </div>
     )
   }
 

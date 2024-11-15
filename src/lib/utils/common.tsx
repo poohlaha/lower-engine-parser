@@ -31,6 +31,7 @@ export const BackgroundProps: ICommonProps = {
   title: '背景颜色',
   setter: ['ColorSetter', 'OpacitySetter'],
   default: 100,
+  alignment: 'upDown'
 }
 
 // 字体
@@ -77,7 +78,7 @@ export const RoundProps: ICommonProps = {
 export const FillProps: ICommonProps = {
   name: 'Fill',
   title: '填充',
-  setter: ['CheckboxSetter', 'ColorSetter'],
+  setter: ['FillSetter'],
 }
 
 // 描边

@@ -7,7 +7,6 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
 import { Slider, InputNumber } from 'antd'
-import MLowerEngine from '../lower'
 
 export interface IOpacityProps extends ICommonProps {
   className?: string
@@ -63,7 +62,7 @@ const Opacity = (props: IOpacityProps): ReactElement => {
     }
 
     return (
-      <MLowerEngine className={props.className || ''} title={props.title || ''} alignment={props.alignment}>
+      <div className={`lower-engine-opacity flex-align-center ${props.className || ''}`}>
         <div className="lower-engine-opacity-slider flex-1 flex-jsc-end">
           <Slider disabled={props.disabled} defaultValue={defaultValue} min={min} max={max} reverse={reverse} value={value} onChange={(value: number | string | null) => onChange(value, min)} />
         </div>
@@ -71,7 +70,7 @@ const Opacity = (props: IOpacityProps): ReactElement => {
         <div className="lower-engine-opacity-input">
           <InputNumber value={value} {...inputProps} />
         </div>
-      </MLowerEngine>
+      </div>
     )
   }
 

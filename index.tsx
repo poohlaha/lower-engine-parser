@@ -19,11 +19,15 @@ export {
 export {
     LowerEngineParser,
     OpacitySetter,
+    FillSetter,
+    ColorSetter,
 } from './src/index'
 
 export type {
     IParserProps,
     IParserSchemaProps,
     IParserSchemaParamsProps,
-    IOpacitySetterProps
+    IOpacitySetterProps,
+    IFillSetterProps,
+    IColorSetterProps,
 } from './src/index'
