@@ -18,7 +18,7 @@ const MLowerEngine = (props: PropsWithChildren<ILowerEngineProps>): ReactElement
 
     return (
       <div className={`lower-engine-widget ${props.className || ''} ${alignmentClassName || ''}`}>
-        {!Utils.isBlank(props.title || '') && <p className="lower-engine-widget-header">{props.title || ''}</p>}
+        {!Utils.isBlank(props.title || '') && <p className={`lower-engine-widget-header ${props.alignment === 'upDown' ? 'flex-align-center' : ''}`}>{props.title || ''}</p>}
 
         <div className="lower-engine-widget-content flex-align-center">{props.children}</div>
       </div>

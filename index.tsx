@@ -21,6 +21,7 @@ export {
     OpacitySetter,
     FillSetter,
     ColorSetter,
+    StrokeSetter
 } from './src/index'
 
 export type {
@@ -30,4 +31,5 @@ export type {
     IOpacitySetterProps,
     IFillSetterProps,
     IColorSetterProps,
+    IStrokeSetterProps
 } from './src/index'

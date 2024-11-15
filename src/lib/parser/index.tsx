@@ -5,7 +5,7 @@
  */
 import React, { ReactElement } from 'react'
 import Utils from '../utils/utils'
-import { Opacity as OpacitySetter, Round as RoundSetter, Fill as FillSetter, Color as ColorSetter } from '../setters'
+import { Opacity as OpacitySetter, Round as RoundSetter, Fill as FillSetter, Color as ColorSetter, Stroke as StrokeSetter } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
 
@@ -23,7 +23,7 @@ export interface IParserSchemaParamsProps {
   type: string
 }
 
-const componentNameList: Array<string> = ['OpacitySetter', 'RoundSetter', 'FillSetter', 'ColorSetter']
+const componentNameList: Array<string> = ['OpacitySetter', 'RoundSetter', 'FillSetter', 'ColorSetter', 'StrokeSetter']
 
 const getComponentMap = () => {
   const map = new Map()
@@ -31,6 +31,7 @@ const getComponentMap = () => {
   map.set(componentNameList[1], RoundSetter)
   map.set(componentNameList[2], FillSetter)
   map.set(componentNameList[3], ColorSetter)
+  map.set(componentNameList[4], StrokeSetter)
 
   return map
 }
@@ -69,18 +70,18 @@ const Parser = (props: IParserProps): ReactElement | null => {
   }
 
   return (
-      <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
-        <div className="lower-engine-parser-paragraph flex-align-center">
-          {componentNameList.map((componentName: string = '', i: number) => {
-            const Component = map.get(componentName) || null
-            if (!Component) {
-              return null
-            }
+    <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
+      <div className="lower-engine-parser-paragraph flex-align-center">
+        {componentNameList.map((componentName: string = '', i: number) => {
+          const Component = map.get(componentName) || null
+          if (!Component) {
+            return null
+          }
 
-            return <Component key={i} {...props} />
-          })}
-        </div>
-      </MLowerEngine>
+          return <Component key={i} {...props} />
+        })}
+      </div>
+    </MLowerEngine>
   )
 }
 

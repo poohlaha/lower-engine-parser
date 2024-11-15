@@ -51,6 +51,7 @@ const Utils = {
   // 获取组件对齐方式
   getComponentAlignmentClassName: (title: string = '', alignment: string = 'justify') => {
     let className = 'flex-align-center'
+
     if (Utils.isBlank(title || '')) {
       return `${className} flex-jsc-start`
     }
@@ -68,7 +69,7 @@ const Utils = {
     }
 
     if (alignment === 'upDown') {
-      return `${className} flex-direction-column`
+      return `flex-jsc-center flex-direction-column`
     }
 
     return `${className} flex-jsc-between`
