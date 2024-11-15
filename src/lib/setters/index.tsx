@@ -13,7 +13,10 @@ import { IRoundProps } from './round'
 import { IFillProps } from './fill'
 import { IColorProps } from './color'
 import { IStrokeProps } from './stroke'
+import { FontSize, FontBold } from './font'
 
-export { Opacity, Round, Fill, Color, Stroke }
+import type { IFontSizeProps, IFontBoldProps } from './font'
 
-export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps }
+export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold }
+
+export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps }

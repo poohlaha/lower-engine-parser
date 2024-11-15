@@ -4,6 +4,7 @@
  * @author poohlaha
  */
 export {
+    ColorProps,
     OpacityProps,
     BackgroundProps,
     FontSizeProps,
@@ -13,7 +14,7 @@ export {
     RoundProps,
     FillProps,
     StrokeProps,
-    ShadowProps
+    ShadowProps,
 } from './src/index'
 
 export {
@@ -21,7 +22,9 @@ export {
     OpacitySetter,
     FillSetter,
     ColorSetter,
-    StrokeSetter
+    StrokeSetter,
+    FontSizeSetter,
+    FontBoldSetter
 } from './src/index'
 
 export type {
@@ -31,5 +34,7 @@ export type {
     IOpacitySetterProps,
     IFillSetterProps,
     IColorSetterProps,
-    IStrokeSetterProps
+    IStrokeSetterProps,
+    IFontSizeSetterProps,
+    IFontBoldSetterProps
 } from './src/index'

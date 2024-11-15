@@ -8,6 +8,8 @@ import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
 import { Select, InputNumber, Popover } from 'antd'
 import Fill from '../fill'
+import Icons from '../../utils/icons'
+import Page from '../../utils/page'
 
 export interface IStrokeProps extends ICommonProps {
   className?: string
@@ -24,7 +26,8 @@ export interface IStrokeProps extends ICommonProps {
 
 const Stroke = (props: IStrokeProps): ReactElement => {
   const BORDERS = ['top', 'right', 'bottom', 'left']
-  const [line, setLine] = useState<string>('solid') // 线条
+  const LINES = ['solid', 'dotted', 'dashed']
+  const [line, setLine] = useState<string>(LINES[0]) // 线条
   const [value, setValue] = useState<number>(1) // 值
   const [borderList, setBorderList] = useState<Array<string>>(BORDERS) // 位置
 
@@ -33,57 +36,13 @@ const Stroke = (props: IStrokeProps): ReactElement => {
   }, [props.default])
 
   useEffect(() => {
-    setLine(props.selectedItemValue ?? 'solid')
+    setLine(props.selectedItemValue ?? LINES[0])
   }, [props.selectedItemValue])
 
   const getSelectItems = () => {
     let items = props.items || []
     if (items.length > 0) return items
-
-    const getActiveNode = () => {
-      return (
-        <span className="svg-box-small no-hover flex-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="svg-icon" viewBox="0 0 8 6" aria-hidden="true">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M.4 2.883a.64.64 0 00.194.471l1.949 1.903c.129.129.29.193.48.193a.643.643 0 00.473-.193l4.01-3.93A.627.627 0 007.709.86a.614.614 0 00-.201-.465A.667.667 0 007.028.2a.667.667 0 00-.479.194l-3.526 3.46-1.472-1.441a.667.667 0 00-.479-.194.667.667 0 00-.478.194.64.64 0 00-.194.47z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </span>
-      )
-    }
-
-    return [
-      {
-        label: (
-          <div className={`stroke-solid flex-align-center ${line === 'solid' ? 'active' : ''}`}>
-            {line === 'solid' && getActiveNode()}
-            <div className="stroke-solid-line"></div>
-          </div>
-        ),
-        value: 'solid',
-      },
-      {
-        label: (
-          <div className={`stroke-dotted flex-align-center ${line === 'dotted' ? 'active' : ''}`}>
-            {line === 'dotted' && getActiveNode()}
-            <div className="stroke-dotted-line"></div>
-          </div>
-        ),
-        value: 'dotted',
-      },
-      {
-        label: (
-          <div className={`stroke-dashed flex-align-center ${line === 'dashed' ? 'active' : ''}`}>
-            {line === 'dashed' && getActiveNode()}
-            <div className="stroke-dashed-line"></div>
-          </div>
-        ),
-        value: 'dashed',
-      },
-    ]
+    return Page.getSelectOptions(LINES, true, line)
   }
 
   const getBorderNode = () => {
@@ -166,21 +125,15 @@ const Stroke = (props: IStrokeProps): ReactElement => {
 
         <div className="lower-engine-stroke-line flex-align-center">
           <Select
-            popupClassName="lower-engine-stroke-dropdown"
+            popupClassName="lower-engine-dropdown lower-engine-stroke-dropdown"
             style={{ width: 83, height: 28 }}
             value={line}
-            options={getSelectItems()}
+            options={getSelectItems() || []}
             onChange={(value: string = '') => {
               setLine(value)
               props.onLineChange?.(value)
             }}
-            labelRender={(p: { [K: string]: any } = {}) => {
-              return (
-                <div className={`stroke-${p.value || 'solid'} flex-align-center`}>
-                  <div className={`stroke-${p.value || 'solid'}-line`}></div>
-                </div>
-              )
-            }}
+            labelRender={(p: { [K: string]: any } = {}) => Page.getSelectLabel(p, true)}
           />
 
           <InputNumber

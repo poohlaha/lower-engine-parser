@@ -25,6 +25,15 @@ export const OpacityProps: ICommonProps = {
   default: 100,
 }
 
+// 颜色
+export const ColorProps: ICommonProps = {
+  name: 'Color',
+  title: '',
+  setter: 'ColorSetter',
+  color: '#ffffff',
+  opacity: 1,
+}
+
 // 背景
 export const BackgroundProps: ICommonProps = {
   name: 'Background',
@@ -39,7 +48,7 @@ export const FontSizeProps: ICommonProps = {
   name: 'FontSize',
   title: '',
   setter: 'FontSizeSetter',
-  default: [12, 13, 14, 16, 18, 20, 28, 36, 48, 72],
+  default: 14,
 }
 
 // 对齐方式
