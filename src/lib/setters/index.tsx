@@ -14,9 +14,11 @@ import { IFillProps } from './fill'
 import { IColorProps } from './color'
 import { IStrokeProps } from './stroke'
 import { FontSize, FontBold } from './font'
+import Alignment from './alignment'
 
 import type { IFontSizeProps, IFontBoldProps } from './font'
+import type { IAlignmentProps } from './alignment'
 
-export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold }
+export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment }
 
-export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps }
+export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps, IAlignmentProps }

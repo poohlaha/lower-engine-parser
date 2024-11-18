@@ -91,7 +91,67 @@ const Icons = {
                 </svg>
             </div>
         )
-    }
+    },
+
+    // AlignmentLeft
+    getAlignmentLeftNode: () => {
+        return (
+            <div className="svg-box-small no-hover flex-center">
+                <svg
+                    className="svg-icon"
+                    viewBox="0 0 24 24">
+                    <path
+                        d="M6 15.5a.5.5 0 00.5.5h4a.5.5 0 000-1h-4a.5.5 0 00-.5.5zM6 7.5a.5.5 0 00.5.5h11a.5.5 0 000-1h-11a.5.5 0 00-.5.5zM14 11.5a.5.5 0 01-.5.5h-7a.5.5 0 010-1h7a.5.5 0 01.5.5z"
+                        fill="#333"></path>
+                </svg>
+            </div>
+        )
+    },
+
+    // 水平居中
+    getAlignmentCenterNode: () => {
+        return (
+            <div className="svg-box-small no-hover flex-center">
+                <svg
+                    className="svg-icon"
+                    viewBox="0 0 24 24">
+                    <path
+                        d="M9 7.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zM9 15.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zM18 11.5a.5.5 0 00-.5-.5h-11a.5.5 0 000 1h11a.5.5 0 00.5-.5z"
+                        fill="#333"></path>
+                </svg>
+            </div>
+        )
+    },
+
+    // 右对齐
+    getAlignmentRightNode: () => {
+        return (
+            <div className="svg-box-small no-hover flex-center">
+                <svg
+                    className="svg-icon"
+                    viewBox="0 0 24 24">
+                    <path
+                        d="M13 15.5a.5.5 0 00.5.5h4a.5.5 0 000-1h-4a.5.5 0 00-.5.5zM6 7.5a.5.5 0 00.5.5h11a.5.5 0 000-1h-11a.5.5 0 00-.5.5zM18 11.5a.5.5 0 01-.5.5h-7a.5.5 0 010-1h7a.5.5 0 01.5.5z"
+                        fill="#333"></path>
+                </svg>
+            </div>
+        )
+    },
+
+    // 两端对齐
+    getAlignmentJustifyNode: () => {
+        return (
+            <div className="svg-box-small no-hover flex-center">
+                <svg
+                    className="svg-icon"
+                    viewBox="0 0 24 24">
+                    <path
+                        d="M6 7.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zM6 15.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zM18 11.5a.5.5 0 00-.5-.5h-11a.5.5 0 000 1h11a.5.5 0 00.5-.5z"
+                        fill="#333"></path>
+                </svg>
+            </div>
+        )
+    },
 }
 
 export default Icons

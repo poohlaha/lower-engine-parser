@@ -5,7 +5,7 @@
  */
 import React, { ReactElement } from 'react'
 import Utils from '../utils/utils'
-import { Opacity as OpacitySetter, Round as RoundSetter, Fill as FillSetter, Color as ColorSetter, Stroke as StrokeSetter, FontSize as FontSizeSetter, FontBold as FontBoldSetter } from '../setters'
+import { Opacity as OpacitySetter, Round as RoundSetter, Fill as FillSetter, Color as ColorSetter, Stroke as StrokeSetter, FontSize as FontSizeSetter, FontBold as FontBoldSetter, Alignment as AlignmentSetter } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
 
@@ -23,7 +23,7 @@ export interface IParserSchemaParamsProps {
   type: string
 }
 
-const componentNameList: Array<string> = ['OpacitySetter', 'RoundSetter', 'FillSetter', 'ColorSetter', 'StrokeSetter', 'FontSizeSetter', 'FontBoldSetter']
+const componentNameList: Array<string> = ['OpacitySetter', 'RoundSetter', 'FillSetter', 'ColorSetter', 'StrokeSetter', 'FontSizeSetter', 'FontBoldSetter', 'AlignmentSetter']
 
 const getComponentMap = () => {
   const map = new Map()
@@ -34,6 +34,7 @@ const getComponentMap = () => {
   map.set(componentNameList[4], StrokeSetter)
   map.set(componentNameList[5], FontSizeSetter)
   map.set(componentNameList[6], FontBoldSetter)
+  map.set(componentNameList[7], AlignmentSetter)
 
   return map
 }

@@ -15,7 +15,7 @@ export {
     FillProps,
     StrokeProps,
     ShadowProps,
-    FontBoldProps
+    FontBoldProps,
 } from './src/index'
 
 export {
@@ -25,7 +25,8 @@ export {
     ColorSetter,
     StrokeSetter,
     FontSizeSetter,
-    FontBoldSetter
+    FontBoldSetter,
+    AlignmentSetter
 } from './src/index'
 
 export type {
@@ -37,5 +38,6 @@ export type {
     IColorSetterProps,
     IStrokeSetterProps,
     IFontSizeSetterProps,
-    IFontBoldSetterProps
+    IFontBoldSetterProps,
+    IAlignmentSetterProps
 } from './src/index'

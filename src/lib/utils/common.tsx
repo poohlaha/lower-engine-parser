@@ -62,7 +62,7 @@ export const FontBoldProps: ICommonProps = {
 // 对齐方式
 export const AlignmentProps: ICommonProps = {
   name: 'Alignment',
-  title: '对齐方式',
+  title: '',
   setter: 'AlignmentSetter',
   default: 'left',
 }
