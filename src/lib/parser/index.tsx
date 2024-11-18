@@ -15,6 +15,7 @@ import {
   FontBold as FontBoldSetter,
   Alignment as AlignmentSetter,
   Margin as MarginSetter,
+  Selector as SelectorSetter,
 } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
@@ -33,7 +34,18 @@ export interface IParserSchemaParamsProps {
   type: string
 }
 
-const componentNameList: Array<string> = ['OpacitySetter', 'RoundSetter', 'FillSetter', 'ColorSetter', 'StrokeSetter', 'FontSizeSetter', 'FontBoldSetter', 'AlignmentSetter', 'MarginSetter']
+const componentNameList: Array<string> = [
+  'OpacitySetter',
+  'RoundSetter',
+  'FillSetter',
+  'ColorSetter',
+  'StrokeSetter',
+  'FontSizeSetter',
+  'FontBoldSetter',
+  'AlignmentSetter',
+  'MarginSetter',
+  'SelectorSetter',
+]
 
 const getComponentMap = () => {
   const map = new Map()
@@ -46,6 +58,7 @@ const getComponentMap = () => {
   map.set(componentNameList[6], FontBoldSetter)
   map.set(componentNameList[7], AlignmentSetter)
   map.set(componentNameList[8], MarginSetter)
+  map.set(componentNameList[9], SelectorSetter)
 
   return map
 }

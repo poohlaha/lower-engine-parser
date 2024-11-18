@@ -304,6 +304,109 @@ const Icons = {
       </div>
     )
   },
+
+  // 关闭
+  getCloseNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M10.8492 0.94971C10.5075 0.608001 9.95349 0.608001 9.61178 0.94971L5.89952 4.66197L2.18724 0.949699C1.84553 0.60799 1.29151 0.60799 0.949802 0.949699C0.608093 1.29141 0.608093 1.84543 0.949802 2.18714L4.66208 5.89941L0.949721 9.61176C0.608012 9.95347 0.608012 10.5075 0.949721 10.8492C1.29143 11.1909 1.84545 11.1909 2.18716 10.8492L5.89952 7.13685L9.61186 10.8492C9.95357 11.1909 10.5076 11.1909 10.8493 10.8492C11.191 10.5075 11.191 9.95346 10.8493 9.61175L7.13695 5.89941L10.8492 2.18715C11.1909 1.84544 11.1909 1.29142 10.8492 0.94971Z"
+            fill="#666666"
+          ></path>
+        </svg>
+      </div>
+    )
+  },
+
+  // 色彩空间
+  getColorSpaceNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clipPath="url(#a)">
+            <path
+              d="M5.6 11.278c0 .111.043.219.121.298a.41.41 0 0 0 .586 0 .426.426 0 0 0 0-.597.41.41 0 0 0-.586 0 .426.426 0 0 0-.121.299zM6.24 9.145c0 .176.069.344.19.468a.644.644 0 0 0 .92 0 .668.668 0 0 0 0-.936.644.644 0 0 0-.92 0 .668.668 0 0 0-.19.468zM8.64 7.412c0 .226.089.444.246.604a.831.831 0 0 0 1.187 0 .862.862 0 0 0 0-1.208.831.831 0 0 0-1.187 0 .862.862 0 0 0-.245.604zM11.815 7.412c0 .284.11.557.308.758a1.044 1.044 0 0 0 1.49 0 1.083 1.083 0 0 0 0-1.517 1.044 1.044 0 0 0-1.49 0 1.083 1.083 0 0 0-.308.759z"
+              fill="#666"
+            ></path>
+            <g filter="url(#b)">
+              <path d="m18.207 6.365-.011-.01a.366.366 0 0 0-.523.037l-5.582 6.546-.706 1.413 1.266-.898 5.593-6.556a.382.382 0 0 0-.037-.532z" fill="#666"></path>
+              <path
+                d="M18.262 6.28a.466.466 0 0 0-.665.048l-5.583 6.545a.097.097 0 0 0-.013.02l-.706 1.413a.1.1 0 0 0 .148.126l1.266-.897a.1.1 0 0 0 .018-.017l5.593-6.557-.076-.064.076.064a.482.482 0 0 0-.047-.671l-.011-.01z"
+                stroke="#666"
+                strokeWidth=".2"
+                strokeLinejoin="round"
+              ></path>
+            </g>
+            <path
+              d="M17.727 10.411a.481.481 0 0 0-.477-.505.48.48 0 0 0-.474.43l.951.075zm0 0v.019c-.008.099-.068.373-.185.743-.118.374-.297.854-.547 1.366-.5 1.022-1.289 2.185-2.46 2.892-3.863 2.334-6.431.597-6.964-.28-.155-.254-.293-.52-.415-.755l-.048-.091c-.137-.261-.247-.465-.34-.573-.02-.023-.052-.042-.11-.053a.94.94 0 0 0-.229-.005 5.95 5.95 0 0 0-.29.03l-.026.003a7.005 7.005 0 0 1-.376.038c-.532.036-1.173-.023-1.692-.615-.265-.302-.433-.816-.47-1.435-.038-.623.056-1.366.329-2.139.545-1.548 1.808-3.22 4.172-4.301 4.332-1.982 7.44.427 7.943.857a.475.475 0 0 1-.279.853.461.461 0 0 1-.303-.113c-1.131-.96-3.4-1.829-6.07-1.108-1.901.504-3.237 1.775-4.017 3.12-.39.672-.639 1.36-.75 1.976-.112.619-.083 1.155.072 1.53.073.178.214.274.412.325.204.052.456.053.733.043l.157-.005c.224-.01.458-.018.673-.002.265.02.522.08.714.242.073.062.154.166.235.286.083.123.171.27.26.425.107.188.218.392.32.58l.182.335c.117.208.37.419.736.59.364.17.83.296 1.359.343a5.577 5.577 0 0 0 3.562-.923c1.119-.74 1.81-1.805 2.22-2.69a8.117 8.117 0 0 0 .514-1.457l.02-.09.004-.022.001-.006v-.001l.953.068z"
+              fill="#666"
+              stroke="#666"
+              strokeWidth=".2"
+              strokeLinejoin="round"
+            ></path>
+          </g>
+          <defs>
+            <clipPath id="a">
+              <path d="M0 4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4z" fill="#fff"></path>
+            </clipPath>
+            <filter id="b" x="7.185" y="6.063" width="15.35" height="16.488" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+              <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+              <feOffset dy="4"></feOffset>
+              <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+              <feComposite in2="hardAlpha" operator="out"></feComposite>
+              <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+              <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_5734_103268"></feBlend>
+              <feBlend in="SourceGraphic" in2="effect1_dropShadow_5734_103268" result="shape"></feBlend>
+            </filter>
+          </defs>
+        </svg>
+      </div>
+    )
+  },
+
+  // 色板
+  getColorSwatchNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4.583" y="4.583" width="3.55" height="3.55" rx=".5" fill="#999"></rect>
+          <rect x="4.583" y="9.133" width="3.55" height="3.55" rx=".5" fill="#999"></rect>
+          <rect x="4.583" y="13.683" width="3.55" height="3.55" rx=".5" fill="#C4C4C4"></rect>
+          <rect x="9.225" y="4.583" width="3.55" height="3.55" rx=".5" fill="#999"></rect>
+          <rect x="9.225" y="9.133" width="3.55" height="3.55" rx=".5" fill="#666"></rect>
+          <rect x="9.225" y="13.683" width="3.55" height="3.55" rx=".5" fill="#999"></rect>
+          <rect x="13.867" y="4.583" width="3.55" height="3.55" rx=".5" fill="#C4C4C4"></rect>
+          <rect x="13.867" y="9.133" width="3.55" height="3.55" rx=".5" fill="#999"></rect>
+          <rect x="13.867" y="13.683" width="3.55" height="3.55" rx=".5" fill="#999"></rect>
+        </svg>
+      </div>
+    )
+  },
+
+  // 取色器
+  getColorPickerNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M14.8284 10.5858C15.2189 10.9763 15.2189 11.6095 14.8284 12L8.18155 18.6468C7.16619 19.6622 5.70991 19.8521 4.92886 19.0711C4.18331 18.3255 4.3225 16.9647 5.21979 15.9595L5.35312 15.8184L11.9999 9.17158C12.3904 8.78105 13.0236 8.78105 13.4141 9.17158L14.8284 10.5858Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          ></path>
+          <path
+            d="M19.071 4.92894C19.8165 5.67448 19.768 6.94461 18.9857 7.83489L18.8689 7.9594L16.4446 10.3838C15.5519 11.2764 14.1951 11.3668 13.4141 10.5858C12.6686 9.84025 12.7171 8.57012 13.4994 7.67984L13.6161 7.55533L16.0405 5.13097C16.9331 4.23834 18.2899 4.14789 19.071 4.92894Z"
+            fill="currentColor"
+            fillRule="nonzero"
+          ></path>
+          <rect x="10.5857" y="4.92893" width="12" height="3" rx="1.5" transform="rotate(45 10.5857 4.92893)" fill="currentColor" fillRule="nonzero"></rect>
+        </svg>
+      </div>
+    )
+  },
 }
 
 export default Icons

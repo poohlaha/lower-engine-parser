@@ -27,7 +27,8 @@ export {
     FontSizeSetter,
     FontBoldSetter,
     AlignmentSetter,
-    MarginSetter
+    MarginSetter,
+    SelectorSetter
 } from './src/index'
 
 export type {
@@ -41,5 +42,6 @@ export type {
     IFontSizeSetterProps,
     IFontBoldSetterProps,
     IAlignmentSetterProps,
-    IMarginSetterProps
+    IMarginSetterProps,
+    ISelectSetterProps
 } from './src/index'

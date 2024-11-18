@@ -14,11 +14,12 @@ export interface IDropdownProps {
   arrow?: boolean
   placement?: string
   menu?: Array<{ [K: string]: any }>
-  items?: Array<string | number>
+  items?: Array<string | number | { [K: string]: any }>
   width?: number
+  maxWidth?: number
   left?: number
   selectValue?: string | number
-  onChange?: (value: string | number) => void
+  onChange?: (value: string | number | { [K: string]: any }) => void
   onOpenChange?: (open: boolean) => void
 }
 
@@ -29,12 +30,23 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
 
     let items = props.items || []
     let options: any = []
-    items.forEach((item: string | number, index: number) => {
+    items.forEach((item: string | number | { [K: string]: any }, index: number) => {
+      let suffix: string = ''
+      let text = item || ''
+      let value = item || ''
+      if (typeof item !== 'string' && typeof item !== 'number') {
+        let newItem: any = item || {}
+        suffix = newItem.suffix || ''
+        text = newItem.label || newItem.text || newItem.name || ''
+        value = newItem.value || ''
+      }
+
       options.push({
         label: (
-          <div className={`lower-engine-content-item w100 flex-align-center cursor-pointer ${props.selectValue === item ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
+          <div className={`lower-engine-content-item w100 flex-align-center cursor-pointer ${props.selectValue === value ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
             {Icons.getSuccessNode()}
-            <p className="lower-engine-content-item-text">{`${item || ''}`}</p>
+            <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
+            {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
           </div>
         ),
         key: `${index}`,
@@ -49,9 +61,11 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
     let placement: any = Utils.isBlank(props.placement || '') ? '' : props.placement || ''
     let arrow = props.arrow ?? false
     let width = props.width ?? 176
+    let maxWidth = props.maxWidth ?? width
 
     let style: CSSProperties = {
       width,
+      maxWidth,
     }
 
     if (!(props.left === undefined || props.left === null)) {

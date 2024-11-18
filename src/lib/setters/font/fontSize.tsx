@@ -58,7 +58,7 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
 
           <MDropdown
             className="lower-engine-font-size-dropdown"
-            items={DEFAULT_ITEMS}
+            items={items}
             selectValue={value}
             onChange={value => {
               let newValue: number = Utils.getInputNumberValue(value, 0)
