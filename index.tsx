@@ -26,7 +26,8 @@ export {
     StrokeSetter,
     FontSizeSetter,
     FontBoldSetter,
-    AlignmentSetter
+    AlignmentSetter,
+    MarginSetter
 } from './src/index'
 
 export type {
@@ -39,5 +40,6 @@ export type {
     IStrokeSetterProps,
     IFontSizeSetterProps,
     IFontBoldSetterProps,
-    IAlignmentSetterProps
+    IAlignmentSetterProps,
+    IMarginSetterProps
 } from './src/index'

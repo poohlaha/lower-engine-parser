@@ -16,6 +16,7 @@ import {
   FontSize as FontSizeSetter,
   FontBold as FontBoldSetter,
   Alignment as AlignmentSetter,
+  Margin as MarginSetter,
   IOpacityProps as IOpacitySetterProps,
   IRoundProps as IRoundSetterProps,
   IFillProps as IFillSetterProps,
@@ -24,6 +25,7 @@ import {
   IFontSizeProps as IFontSizeSetterProps,
   IFontBoldProps as IFontBoldSetterProps,
   IAlignmentProps as IAlignmentSetterProps,
+  IMarginProps as IMarginSetterProps,
 } from './lib/setters'
 
 import Parser from './lib/parser'
@@ -35,6 +37,6 @@ export { Parser as LowerEngineParser }
 
 export type { IParserProps, IParserSchemaProps, IParserSchemaParamsProps }
 
-export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter }
+export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter, MarginSetter }
 
-export type { IOpacitySetterProps, IRoundSetterProps, IFillSetterProps, IColorSetterProps, IStrokeSetterProps, IFontSizeSetterProps, IFontBoldSetterProps, IAlignmentSetterProps }
+export type { IOpacitySetterProps, IRoundSetterProps, IFillSetterProps, IColorSetterProps, IStrokeSetterProps, IFontSizeSetterProps, IFontBoldSetterProps, IAlignmentSetterProps, IMarginSetterProps }

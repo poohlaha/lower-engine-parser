@@ -9,6 +9,8 @@
 @theme: #1684fc;
 @component_width: 24px;
 @component_height: 24px;
+@paragraph_height: 32px;
+@font-size: 12px;
 
 .lower-engine-parser-box {
   // 段落
@@ -85,12 +87,12 @@
     }
 
     &.ant-input-number-outlined:not(:first-child):hover {
-      border-left: 1px solid @theme!important;
+      // border-left: 1px solid @theme!important;
     }
 
     &:not(.ant-input-number-focused):hover {
       border-radius: 4px;
-      border-color: @theme!important;
+      // border-color: @theme!important;
     }
 
     &.ant-input-number-outlined:focus-within {
@@ -192,7 +194,7 @@
 
   .lower-engine-round,
   .lower-engine-fill {
-    height: 32px;
+    height: @paragraph_height;
   }
 
   // round
@@ -238,7 +240,8 @@
       width: 16px;
       height: 16px;
       display: inline-flex;
-      background-image: linear-gradient(45deg, rgb(204, 204, 204) 25%, transparent 0px), linear-gradient(-45deg, rgb(204, 204, 204) 25%, transparent 0px), linear-gradient(45deg, transparent 75%, rgb(204, 204, 204) 0px), linear-gradient(-45deg, transparent 75%, rgb(204, 204, 204) 0px);
+      background-image: linear-gradient(45deg, rgb(204, 204, 204) 25%, transparent 0px), linear-gradient(-45deg, rgb(204, 204, 204) 25%, transparent 0px),
+        linear-gradient(45deg, transparent 75%, rgb(204, 204, 204) 0px), linear-gradient(-45deg, transparent 75%, rgb(204, 204, 204) 0px);
       background-size: 10px 10px;
       background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
       background-clip: padding-box;
@@ -248,7 +251,7 @@
       box-sizing: border-box;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 16px;
         height: 16px;
@@ -276,7 +279,7 @@
   // stroke
   .lower-engine-stroke {
     .lower-engine-stroke-line {
-      height: 32px;
+      height: @paragraph_height;
       margin-left: 28px;
 
       .ant-input-number {
@@ -504,39 +507,40 @@
   border-radius: 4px;
   border: 1px solid transparent;
 
-  &:hover, &.visible {
+  &:hover,
+  &.visible {
     border: 1px solid @border_color!important;
 
     .lower-engine-input-action {
-      visibility: visible!important;
+      visibility: visible !important;
       background: @hover_background!important;
     }
   }
 
   .ant-input-number:not(.ant-input-number-focused) {
     border-width: 0;
-    background: unset!important;
-    width: 38px!important;
+    background: unset !important;
+    width: 38px !important;
   }
 
   .ant-input-number {
     .ant-input-number-handler-wrap {
-      display: none!important;
+      display: none !important;
     }
   }
 
-  .ant-input-number:focus{
-    box-shadow: unset!important;
+  .ant-input-number:focus {
+    box-shadow: unset !important;
   }
 
   .ant-input-number-focused {
     width: 38px;
-    border-width: 1px!important;
-    box-shadow: unset!important;
-    border-top-right-radius: 0!important;
-    border-bottom-right-radius: 0!important;
-    border-top-left-radius: 4px!important;
-    border-bottom-left-radius: 4px!important;
+    border-width: 1px !important;
+    box-shadow: unset !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
   }
 
   .ant-input-number-focused + .lower-engine-input-action {
@@ -561,7 +565,8 @@
   }
 }
 
-.lower-engine-popover, .lower-engine-dropdown {
+.lower-engine-popover,
+.lower-engine-dropdown {
   max-width: 176px;
   .lower-engine-content-item:not(:last-child) {
     margin-bottom: 4px;
@@ -569,16 +574,19 @@
 
   .ant-dropdown-menu-item {
     &:hover {
-      background-color: #ffffff!important;
+      background-color: #ffffff !important;
     }
   }
 
   .lower-engine-content-item {
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background: @hover_background;
       border-radius: 4px;
 
-      .svg-box-small, .svg-box, .success-svg-box {
+      .svg-box-small,
+      .svg-box,
+      .success-svg-box {
         .svg-icon {
           color: @theme;
         }
@@ -590,12 +598,16 @@
     }
 
     &.active {
-      .svg-box-small, .svg-box, .success-svg-box {
-        visibility: visible!important;
+      .svg-box-small,
+      .svg-box,
+      .success-svg-box {
+        visibility: visible !important;
       }
     }
 
-    .svg-box-small, .svg-box, .success-svg-box {
+    .svg-box-small,
+    .svg-box,
+    .success-svg-box {
       visibility: hidden;
 
       .svg-icon {
@@ -608,16 +620,17 @@
       margin-left: 6px;
     }
   }
-
 }
 
 // font bold
-.lower-engine-font-bold, .lower-engine-alignment {
+.lower-engine-font-bold,
+.lower-engine-alignment {
   width: 96px;
   height: 24px;
   right: 0;
 
-  .lower-engine-font-bold-item, .lower-engine-alignment-item {
+  .lower-engine-font-bold-item,
+  .lower-engine-alignment-item {
     &.active {
       background: @hover_background;
       border-radius: 4px;
@@ -648,5 +661,125 @@
       color: rgba(0, 0, 0, 0.85);
     }
   }
+}
 
+// margin
+.lower-engine-margin {
+  height: @paragraph_height;
+
+  &:has(.ant-input-number-focused) {
+    border: 1px solid @border_color!important;
+  }
+
+  .lower-engine-margin-spacing-line {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    overflow: hidden;
+
+    &:hover {
+      border: 1px solid @border_color;
+
+      .ant-input-number {
+        border-color: #ffffff !important;
+      }
+    }
+
+    .ant-input-number.ant-input-number-focused {
+      border-color: #ffffff !important;
+    }
+  }
+
+  .lower-engine-margin-line-height {
+    margin-left: 10px;
+  }
+}
+
+.lower-engine-margin-popover {
+  .ant-popover-inner {
+    padding: 0 !important;
+  }
+
+  .lower-engine-margin-popover-content {
+    font-size: @font-size;
+    color: rgba(0, 0, 0, 0.85);
+
+    header {
+      height: 40px;
+      border-bottom: 1px solid @border_color;
+      padding: 0 10px 0 16px;
+    }
+
+    .lower-engine-margin-popover-content-inner {
+      padding: 8px 10px;
+
+      .lower-engine-margin-popover-content-inner-item {
+        padding: 4px 0;
+        min-height: @paragraph_height;
+
+        .svg-box-small {
+          &:hover {
+            background: @hover_background;
+          }
+
+          &.active {
+            background: @active_background;
+          }
+        }
+
+        &.lower-engine-margin-popover-content-inner-item-margin,
+        &.lower-engine-margin-popover-content-inner-item-padding {
+          flex: 1 1 0;
+          display: flex;
+
+          p {
+            line-height: 28px;
+          }
+
+          .inner-item-margin {
+            width: 36.5px;
+          }
+
+          .input-group .inner-item-margin:not(:first-child):not(:last-child) {
+            .ant-input-number-focused {
+              border-left: 1px solid @theme!important;
+            }
+          }
+
+          .input-group .inner-item-margin:last-child {
+            .ant-input-number-focused {
+              border-left: 1px solid @theme!important;
+            }
+          }
+
+          .input-group .inner-item-margin:last-child {
+            .ant-input-number {
+              border-bottom-right-radius: 6px !important;
+              border-top-right-radius: 6px !important;
+            }
+          }
+
+          .input-group .inner-item-margin:not(:first-child):not(:last-child) {
+            .ant-input-number {
+              border-left: unset;
+              border-radius: 0;
+            }
+          }
+
+          .input-group .inner-item-margin:not(:first-child):hover {
+            .ant-input-number.ant-input-number-outlined {
+              //  border-left: 1px solid @theme !important;
+            }
+          }
+
+          .input-group .inner-item-margin:last-child {
+            .ant-input-number {
+              border-bottom-left-radius: 0 !important;
+              border-left: unset;
+              border-top-left-radius: 0 !important;
+            }
+          }
+        }
+      }
+    }
+  }
 }

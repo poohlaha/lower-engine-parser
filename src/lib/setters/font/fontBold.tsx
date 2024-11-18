@@ -3,14 +3,14 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, {ReactElement, useEffect, useState} from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
-import {Tooltip} from 'antd'
+import { Tooltip } from 'antd'
 
 export interface IFontBoldProps extends ICommonProps {
-    onChange?: (value: string) => void
+  onChange?: (value: string) => void
 }
 
 const FontBold = (props: IFontBoldProps): ReactElement => {
@@ -24,55 +24,47 @@ const FontBold = (props: IFontBoldProps): ReactElement => {
 
   const render = () => {
     return (
-        <div className={`${props.className || ''} lower-engine-font-bold flex-align-center`}>
-          <div
-              className={`lower-engine-font-bold-item lower-engine-font-bold-bold flex-center ${value === FontBold[0] ? 'active' : ''}`}
-              onClick={() => {
-                  setValue(FontBold[0])
-                  props.onChange?.(FontBold[0])
-              }}
-          >
-            <Tooltip title="加租">
-                {Icons.getFontBoldBoldNode()}
-            </Tooltip>
-          </div>
-
-          <div
-              className={`lower-engine-font-bold-item lower-engine-font-bold-italic flex-center ${value === FontBold[1] ? 'active' : ''}`}
-              onClick={() => {
-                  setValue(FontBold[1])
-                  props.onChange?.(FontBold[1])
-              }}
-          >
-              <Tooltip title="倾斜">
-                  {Icons.getFontBoldItalicNode()}
-              </Tooltip>
-          </div>
-
-          <div
-              className={`lower-engine-font-bold-item lower-engine-font-bold-underline flex-center ${value === FontBold[2] ? 'active' : ''}`}
-              onClick={() => {
-                  setValue(FontBold[2])
-                  props.onChange?.(FontBold[2])
-              }}
-          >
-              <Tooltip title="下划线">
-                  {Icons.getFontBoldUnderlineNode()}
-              </Tooltip>
-          </div>
-
-          <div
-              className={`lower-engine-font-bold-item lower-engine-font-bold-line-through flex-center ${value === FontBold[3] ? 'active' : ''}`}
-              onClick={() => {
-                  setValue(FontBold[3])
-                  props.onChange?.(FontBold[3])
-              }}
-          >
-              <Tooltip title="删除线">
-                  {Icons.getFontBoldLineThroughNode()}
-              </Tooltip>
-          </div>
+      <div className={`${props.className || ''} lower-engine-font-bold flex-align-center`}>
+        <div
+          className={`lower-engine-font-bold-item lower-engine-font-bold-bold flex-center ${value === FontBold[0] ? 'active' : ''}`}
+          onClick={() => {
+            setValue(FontBold[0])
+            props.onChange?.(FontBold[0])
+          }}
+        >
+          <Tooltip title="加租">{Icons.getFontBoldBoldNode()}</Tooltip>
         </div>
+
+        <div
+          className={`lower-engine-font-bold-item lower-engine-font-bold-italic flex-center ${value === FontBold[1] ? 'active' : ''}`}
+          onClick={() => {
+            setValue(FontBold[1])
+            props.onChange?.(FontBold[1])
+          }}
+        >
+          <Tooltip title="倾斜">{Icons.getFontBoldItalicNode()}</Tooltip>
+        </div>
+
+        <div
+          className={`lower-engine-font-bold-item lower-engine-font-bold-underline flex-center ${value === FontBold[2] ? 'active' : ''}`}
+          onClick={() => {
+            setValue(FontBold[2])
+            props.onChange?.(FontBold[2])
+          }}
+        >
+          <Tooltip title="下划线">{Icons.getFontBoldUnderlineNode()}</Tooltip>
+        </div>
+
+        <div
+          className={`lower-engine-font-bold-item lower-engine-font-bold-line-through flex-center ${value === FontBold[3] ? 'active' : ''}`}
+          onClick={() => {
+            setValue(FontBold[3])
+            props.onChange?.(FontBold[3])
+          }}
+        >
+          <Tooltip title="删除线">{Icons.getFontBoldLineThroughNode()}</Tooltip>
+        </div>
+      </div>
     )
   }
 

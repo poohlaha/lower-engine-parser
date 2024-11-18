@@ -14,6 +14,7 @@ export interface ICommonProps {
   unit?: string // 单位, 用于字体, padding, margin 等, 默认为 px, 手机端为 rem, 可全局定义
   alignment?: Alignment // 文字和组件的对齐方式, 默认两端对齐(Justify)
   disabled?: boolean
+  className?: string
   [K: string]: any
 }
 
@@ -67,12 +68,12 @@ export const AlignmentProps: ICommonProps = {
   default: 'left',
 }
 
-// 外边距
+// 边距(内边距, 外边距, 行高, 字间距)
 export const MarginProps: ICommonProps = {
   name: 'Margin',
-  title: '外边距',
+  title: '',
   setter: 'MarginSetter',
-  default: [0, 0],
+  className: 'flex-jsc-between',
 }
 
 // 内边距

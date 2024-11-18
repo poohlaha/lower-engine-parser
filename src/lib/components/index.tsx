@@ -5,15 +5,9 @@
  */
 import MPopover from './popover'
 import MDropdown from './dropdown'
-import type {IPopoverProps} from './popover'
-import type {IDropdownProps} from './dropdown'
+import type { IPopoverProps } from './popover'
+import type { IDropdownProps } from './dropdown'
 
-export {
-  MPopover,
-  MDropdown
-}
+export { MPopover, MDropdown }
 
-export type {
-  IPopoverProps,
-  IDropdownProps
-}
+export type { IPopoverProps, IDropdownProps }
