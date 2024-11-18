@@ -31,6 +31,7 @@ const Color = (props: IColorProps): ReactElement => {
   const [type, setType] = useState<number>(1) // 1: 色彩空间 2: 色板
   const [inputFocus, setInputFocus] = useState<boolean>(false)
   const [colorItemActiveIndex, setColorItemActiveIndex] = useState<number>(0)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setColor(Utils.isBlank(props.color || '') ? '#FFFFFF' : (props.color || '').toUpperCase())
@@ -68,13 +69,15 @@ const Color = (props: IColorProps): ReactElement => {
             </div>
           </div>
 
-          <div className="close-btn">{Icons.getCloseNode()}</div>
+          <div className="close-btn" onClick={() => setOpen(false)}>
+            {Icons.getCloseNode()}
+          </div>
         </div>
 
         {/* 色彩空间 | 色板 */}
         <div className="color-picker-body">
           <div className="tab-line flex-jsc-between flex-align-center">
-            <span>色彩空间</span>
+            <span>{type === 2 ? '色板' : '色彩空间'}</span>
             <div className="selector-sc flex-align-center">
               <div
                 className={`color-space flex-align-center ${type === 1 ? 'active' : ''}`}
@@ -654,7 +657,16 @@ const Color = (props: IColorProps): ReactElement => {
   const render = () => {
     return (
       <div className={`${props.className || ''} lower-engine-color cursor-pointer flex-center`}>
-        <MPopover className="lower-engine-color-popover" placement="left" content={getContent()} width={255}>
+        <MPopover
+          className="lower-engine-color-popover"
+          placement="left"
+          content={getContent()}
+          width={255}
+          open={open}
+          onOpenChange={(newOpen: boolean) => {
+            setOpen(newOpen)
+          }}
+        >
           <div className="lower-engine-color-thumbnail">
             <div
               className="thumbnail"

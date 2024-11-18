@@ -67,7 +67,12 @@ const Margin = (props: IMarginProps): ReactElement => {
   const getPopoverContent = () => {
     return (
       <div className="lower-engine-margin-popover-content">
-        <header className="text-l flex-jsc-between flex-align-center font-bold">文本设置</header>
+        <header className="text-l flex-jsc-between flex-align-center font-bold">
+          <p className="flex-1">文本设置</p>
+          <div className="close-btn" onClick={() => setOpen(false)}>
+            {Icons.getCloseNode()}
+          </div>
+        </header>
         <div className="lower-engine-margin-popover-content-inner">
           {/* 文本排列 */}
           <div className="lower-engine-margin-popover-content-inner-item flex-jsc-between flex-align-center w100">
@@ -277,7 +282,16 @@ const Margin = (props: IMarginProps): ReactElement => {
         </Tooltip>
 
         <Tooltip title="文本设置">
-          <MPopover className="lower-engine-margin-popover" placement="topRight" width={240} content={getPopoverContent()}>
+          <MPopover
+            className="lower-engine-margin-popover"
+            placement="topRight"
+            width={240}
+            content={getPopoverContent()}
+            open={open}
+            onOpenChange={(newOpen: boolean) => {
+              setOpen(newOpen)
+            }}
+          >
             <div className="more">{Icons.getMoreNode()}</div>
           </MPopover>
         </Tooltip>

@@ -3,7 +3,7 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, { PropsWithChildren, ReactElement } from 'react'
+import React, { PropsWithChildren, ReactElement, useState } from 'react'
 import { Popover } from 'antd'
 import Utils from '../../utils/utils'
 import Icons from '../../utils/icons'
@@ -18,6 +18,7 @@ export interface IPopoverProps {
   width?: number
   maxWidth?: number
   selectValue?: string | number
+  open?: boolean
   onChange?: (value: string | number) => void
   onOpenChange?: (open: boolean) => void
 }
@@ -59,7 +60,10 @@ const MPopover = (props: PropsWithChildren<IPopoverProps>): ReactElement => {
         content={getContentNode()}
         arrow={arrow}
         placement={placement}
-        onOpenChange={(open: boolean) => props.onOpenChange?.(open)}
+        open={props.open}
+        onOpenChange={(newOpen: boolean) => {
+          props.onOpenChange?.(newOpen)
+        }}
       >
         {props.children}
       </Popover>
