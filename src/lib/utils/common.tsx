@@ -51,6 +51,14 @@ export const FontSizeProps: ICommonProps = {
   default: 14,
 }
 
+// 字重
+export const FontBoldProps: ICommonProps = {
+  name: 'FontBold',
+  title: '',
+  setter: 'FontBoldSetter',
+  default: 'bold',
+}
+
 // 对齐方式
 export const AlignmentProps: ICommonProps = {
   name: 'Alignment',

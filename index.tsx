@@ -15,6 +15,7 @@ export {
     FillProps,
     StrokeProps,
     ShadowProps,
+    FontBoldProps
 } from './src/index'
 
 export {

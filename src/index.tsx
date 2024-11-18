@@ -5,7 +5,7 @@
  */
 import './assets/reset.less'
 import './assets/common.less'
-import { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, PaddingProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps } from './lib/utils/common'
+import { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, PaddingProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps } from './lib/utils/common'
 
 import {
   Opacity as OpacitySetter,
@@ -27,7 +27,7 @@ import {
 import Parser from './lib/parser'
 import { IParserProps, IParserSchemaProps, IParserSchemaParamsProps } from './lib/parser'
 
-export { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, PaddingProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps }
+export { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, PaddingProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps }
 
 export { Parser as LowerEngineParser }
 
