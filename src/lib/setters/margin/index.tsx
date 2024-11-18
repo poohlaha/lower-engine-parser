@@ -95,6 +95,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={margins[0]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(margins || [])
@@ -111,6 +112,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={margins[2]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(margins || [])
@@ -127,6 +129,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={margins[3]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(margins || [])
@@ -143,6 +146,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={margins[1]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(margins || [])
@@ -165,6 +169,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={paddings[0]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(paddings || [])
@@ -181,6 +186,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={paddings[2]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(paddings || [])
@@ -197,6 +203,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={paddings[3]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(paddings || [])
@@ -213,6 +220,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                 <InputNumber
                   value={paddings[1]}
                   style={{ width: '100%' }}
+                  min={0}
                   onChange={(value: number | null) => {
                     let newValue: number = Utils.getInputNumberValue(value, 0)
                     let newValues = Utils.deepCopy(paddings || [])
@@ -258,6 +266,7 @@ const Margin = (props: IMarginProps): ReactElement => {
             <InputNumber
               min={0}
               value={lineHeight}
+              style={{ width: 40 }}
               onChange={(value: number | string | null) => {
                 let newValue: number = Utils.getInputNumberValue(value, 0)
                 setLineHeight(newValue)
@@ -268,7 +277,7 @@ const Margin = (props: IMarginProps): ReactElement => {
         </Tooltip>
 
         <Tooltip title="文本设置">
-          <MPopover className="lower-engine-margin-popover" placement="topRight" width={220} content={getPopoverContent()}>
+          <MPopover className="lower-engine-margin-popover" placement="topRight" width={240} content={getPopoverContent()}>
             <div className="more">{Icons.getMoreNode()}</div>
           </MPopover>
         </Tooltip>

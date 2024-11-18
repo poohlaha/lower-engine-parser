@@ -667,11 +667,13 @@
 .lower-engine-margin {
   height: @paragraph_height;
 
-  &:has(.ant-input-number-focused) {
+  .lower-engine-margin-spacing-line:has(.ant-input-number-focused),
+  .lower-engine-margin-line-height:has(.ant-input-number-focused) {
     border: 1px solid @border_color!important;
   }
 
-  .lower-engine-margin-spacing-line {
+  .lower-engine-margin-spacing-line,
+  .lower-engine-margin-line-height {
     border: 1px solid transparent;
     border-radius: 6px;
     overflow: hidden;
@@ -681,6 +683,10 @@
 
       .ant-input-number {
         border-color: #ffffff !important;
+
+        .ant-input-number-handler-wrap {
+          opacity: 1;
+        }
       }
     }
 
@@ -736,7 +742,7 @@
           }
 
           .inner-item-margin {
-            width: 36.5px;
+            width: 40px;
           }
 
           .input-group .inner-item-margin:not(:first-child):not(:last-child) {
@@ -781,5 +787,11 @@
         }
       }
     }
+  }
+}
+
+.lower-engine-alignment {
+  .alignment-flex {
+    margin-left: 10px;
   }
 }

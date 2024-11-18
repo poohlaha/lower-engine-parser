@@ -144,6 +144,63 @@ const Icons = {
     )
   },
 
+  // AlignmentFlexStart
+  getAlignmentFlexStartNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" viewBox="0 0 24 24">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M11.646 9.646a.5.5 0 01.708 0l2 2a.5.5 0 01-.708.708L12.5 11.207V17a.5.5 0 01-1 0v-5.793l-1.146 1.147a.5.5 0 01-.708-.708l2-2z"
+            fill="#333"
+          ></path>
+          <path d="M7 7.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5z" fill="#333"></path>
+        </svg>
+      </div>
+    )
+  },
+
+  // AlignmentFlexCenter
+  getAlignmentFlexCenterNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" viewBox="0 0 24 24">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M11.646 13.646a.5.5 0 01.708 0l2 2a.5.5 0 01-.708.708L12.5 15.207V18.5a.5.5 0 01-1 0v-3.293l-1.146 1.147a.5.5 0 01-.708-.708l2-2z"
+            fill="#333"
+          ></path>
+          <path d="M7 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5z" fill="#333"></path>
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 9.5a.5.5 0 01-.354-.146l-2-2a.5.5 0 11.708-.708L11.5 7.793V4.5a.5.5 0 011 0v3.293l1.146-1.147a.5.5 0 01.708.708l-2 2A.5.5 0 0112 9.5z"
+            fill="#333"
+          ></path>
+        </svg>
+      </div>
+    )
+  },
+
+  // AlignmentFlexEnd
+  getAlignmentFlexEndNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" viewBox="0 0 24 24">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12.354 14.354a.5.5 0 01-.708 0l-2-2a.5.5 0 01.708-.708l1.146 1.147V7a.5.5 0 011 0v5.793l1.146-1.147a.5.5 0 01.708.708l-2 2z"
+            fill="#333"
+          ></path>
+          <path d="M17 16.5a.5.5 0 01-.5.5h-9a.5.5 0 010-1h9a.5.5 0 01.5.5z" fill="#333"></path>
+        </svg>
+      </div>
+    )
+  },
+
   // 字间距
   getMarginSpaceLetterNode: () => {
     return (

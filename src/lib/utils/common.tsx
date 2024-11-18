@@ -65,7 +65,9 @@ export const AlignmentProps: ICommonProps = {
   name: 'Alignment',
   title: '',
   setter: 'AlignmentSetter',
+  className: 'flex-jsc-between',
   default: 'left',
+  alignmentFlex: 'center',
 }
 
 // 边距(内边距, 外边距, 行高, 字间距)
