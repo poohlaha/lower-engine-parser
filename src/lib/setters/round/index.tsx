@@ -9,7 +9,6 @@ import Utils from '../../utils/utils'
 import { InputNumber } from 'antd'
 
 export interface IRoundProps extends ICommonProps {
-  className?: string
   type?: number // 0: 圆角, 1: 独立圆角, 默认 0
   defaultValues?: Array<number> // 默认为 0
   onChange?: (value: Array<number>) => void
@@ -71,6 +70,7 @@ const Round = (props: IRoundProps): ReactElement => {
           {type === 0 ? (
             <InputNumber
               value={values[0]}
+              min={0}
               onChange={(value: number | null) => {
                 let newValue: number = Utils.getInputNumberValue(value, 0)
                 let newValues = Utils.deepCopy(values || [])
@@ -83,6 +83,7 @@ const Round = (props: IRoundProps): ReactElement => {
             <>
               <InputNumber
                 value={values[0]}
+                min={0}
                 onChange={(value: number | null) => {
                   let newValue: number = Utils.getInputNumberValue(value, 0)
                   let newValues = Utils.deepCopy(values || [])
@@ -93,6 +94,7 @@ const Round = (props: IRoundProps): ReactElement => {
               />
               <InputNumber
                 value={values[1]}
+                min={0}
                 onChange={(value: number | null) => {
                   let newValue: number = Utils.getInputNumberValue(value, 0)
                   let newValues = Utils.deepCopy(values || [])
@@ -103,6 +105,7 @@ const Round = (props: IRoundProps): ReactElement => {
               />
               <InputNumber
                 value={values[2]}
+                min={0}
                 onChange={(value: number | null) => {
                   let newValue: number = Utils.getInputNumberValue(value, 0)
                   let newValues = Utils.deepCopy(values || [])
@@ -113,6 +116,7 @@ const Round = (props: IRoundProps): ReactElement => {
               />
               <InputNumber
                 value={values[3]}
+                min={0}
                 onChange={(value: number | null) => {
                   let newValue: number = Utils.getInputNumberValue(value, 0)
                   let newValues = Utils.deepCopy(values || [])

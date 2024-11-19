@@ -5,7 +5,7 @@
  */
 import './assets/reset.less'
 import './assets/common.less'
-import { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, PaddingProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps } from './lib/utils/common'
+import { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps } from './lib/utils/common'
 
 import {
   Opacity as OpacitySetter,
@@ -18,6 +18,7 @@ import {
   Alignment as AlignmentSetter,
   Margin as MarginSetter,
   Selector as SelectorSetter,
+  Shadow as ShadowSetter,
   IOpacityProps as IOpacitySetterProps,
   IRoundProps as IRoundSetterProps,
   IFillProps as IFillSetterProps,
@@ -28,18 +29,19 @@ import {
   IAlignmentProps as IAlignmentSetterProps,
   IMarginProps as IMarginSetterProps,
   ISelectProps as ISelectSetterProps,
+  IShadowProps as IShadowSetterProps,
 } from './lib/setters'
 
 import Parser from './lib/parser'
 import { IParserProps, IParserSchemaProps, IParserSchemaParamsProps } from './lib/parser'
 
-export { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, PaddingProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps }
+export { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps }
 
 export { Parser as LowerEngineParser }
 
 export type { IParserProps, IParserSchemaProps, IParserSchemaParamsProps }
 
-export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter, MarginSetter, SelectorSetter }
+export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter, MarginSetter, SelectorSetter, ShadowSetter }
 
 export type {
   IOpacitySetterProps,
@@ -52,4 +54,5 @@ export type {
   IAlignmentSetterProps,
   IMarginSetterProps,
   ISelectSetterProps,
+  IShadowSetterProps,
 }

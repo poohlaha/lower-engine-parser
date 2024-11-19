@@ -9,12 +9,12 @@ import { InputNumber } from 'antd'
 import Utils from '../../utils/utils'
 import Icons from '../../utils/icons'
 import { MDropdown } from '../../components'
+import Color, { IColorProps } from '../color'
 
-export interface IFontSizeProps extends ICommonProps {
-  className?: string
+export interface IFontSizeProps extends ICommonProps, IColorProps {
   items?: Array<number>
   selected?: number
-  onChange?: (value: number) => void
+  onChange?: (value: number, color: string, opacity: number) => void
 }
 
 const FontSize = (props: IFontSizeProps): ReactElement => {
@@ -44,7 +44,7 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
 
   const render = () => {
     return (
-      <div className={`${props.className || ''} lower-engine-font-size`}>
+      <div className={`${props.className || ''} lower-engine-font-size flex-align-center`}>
         <div className={`lower-engine-input-box flex-align-center ${open ? 'visible' : ''}`} ref={inputBoxRef}>
           <InputNumber
             min={DEFAULT_ITEMS[0]}
@@ -52,7 +52,7 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
             onChange={(value: number | string | null) => {
               let newValue: number = Utils.getInputNumberValue(value, 0)
               setValue(newValue)
-              props.onChange?.(newValue)
+              props.onChange?.(newValue, props.color || '', props.opacity || 100)
             }}
           />
 
@@ -61,9 +61,9 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
             items={items}
             selectValue={value}
             onChange={value => {
-              let newValue: number = Utils.getInputNumberValue(value, 0)
+              let newValue: number = Utils.getInputNumberValue(value as number, 0)
               setValue(newValue)
-              props.onChange?.(newValue)
+              props.onChange?.(newValue, props.color || '', props.opacity || 100)
             }}
             onOpenChange={(o: boolean) => {
               setOpen(o)
@@ -73,6 +73,18 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
             <div className="lower-engine-input-action">{Icons.getArrowNode()}</div>
           </MDropdown>
         </div>
+
+        <Color
+          name="color"
+          title=""
+          setter="ColorSetter"
+          color={props.color}
+          opacity={props.opacity}
+          colorSelect={props.colorSelect}
+          recentlyUsedList={props.recentlyUsedList}
+          onColorChange={props.onColorChange}
+          onOpacityChange={props.onOpacityChange}
+        />
       </div>
     )
   }

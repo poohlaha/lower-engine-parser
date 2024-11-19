@@ -88,6 +88,24 @@ const Icons = {
     )
   },
 
+  // AlignmentTop
+  getAlignmentTopNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" viewBox="0 0 24 24">
+          <g fill="#333" clipPath="url(#clip0_258_597)">
+            <path d="M16.5 6c.28 0 .5.22.5.5v4a.5.5 0 0 1-1 0v-4c0-.28.22-.5.5-.5ZM7.5 6c.28 0 .5.22.5.5v11a.5.5 0 0 1-1 0v-11c0-.28.22-.5.5-.5ZM12 14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-1 0v7c0 .28.22.5.5.5Z"></path>
+          </g>
+          <defs>
+            <clipPath id="clip0_258_597">
+              <rect width="24" height="24" fill="#fff" rx="4"></rect>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+    )
+  },
+
   // AlignmentLeft
   getAlignmentLeftNode: () => {
     return (
@@ -116,6 +134,24 @@ const Icons = {
     )
   },
 
+  // 垂直居中
+  getAlignmentVerticalCenterNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" viewBox="0 0 24 24">
+          <g fill="#333" clipPath="url(#clip0_238_1062)">
+            <path d="M16.5 9c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5ZM7.5 9c.28 0 .5.22.5.5v5a.5.5 0 0 1-1 0v-5c0-.28.22-.5.5-.5ZM12 18a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-1 0v11c0 .28.22.5.5.5Z"></path>
+          </g>
+          <defs>
+            <clipPath id="clip0_238_1062">
+              <path fill="#fff" d="M0 0h24v24H0z"></path>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+    )
+  },
+
   // 右对齐
   getAlignmentRightNode: () => {
     return (
@@ -130,7 +166,43 @@ const Icons = {
     )
   },
 
-  // 两端对齐
+  // 底对齐
+  getAlignmentBottomNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg-icon" viewBox="0 0 24 24">
+          <g fill="#333" clipPath="url(#clip0_238_1065)">
+            <path d="M7.5 18a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v4a.5.5 0 0 1-.5.5ZM16.5 18a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 1 0v11a.5.5 0 0 1-.5.5ZM12 10a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 1 0v-7a.5.5 0 0 0-.5-.5Z"></path>
+          </g>
+          <defs>
+            <clipPath id="clip0_238_1065">
+              <path fill="#fff" d="M0 0h24v24H0z"></path>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+    )
+  },
+
+  // 两端对齐 -- 垂直
+  getAlignmentVerticalJustifyNode: () => {
+    return (
+      <div className="svg-box-small no-hover flex-center">
+        <svg className="svg__StyledSVGIcon-sc-12zkjmv-1 fWITWq icon setting_panel/font/text_align_justify_re svg-icon" viewBox="0 0 24 24">
+          <g fill="#333" clipPath="url(#clip0_238_1069)">
+            <path d="M16.5 6c.28 0 .5.22.5.5v11a.5.5 0 0 1-1 0v-11c0-.28.22-.5.5-.5ZM7.5 6c.28 0 .5.22.5.5v11a.5.5 0 0 1-1 0v-11c0-.28.22-.5.5-.5ZM12 18a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-1 0v11c0 .28.22.5.5.5Z"></path>
+          </g>
+          <defs>
+            <clipPath id="clip0_238_1069">
+              <path fill="#fff" d="M0 0h24v24H0z"></path>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+    )
+  },
+
+  // 两端对齐 -- 横向
   getAlignmentJustifyNode: () => {
     return (
       <div className="svg-box-small no-hover flex-center">

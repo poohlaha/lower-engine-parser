@@ -10,7 +10,6 @@ export {
     FontSizeProps,
     AlignmentProps,
     MarginProps,
-    PaddingProps,
     RoundProps,
     FillProps,
     StrokeProps,
@@ -28,7 +27,8 @@ export {
     FontBoldSetter,
     AlignmentSetter,
     MarginSetter,
-    SelectorSetter
+    SelectorSetter,
+    ShadowSetter
 } from './src/index'
 
 export type {
@@ -38,10 +38,12 @@ export type {
     IOpacitySetterProps,
     IFillSetterProps,
     IColorSetterProps,
+    IRoundSetterProps,
     IStrokeSetterProps,
     IFontSizeSetterProps,
     IFontBoldSetterProps,
     IAlignmentSetterProps,
     IMarginSetterProps,
-    ISelectSetterProps
+    ISelectSetterProps,
+    IShadowSetterProps
 } from './src/index'

@@ -9,7 +9,6 @@ import Utils from '../../utils/utils'
 import { Slider, InputNumber } from 'antd'
 
 export interface IOpacityProps extends ICommonProps {
-  className?: string
   min?: number
   max?: number
   reverse?: boolean
@@ -39,7 +38,7 @@ const Opacity = (props: IOpacityProps): ReactElement => {
   }
 
   const getProps = () => {
-    const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
+    const alignmentClassName = Utils.getComponentAlignmentClassName(props.text || '', props.alignment || '')
     const { min, max, defaultValue } = getDefaultValue()
     const reverse = props.reverse ?? false
     return { alignmentClassName, min, max, defaultValue, reverse }
@@ -63,8 +62,20 @@ const Opacity = (props: IOpacityProps): ReactElement => {
 
     return (
       <div className={`lower-engine-opacity flex-align-center ${props.className || ''}`}>
+        {!Utils.isBlank(props.text || '') && <p className="lower-engine-opacity-header">{props.text || ''}</p>}
         <div className="lower-engine-opacity-slider flex-1 flex-jsc-end">
-          <Slider disabled={props.disabled} defaultValue={defaultValue} min={min} max={max} reverse={reverse} value={value} onChange={(value: number | string | null) => onChange(value, min)} />
+          <Slider
+            tooltip={{
+              open: false,
+            }}
+            disabled={props.disabled}
+            defaultValue={defaultValue}
+            min={min}
+            max={max}
+            reverse={reverse}
+            value={value}
+            onChange={(value: number | string | null) => onChange(value, min)}
+          />
         </div>
 
         <div className="lower-engine-opacity-input">

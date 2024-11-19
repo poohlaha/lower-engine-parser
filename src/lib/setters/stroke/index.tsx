@@ -12,16 +12,16 @@ import Page from '../../utils/page'
 import { MPopover } from '../../components'
 
 export interface IStrokeProps extends ICommonProps {
-  className?: string
   checked?: boolean
   text?: string
   color?: string
   opacity?: number
-  selectedItemValue?: string
-  items: Array<{ [K: string]: any }> // 下拉框线条
-  onLineChange?: (line: string) => void
-  onNumberChange?: (value: number) => void
-  onBorderChange?: (borderList: Array<string>) => void
+  line?: string
+  items?: Array<{ [K: string]: any }> // 下拉框线条
+  onChecked?: (checked: boolean, line: string, value: number, borderList: Array<string>, color: string, borderWidth: string) => void
+  onLineChange?: (checked: boolean, line: string, value: number, borderList: Array<string>, color: string, borderWidth: string) => void
+  onNumberChange?: (checked: boolean, line: string, value: number, borderList: Array<string>, color: string, borderWidth: string) => void
+  onBorderChange?: (checked: boolean, line: string, value: number, borderList: Array<string>, color: string, borderWidth: string) => void
 }
 
 const Stroke = (props: IStrokeProps): ReactElement => {
@@ -30,19 +30,52 @@ const Stroke = (props: IStrokeProps): ReactElement => {
   const [line, setLine] = useState<string>(LINES[0]) // 线条
   const [value, setValue] = useState<number>(1) // 值
   const [borderList, setBorderList] = useState<Array<string>>(BORDERS) // 位置
+  const [checked, setChecked] = useState(false)
+
+  useEffect(() => {
+    setChecked(props.checked ?? false)
+  }, [props.checked])
 
   useEffect(() => {
     setValue(props.default ?? 1)
   }, [props.default])
 
   useEffect(() => {
-    setLine(props.selectedItemValue ?? LINES[0])
-  }, [props.selectedItemValue])
+    setLine(props.line ?? LINES[0])
+  }, [props.line])
 
   const getSelectItems = () => {
     let items = props.items || []
     if (items.length > 0) return items
     return Page.getSelectOptions(LINES, true, line)
+  }
+
+  const getBorders = (value: number, borderList: Array<string>) => {
+    if (borderList.length === 0) return '0px'
+
+    let map = new Map()
+    map.set(BORDERS[0], value) // top
+    map.set(BORDERS[1], value) // right
+    map.set(BORDERS[2], value) // bottom
+    map.set(BORDERS[3], value) // left
+
+    let keys = map.keys()
+    let values = []
+
+    // @ts-ignore
+    for (let key of keys) {
+      const hasFound = borderList.findIndex((border: string = '') => border === key) > -1
+      if (hasFound) {
+        let v = map.get(key)
+        if (v !== undefined || v !== null) {
+          values.push(`${v}px`)
+        }
+      } else {
+        values.push('0px')
+      }
+    }
+
+    return values.join(' ')
   }
 
   const getBorderNode = () => {
@@ -61,7 +94,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
               }
 
               setBorderList(borders)
-              props.onBorderChange?.(borders)
+              props.onBorderChange?.(checked, line, value, borders, props.color || '', getBorders(value, borders))
             }}
           />
           <div className="center-wrapper">
@@ -77,7 +110,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
                 }
 
                 setBorderList(borders)
-                props.onBorderChange?.(borders)
+                props.onBorderChange?.(checked, line, value, borders, props.color || '', getBorders(value, borders))
               }}
             />
             <span
@@ -92,7 +125,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
                 }
 
                 setBorderList(borders)
-                props.onBorderChange?.(borders)
+                props.onBorderChange?.(checked, line, value, borders, props.color || '', getBorders(value, borders))
               }}
             />
           </div>
@@ -108,7 +141,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
               }
 
               setBorderList(borders)
-              props.onBorderChange?.(borders)
+              props.onBorderChange?.(checked, line, value, borders, props.color || '', getBorders(value, borders))
             }}
           />
         </div>
@@ -117,11 +150,23 @@ const Stroke = (props: IStrokeProps): ReactElement => {
   }
 
   const render = () => {
-    const checked = props.checked ?? false
-    const text = Utils.isBlank(props.text || '') ? '填充' : props.text
+    const text = Utils.isBlank(props.text || '') ? '填充' : props.text || ''
     return (
       <div className={`${props.className || ''} lower-engine-stroke flex-direction-column`}>
-        <Fill className="lower-engine-stroke-fill" checked={checked} text={text} color={props.color} opacity={props.opacity} name="Fill" setter="FillSetter" title="" />
+        <Fill
+          className="lower-engine-stroke-fill"
+          checked={checked}
+          text={text}
+          color={props.color}
+          opacity={props.opacity}
+          name="Fill"
+          setter="FillSetter"
+          title=""
+          onChecked={(checked: boolean) => {
+            setChecked(checked)
+            props.onChecked?.(checked, line, value, borderList, props.color || '', getBorders(value, borderList))
+          }}
+        />
 
         <div className="lower-engine-stroke-line flex-align-center">
           <Select
@@ -129,9 +174,9 @@ const Stroke = (props: IStrokeProps): ReactElement => {
             style={{ width: 83, height: 28 }}
             value={line}
             options={getSelectItems() || []}
-            onChange={(value: string = '') => {
-              setLine(value)
-              props.onLineChange?.(value)
+            onChange={(l: string = '') => {
+              setLine(l)
+              props.onLineChange?.(checked, l, value, borderList, props.color || '', getBorders(value, borderList))
             }}
             labelRender={(p: { [K: string]: any } = {}) => Page.getSelectLabel(p, true)}
           />
@@ -142,7 +187,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
             onChange={(value: number | string | null) => {
               let newValue: number = Utils.getInputNumberValue(value, 0)
               setValue(newValue)
-              props.onNumberChange?.(newValue)
+              props.onNumberChange?.(checked, line, newValue, borderList, props.color || '', getBorders(newValue, borderList))
             }}
           />
 

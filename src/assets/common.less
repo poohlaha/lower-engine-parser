@@ -727,16 +727,19 @@
       padding: 8px 10px;
 
       .lower-engine-margin-popover-content-inner-item {
-        padding: 4px 0;
+        padding: 6px 0;
         min-height: @paragraph_height;
 
-        .svg-box-small {
+        .text-arrangement,
+        .list-order {
           &:hover {
             background: @hover_background;
+            border-radius: 4px;
           }
 
           &.active {
             background: @active_background;
+            border-radius: 4px;
           }
         }
 
@@ -1250,5 +1253,17 @@
       background: @hover_background;
       border-radius: 4px;
     }
+  }
+}
+
+.lower-engine-shadow {
+  .input-group {
+    margin-left: 28px;
+  }
+}
+
+.lower-engine-opacity {
+  .lower-engine-opacity-header {
+    margin-right: 10px;
   }
 }

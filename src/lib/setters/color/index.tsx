@@ -17,7 +17,7 @@ export interface IColorProps extends ICommonProps {
   color?: string
   opacity?: number
   colorSelect?: COLOR_SELECT
-  recentlyUsedList: Array<Array<string | number>>
+  recentlyUsedList?: Array<Array<string | number>>
   onColorChange?: (color: string) => void
   onOpacityChange?: (opacity: number) => void
 }
@@ -551,6 +551,7 @@ const Color = (props: IColorProps): ReactElement => {
                     <Slider
                       min={0}
                       max={100}
+                      value={opacity}
                       onChange={(value: number) => {
                         setOpacity(value)
                         props.onOpacityChange?.(value)

@@ -9,57 +9,92 @@ import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 import { Tooltip } from 'antd'
 
+interface IFontBoldExportProps {
+  checkedFontWeight: boolean
+  checkedItalic: boolean
+  checkedUnderline: boolean
+  checkedLineThrough: boolean
+}
 export interface IFontBoldProps extends ICommonProps {
-  onChange?: (value: string) => void
+  onChange?: (values: IFontBoldExportProps) => void
+  checkedFontWeight?: boolean
+  checkedItalic?: boolean
+  checkedUnderline?: boolean
+  checkedLineThrough?: boolean
 }
 
 const FontBold = (props: IFontBoldProps): ReactElement => {
   const FontBold = ['bold', 'italic', 'underline', 'line-through']
-  const [value, setValue] = useState('')
+  const [checkedFontWeight, setCheckedFontWeight] = useState(false)
+  const [checkedItalic, setCheckedItalic] = useState(false)
+  const [checkedUnderline, setCheckedUnderline] = useState(false)
+  const [checkedLineThrough, setCheckedLineThrough] = useState(false)
 
   useEffect(() => {
-    let defaultValue = Utils.isBlank(props.default || '') ? FontBold[0] : props.default
-    setValue(defaultValue)
-  }, [props.default])
+    setCheckedFontWeight(props.checkedFontWeight ?? false)
+    setCheckedItalic(props.checkedItalic ?? false)
+    setCheckedUnderline(props.checkedUnderline ?? false)
+    setCheckedLineThrough(props.checkedLineThrough ?? false)
+  }, [props.checkedFontWeight, props.checkedItalic, props.checkedUnderline, props.checkedLineThrough])
 
   const render = () => {
     return (
       <div className={`${props.className || ''} lower-engine-font-bold flex-align-center`}>
         <div
-          className={`lower-engine-font-bold-item lower-engine-font-bold-bold flex-center ${value === FontBold[0] ? 'active' : ''}`}
+          className={`lower-engine-font-bold-item lower-engine-font-bold-bold flex-center ${checkedFontWeight ? 'active' : ''}`}
           onClick={() => {
-            setValue(FontBold[0])
-            props.onChange?.(FontBold[0])
+            setCheckedFontWeight(!checkedFontWeight)
+            props.onChange?.({
+              checkedFontWeight: !checkedFontWeight,
+              checkedItalic,
+              checkedUnderline,
+              checkedLineThrough,
+            })
           }}
         >
           <Tooltip title="加租">{Icons.getFontBoldBoldNode()}</Tooltip>
         </div>
 
         <div
-          className={`lower-engine-font-bold-item lower-engine-font-bold-italic flex-center ${value === FontBold[1] ? 'active' : ''}`}
+          className={`lower-engine-font-bold-item lower-engine-font-bold-italic flex-center ${checkedItalic ? 'active' : ''}`}
           onClick={() => {
-            setValue(FontBold[1])
-            props.onChange?.(FontBold[1])
+            setCheckedItalic(!checkedItalic)
+            props.onChange?.({
+              checkedFontWeight,
+              checkedItalic: !checkedItalic,
+              checkedUnderline,
+              checkedLineThrough,
+            })
           }}
         >
           <Tooltip title="倾斜">{Icons.getFontBoldItalicNode()}</Tooltip>
         </div>
 
         <div
-          className={`lower-engine-font-bold-item lower-engine-font-bold-underline flex-center ${value === FontBold[2] ? 'active' : ''}`}
+          className={`lower-engine-font-bold-item lower-engine-font-bold-underline flex-center ${checkedUnderline ? 'active' : ''}`}
           onClick={() => {
-            setValue(FontBold[2])
-            props.onChange?.(FontBold[2])
+            setCheckedUnderline(!checkedUnderline)
+            props.onChange?.({
+              checkedFontWeight,
+              checkedItalic,
+              checkedUnderline: !checkedUnderline,
+              checkedLineThrough,
+            })
           }}
         >
           <Tooltip title="下划线">{Icons.getFontBoldUnderlineNode()}</Tooltip>
         </div>
 
         <div
-          className={`lower-engine-font-bold-item lower-engine-font-bold-line-through flex-center ${value === FontBold[3] ? 'active' : ''}`}
+          className={`lower-engine-font-bold-item lower-engine-font-bold-line-through flex-center ${checkedLineThrough ? 'active' : ''}`}
           onClick={() => {
-            setValue(FontBold[3])
-            props.onChange?.(FontBold[3])
+            setCheckedLineThrough(!checkedLineThrough)
+            props.onChange?.({
+              checkedFontWeight,
+              checkedItalic,
+              checkedUnderline,
+              checkedLineThrough: !checkedLineThrough,
+            })
           }}
         >
           <Tooltip title="删除线">{Icons.getFontBoldLineThroughNode()}</Tooltip>

@@ -7,9 +7,10 @@
 export type Alignment = 'justify' | 'left' | 'right' | 'center' | 'upDown'
 
 export interface ICommonProps {
-  name: string
-  title: string
-  setter: string | Array<string>
+  name?: string
+  title?: string
+  text?: string
+  setter?: string | Array<string>
   default?: any // 默认值
   unit?: string // 单位, 用于字体, padding, margin 等, 默认为 px, 手机端为 rem, 可全局定义
   alignment?: Alignment // 文字和组件的对齐方式, 默认两端对齐(Justify)
@@ -21,7 +22,7 @@ export interface ICommonProps {
 // 不透明度
 export const OpacityProps: ICommonProps = {
   name: 'Opacity',
-  title: '不透明度',
+  text: '不透明度',
   setter: 'OpacitySetter',
   default: 100,
 }
@@ -29,7 +30,7 @@ export const OpacityProps: ICommonProps = {
 // 颜色
 export const ColorProps: ICommonProps = {
   name: 'Color',
-  title: '',
+  text: '',
   setter: 'ColorSetter',
   color: '#ffffff',
   opacity: 1,
@@ -47,7 +48,7 @@ export const BackgroundProps: ICommonProps = {
 // 字体
 export const FontSizeProps: ICommonProps = {
   name: 'FontSize',
-  title: '',
+  text: '',
   setter: 'FontSizeSetter',
   default: 14,
 }
@@ -55,7 +56,7 @@ export const FontSizeProps: ICommonProps = {
 // 字重
 export const FontBoldProps: ICommonProps = {
   name: 'FontBold',
-  title: '',
+  text: '',
   setter: 'FontBoldSetter',
   default: 'bold',
 }
@@ -63,7 +64,7 @@ export const FontBoldProps: ICommonProps = {
 // 对齐方式
 export const AlignmentProps: ICommonProps = {
   name: 'Alignment',
-  title: '',
+  text: '',
   setter: 'AlignmentSetter',
   className: 'flex-jsc-between',
   default: 'left',
@@ -73,23 +74,15 @@ export const AlignmentProps: ICommonProps = {
 // 边距(内边距, 外边距, 行高, 字间距)
 export const MarginProps: ICommonProps = {
   name: 'Margin',
-  title: '',
+  text: '',
   setter: 'MarginSetter',
   className: 'flex-jsc-between',
-}
-
-// 内边距
-export const PaddingProps: ICommonProps = {
-  name: 'Padding',
-  title: '内边距',
-  setter: 'PaddingSetter',
-  default: [0, 0],
 }
 
 // 圆角
 export const RoundProps: ICommonProps = {
   name: 'Round',
-  title: '圆角',
+  text: '',
   setter: 'RoundSetter',
   default: 0, // 0: 圆角 1: 独立圆角
 }
@@ -97,14 +90,14 @@ export const RoundProps: ICommonProps = {
 // 填充
 export const FillProps: ICommonProps = {
   name: 'Fill',
-  title: '填充',
+  text: '填充',
   setter: 'FillSetter',
 }
 
 // 描边
 export const StrokeProps: ICommonProps = {
   name: 'Stroke',
-  title: '描边',
+  text: '描边',
   setter: 'StrokeSetter',
   default: 1,
 }
@@ -112,7 +105,6 @@ export const StrokeProps: ICommonProps = {
 // 阴影
 export const ShadowProps: ICommonProps = {
   name: 'Shadow',
-  title: '阴影',
+  text: '阴影',
   setter: 'ShadowSetter',
-  default: [0, 0, 0, 0],
 }

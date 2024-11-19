@@ -16,6 +16,7 @@ import {
   Alignment as AlignmentSetter,
   Margin as MarginSetter,
   Selector as SelectorSetter,
+  Shadow as ShadowSetter,
 } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
@@ -45,6 +46,7 @@ const componentNameList: Array<string> = [
   'AlignmentSetter',
   'MarginSetter',
   'SelectorSetter',
+  'ShadowSetter',
 ]
 
 const getComponentMap = () => {
@@ -59,6 +61,7 @@ const getComponentMap = () => {
   map.set(componentNameList[7], AlignmentSetter)
   map.set(componentNameList[8], MarginSetter)
   map.set(componentNameList[9], SelectorSetter)
+  map.set(componentNameList[10], ShadowSetter)
 
   return map
 }
@@ -89,7 +92,7 @@ const getComponentNameList = (item: { [K: string]: any } = {}) => {
   return newComponentNames
 }
 
-const Parser = (props: IParserProps): ReactElement | null => {
+const Parser = (props: IParserProps, events: { [K: string]: any } = {}): ReactElement | null => {
   const map = getComponentMap()
   let componentNameList = getComponentNameList(props || {}) || []
   if (componentNameList.length === 0) {
@@ -105,7 +108,7 @@ const Parser = (props: IParserProps): ReactElement | null => {
             return null
           }
 
-          return <Component key={i} {...props} />
+          return <Component key={i} {...props} {...events} />
         })}
       </div>
     </MLowerEngine>
