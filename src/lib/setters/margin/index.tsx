@@ -17,12 +17,12 @@ export interface IMarginProps extends ICommonProps {
   paddings?: Array<number>
   textArrangement?: number // 1: 横排, 2: 竖排
   listOrder?: number // 1: 无序列表, 2: 有序列表
-  onSpaceLetterChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
-  onLineHeightChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
-  onTextArrangementChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
-  onListOrderChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
-  onMarginChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
-  onPaddingChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
+  onSpaceLetterChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, textArrangementValue: number, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
+  onLineHeightChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, textArrangementValue: number, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
+  onTextArrangementChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, textArrangementValue: number, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
+  onListOrderChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, textArrangementValue: number, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
+  onMarginChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, textArrangementValue: number, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
+  onPaddingChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, textArrangementValue: number, listOrder: string, margins: Array<number>, paddings: Array<number>) => void
 }
 
 const Margin = (props: IMarginProps): ReactElement => {
@@ -97,7 +97,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                   className={`text-arrangement ${textArrangement === 1 ? 'active' : ''}`}
                   onClick={() => {
                     setTextArrangement(1)
-                    props.onTextArrangementChange?.(spaceLetter, lineHeight, 'horizontal-tb', '', margins, paddings)
+                    props.onTextArrangementChange?.(spaceLetter, lineHeight, 'horizontal-tb', 1, '', margins, paddings)
                   }}
                 >
                   {Icons.getArrangementHorizontalNode()}
@@ -108,7 +108,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                   className={`text-arrangement ${textArrangement === 2 ? 'active' : ''}`}
                   onClick={() => {
                     setTextArrangement(2)
-                    props.onTextArrangementChange?.(spaceLetter, lineHeight, 'vertical-lr', '', margins, paddings)
+                    props.onTextArrangementChange?.(spaceLetter, lineHeight, 'vertical-lr', 2, '', margins, paddings)
                   }}
                 >
                   {Icons.getArrangementVerticalNode()}
@@ -161,7 +161,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(margins || [])
                     newValues[0] = newValue
                     setMargins(newValues)
-                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', newValues, paddings)
+                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', newValues, paddings)
                   }}
                 />
 
@@ -178,7 +178,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(margins || [])
                     newValues[2] = newValue
                     setMargins(newValues)
-                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', newValues, paddings)
+                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', newValues, paddings)
                   }}
                 />
 
@@ -195,7 +195,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(margins || [])
                     newValues[3] = newValue
                     setMargins(newValues)
-                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', newValues, paddings)
+                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', newValues, paddings)
                   }}
                 />
 
@@ -212,7 +212,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(margins || [])
                     newValues[1] = newValue
                     setMargins(newValues)
-                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', newValues, paddings)
+                    props.onMarginChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', newValues, paddings)
                   }}
                 />
 
@@ -235,7 +235,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(paddings || [])
                     newValues[0] = newValue
                     setPaddings(newValues)
-                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', margins, newValues)
+                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', margins, newValues)
                   }}
                 />
 
@@ -252,7 +252,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(paddings || [])
                     newValues[2] = newValue
                     setPaddings(newValues)
-                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', margins, newValues)
+                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', margins, newValues)
                   }}
                 />
 
@@ -269,7 +269,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(paddings || [])
                     newValues[3] = newValue
                     setPaddings(newValues)
-                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', margins, newValues)
+                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', margins, newValues)
                   }}
                 />
 
@@ -286,7 +286,7 @@ const Margin = (props: IMarginProps): ReactElement => {
                     let newValues = Utils.deepCopy(paddings || [])
                     newValues[1] = newValue
                     setPaddings(newValues)
-                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', margins, newValues)
+                    props.onPaddingChange?.(spaceLetter, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', margins, newValues)
                   }}
                 />
 
@@ -314,7 +314,7 @@ const Margin = (props: IMarginProps): ReactElement => {
               onChange={(value: number | string | null) => {
                 let newValue: number = Utils.getInputNumberValue(value, 0)
                 setSpaceLetter(newValue)
-                props.onSpaceLetterChange?.(newValue, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', margins, paddings)
+                props.onSpaceLetterChange?.(newValue, lineHeight, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', margins, paddings)
               }}
             />
           </div>
@@ -331,7 +331,7 @@ const Margin = (props: IMarginProps): ReactElement => {
               onChange={(value: number | string | null) => {
                 let newValue: number = Utils.getInputNumberValue(value, 0)
                 setLineHeight(newValue)
-                props.onLineHeightChange?.(spaceLetter, newValue, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', '', margins, paddings)
+                props.onLineHeightChange?.(spaceLetter, newValue, textArrangement === 2 ? 'vertical-lr' : 'horizontal-tb', textArrangement, '', margins, paddings)
               }}
             />
           </div>

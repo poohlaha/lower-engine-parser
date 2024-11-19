@@ -12,8 +12,8 @@ import Utils from '../../utils/utils'
 export interface IAlignmentProps extends ICommonProps {
   alignmentFlex?: string
   flex?: boolean
-  onChange?: (value: string | { [K: string]: string }) => void
-  onFlexChange?: (value: string | { [K: string]: string }) => void
+  onChange?: (value: string, params: string | { [K: string]: string }, alignmentFlex: string, flex: boolean) => void
+  onFlexChange?: (value: string, params: string | { [K: string]: string }, alignmentFlex: string, flex: boolean) => void
 }
 
 const Alignment = (props: IAlignmentProps): ReactElement => {
@@ -46,6 +46,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             onClick={() => {
               setValue(Alignment[0])
               props.onChange?.(
+                Alignment[0],
                 flex
                   ? {
                       alignItems: Alignment_FLEX[0],
@@ -56,7 +57,9 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                       alignItems: Alignment_FLEX[0],
                       textAlign: Alignment[0],
                       justifyContent: Alignment_FLEX[0],
-                    }
+                    },
+                flexValue,
+                flex
               )
             }}
           >
@@ -68,6 +71,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             onClick={() => {
               setValue(Alignment[1])
               props.onChange?.(
+                Alignment[1],
                 flex
                   ? {
                       alignItems: Alignment_FLEX[1],
@@ -78,7 +82,9 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                       alignItems: Alignment_FLEX[1],
                       textAlign: Alignment[1],
                       justifyContent: Alignment_FLEX[0],
-                    }
+                    },
+                flexValue,
+                flex
               )
             }}
           >
@@ -90,6 +96,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             onClick={() => {
               setValue(Alignment[2])
               props.onChange?.(
+                Alignment[2],
                 flex
                   ? {
                       alignItems: Alignment_FLEX[2],
@@ -100,7 +107,9 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                       alignItems: Alignment_FLEX[2],
                       textAlign: Alignment[2],
                       justifyContent: Alignment_FLEX[0],
-                    }
+                    },
+                flexValue,
+                flex
               )
             }}
           >
@@ -112,6 +121,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             onClick={() => {
               setValue(Alignment[3])
               props.onChange?.(
+                Alignment[3],
                 flex
                   ? {
                       alignItems: Alignment_FLEX[1],
@@ -122,7 +132,9 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                       alignItems: Alignment_FLEX[1],
                       textAlign: Alignment[3],
                       justifyContent: Alignment_FLEX[0],
-                    }
+                    },
+                flexValue,
+                flex
               )
             }}
           >
@@ -135,7 +147,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             className={`lower-engine-alignment-item lower-engine-alignment-flex-start flex-center ${flexValue === Alignment_FLEX[0] ? 'active' : ''}`}
             onClick={() => {
               setFlexValue(Alignment_FLEX[0])
-              props.onFlexChange?.({ justifyContent: Alignment_FLEX[0] })
+              props.onFlexChange?.(value, { justifyContent: Alignment_FLEX[0] }, Alignment_FLEX[0], flex)
             }}
           >
             <Tooltip title="顶对齐">{Icons.getAlignmentFlexStartNode()}</Tooltip>
@@ -145,7 +157,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             className={`lower-engine-alignment-item lower-engine-alignment-flex-center flex-center ${flexValue === Alignment_FLEX[1] ? 'active' : ''}`}
             onClick={() => {
               setFlexValue(Alignment_FLEX[1])
-              props.onFlexChange?.({ justifyContent: Alignment_FLEX[1] })
+              props.onFlexChange?.(value, { justifyContent: Alignment_FLEX[1] }, Alignment_FLEX[1], flex)
             }}
           >
             <Tooltip title="垂直居中">{Icons.getAlignmentFlexCenterNode()}</Tooltip>
@@ -155,7 +167,7 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
             className={`lower-engine-alignment-item lower-engine-alignment-flex-end flex-center ${flexValue === Alignment_FLEX[2] ? 'active' : ''}`}
             onClick={() => {
               setFlexValue(Alignment_FLEX[2])
-              props.onFlexChange?.({ justifyContent: Alignment_FLEX[2] })
+              props.onFlexChange?.(value, { justifyContent: Alignment_FLEX[2] }, Alignment_FLEX[2], flex)
             }}
           >
             <Tooltip title="底对齐">{Icons.getAlignmentFlexEndNode()}</Tooltip>

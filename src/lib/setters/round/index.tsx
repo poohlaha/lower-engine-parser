@@ -11,7 +11,8 @@ import { InputNumber } from 'antd'
 export interface IRoundProps extends ICommonProps {
   type?: number // 0: 圆角, 1: 独立圆角, 默认 0
   defaultValues?: Array<number> // 默认为 0
-  onChange?: (value: Array<number>) => void
+  onChange?: (type: number, values: Array<number>) => void
+  onChangeType?: (type: number, values: Array<number>) => void
 }
 
 const Round = (props: IRoundProps): ReactElement => {
@@ -25,11 +26,10 @@ const Round = (props: IRoundProps): ReactElement => {
   useEffect(() => {
     let defaultValues = props.defaultValues || []
     let type = props.type ?? 0
-    let defaultValue: number = props.default ?? 0
     if (type === 1) {
-      defaultValues = defaultValues.length > 0 ? defaultValues : [defaultValue, defaultValue, defaultValue, defaultValue]
+      defaultValues = defaultValues.length > 0 ? defaultValues : [0, 0, 0, 0]
     } else {
-      defaultValues = [defaultValue]
+      defaultValues = defaultValues.length > 0 ? [defaultValues[0]] : [0]
     }
     setValues(defaultValues)
   }, [props.defaultValues])
@@ -43,6 +43,7 @@ const Round = (props: IRoundProps): ReactElement => {
             const newValues = Utils.deepCopy(values || [])
             setValues([newValues[0]])
             setType(0)
+            props.onChangeType?.(0, [newValues[0]])
           }}
         >
           <svg className="svg-icon" viewBox="0 0 12 12">
@@ -56,6 +57,7 @@ const Round = (props: IRoundProps): ReactElement => {
             const newValues = Utils.deepCopy(values || [])
             setValues([newValues[0], newValues[0], newValues[0], newValues[0]])
             setType(1)
+            props.onChangeType?.(1, [newValues[0], newValues[0], newValues[0], newValues[0]])
           }}
         >
           <svg className="svg-icon" viewBox="0 0 12 12">
@@ -76,7 +78,7 @@ const Round = (props: IRoundProps): ReactElement => {
                 let newValues = Utils.deepCopy(values || [])
                 newValues[0] = newValue
                 setValues(newValues)
-                props.onChange?.(newValues)
+                props.onChange?.(type, newValues)
               }}
             />
           ) : (
@@ -89,7 +91,7 @@ const Round = (props: IRoundProps): ReactElement => {
                   let newValues = Utils.deepCopy(values || [])
                   newValues[0] = newValue
                   setValues(newValues)
-                  props.onChange?.(newValues)
+                  props.onChange?.(type, newValues)
                 }}
               />
               <InputNumber
@@ -100,7 +102,7 @@ const Round = (props: IRoundProps): ReactElement => {
                   let newValues = Utils.deepCopy(values || [])
                   newValues[1] = newValue
                   setValues(newValues)
-                  props.onChange?.(newValues)
+                  props.onChange?.(type, newValues)
                 }}
               />
               <InputNumber
@@ -111,7 +113,7 @@ const Round = (props: IRoundProps): ReactElement => {
                   let newValues = Utils.deepCopy(values || [])
                   newValues[2] = newValue
                   setValues(newValues)
-                  props.onChange?.(newValues)
+                  props.onChange?.(type, newValues)
                 }}
               />
               <InputNumber
@@ -122,7 +124,7 @@ const Round = (props: IRoundProps): ReactElement => {
                   let newValues = Utils.deepCopy(values || [])
                   newValues[3] = newValue
                   setValues(newValues)
-                  props.onChange?.(newValues)
+                  props.onChange?.(type, newValues)
                 }}
               />
             </>

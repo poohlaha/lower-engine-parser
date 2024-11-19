@@ -17,6 +17,7 @@ export interface IStrokeProps extends ICommonProps {
   color?: string
   opacity?: number
   line?: string
+  borderList?: Array<string>
   items?: Array<{ [K: string]: any }> // 下拉框线条
   onChecked?: (checked: boolean, line: string, value: number, borderList: Array<string>, color: string, borderWidth: string) => void
   onLineChange?: (checked: boolean, line: string, value: number, borderList: Array<string>, color: string, borderWidth: string) => void
@@ -43,6 +44,15 @@ const Stroke = (props: IStrokeProps): ReactElement => {
   useEffect(() => {
     setLine(props.line ?? LINES[0])
   }, [props.line])
+
+  useEffect(() => {
+    let list = props.borderList || []
+    if (list.length === 0) {
+      return
+    }
+
+    setBorderList(list)
+  }, [props.borderList])
 
   const getSelectItems = () => {
     let items = props.items || []
