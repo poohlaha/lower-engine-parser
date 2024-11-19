@@ -13,8 +13,8 @@ import Utils from '../../utils/utils'
 export interface IMarginProps extends ICommonProps {
   spaceLetter?: number
   lineHeight?: number
-  margins: Array<number>
-  paddings: Array<number>
+  margins?: Array<number>
+  paddings?: Array<number>
   textArrangement?: number // 1: 横排, 2: 竖排
   listOrder?: number // 1: 无序列表, 2: 有序列表
   onSpaceLetterChange?: (spaceLetter: number, lineHeight: number, textArrangement: string, listOrder: string, margins: Array<number>, paddings: Array<number>) => void

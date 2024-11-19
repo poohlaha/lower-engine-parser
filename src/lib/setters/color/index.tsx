@@ -668,14 +668,17 @@ const Color = (props: IColorProps): ReactElement => {
             setOpen(newOpen)
           }}
         >
-          <div className="lower-engine-color-thumbnail">
-            <div
-              className="thumbnail"
-              style={{
-                background: color,
-                opacity,
-              }}
-            ></div>
+          <div className="flex-align-center">
+            {!Utils.isBlank(props.text || '') && <div className="lower-engine-color-header">{props.text || ''}</div>}
+            <div className="lower-engine-color-thumbnail">
+              <div
+                className="thumbnail"
+                style={{
+                  background: color,
+                  opacity,
+                }}
+              ></div>
+            </div>
           </div>
         </MPopover>
       </div>

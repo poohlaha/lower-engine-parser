@@ -74,48 +74,50 @@ const Shadow = (props: IShadowProps): ReactElement => {
           }}
         />
 
-        <div className="input-group">
-          <InputNumber
-            value={values[0]}
-            onChange={(value: number | null) => {
-              let newValue: number = Utils.getInputNumberValue(value, 0)
-              let newValues = Utils.deepCopy(values || [])
-              newValues[0] = newValue
-              setValues(newValues)
-              props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
-            }}
-          />
-          <InputNumber
-            value={values[1]}
-            onChange={(value: number | null) => {
-              let newValue: number = Utils.getInputNumberValue(value, 0)
-              let newValues = Utils.deepCopy(values || [])
-              newValues[1] = newValue
-              setValues(newValues)
-              props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
-            }}
-          />
-          <InputNumber
-            value={values[2]}
-            onChange={(value: number | null) => {
-              let newValue: number = Utils.getInputNumberValue(value, 0)
-              let newValues = Utils.deepCopy(values || [])
-              newValues[2] = newValue
-              setValues(newValues)
-              props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
-            }}
-          />
-          <InputNumber
-            value={values[3]}
-            onChange={(value: number | null) => {
-              let newValue: number = Utils.getInputNumberValue(value, 0)
-              let newValues = Utils.deepCopy(values || [])
-              newValues[3] = newValue
-              setValues(newValues)
-              props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
-            }}
-          />
-        </div>
+        {checked && (
+          <div className="input-group">
+            <InputNumber
+              value={values[0]}
+              onChange={(value: number | null) => {
+                let newValue: number = Utils.getInputNumberValue(value, 0)
+                let newValues = Utils.deepCopy(values || [])
+                newValues[0] = newValue
+                setValues(newValues)
+                props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
+              }}
+            />
+            <InputNumber
+              value={values[1]}
+              onChange={(value: number | null) => {
+                let newValue: number = Utils.getInputNumberValue(value, 0)
+                let newValues = Utils.deepCopy(values || [])
+                newValues[1] = newValue
+                setValues(newValues)
+                props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
+              }}
+            />
+            <InputNumber
+              value={values[2]}
+              onChange={(value: number | null) => {
+                let newValue: number = Utils.getInputNumberValue(value, 0)
+                let newValues = Utils.deepCopy(values || [])
+                newValues[2] = newValue
+                setValues(newValues)
+                props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
+              }}
+            />
+            <InputNumber
+              value={values[3]}
+              onChange={(value: number | null) => {
+                let newValue: number = Utils.getInputNumberValue(value, 0)
+                let newValues = Utils.deepCopy(values || [])
+                newValues[3] = newValue
+                setValues(newValues)
+                props.onChange?.(checked, props.color || '', props.opacity || 100, newValues)
+              }}
+            />
+          </div>
+        )}
       </div>
     )
   }
