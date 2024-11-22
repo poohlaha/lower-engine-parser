@@ -28,7 +28,7 @@ import {
   IFontBoldProps as IFontBoldSetterProps,
   IAlignmentProps as IAlignmentSetterProps,
   IMarginProps as IMarginSetterProps,
-  ISelectProps as ISelectSetterProps,
+  ISelectorProps as ISelectSetterProps,
   IShadowProps as IShadowSetterProps,
 } from './lib/setters'
 

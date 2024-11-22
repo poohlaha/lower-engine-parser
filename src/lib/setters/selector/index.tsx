@@ -9,7 +9,8 @@ import { MDropdown } from '../../components'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 
-export interface ISelectProps extends ICommonProps {
+export interface ISelectorProps extends ICommonProps {
+  text?: string
   placement?: string
   menu?: Array<{ [K: string]: any }>
   items?: Array<string | number>
@@ -17,7 +18,7 @@ export interface ISelectProps extends ICommonProps {
   dropdownWidth?: number
 }
 
-const Selector = (props: ISelectProps): ReactElement => {
+const Selector = (props: ISelectorProps): ReactElement => {
   const [value, setValue] = useState<string | number>('')
 
   useEffect(() => {
@@ -61,6 +62,7 @@ const Selector = (props: ISelectProps): ReactElement => {
   }
 
   const render = () => {
+    const arrangement = props.arrangement ?? 0
     return (
       <div className={`lower-engine-select flex-align-center ${props.className || ''}`}>
         <MDropdown
@@ -78,10 +80,13 @@ const Selector = (props: ISelectProps): ReactElement => {
             props.onChange?.(value)
           }}
         >
-          <button className="flex-align-center">
-            <span className="cursor-pointer text">{getValueText(props.default || '')}</span>
-            {Icons.getArrowNode()}
-          </button>
+          <div className={`${arrangement === 1 ? 'flex-direction-column' : 'flex-align-center'}`}>
+            {!Utils.isBlank(props.text || '') && <div className="over-ellipsis flex-align-center">{props.text || ''}</div>}
+            <button className="flex-align-center">
+              <span className="cursor-pointer text">{getValueText(props.default || '')}</span>
+              {Icons.getArrowNode()}
+            </button>
+          </div>
         </MDropdown>
       </div>
     )

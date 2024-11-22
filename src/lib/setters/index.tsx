@@ -22,9 +22,9 @@ import type { IStrokeProps } from './stroke'
 import type { IFontSizeProps, IFontBoldProps } from './font'
 import type { IAlignmentProps } from './alignment'
 import type { IMarginProps } from './margin'
-import type { ISelectProps } from './selector'
+import type { ISelectorProps } from './selector'
 import type { IShadowProps } from './shadow'
 
 export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow }
 
-export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps, IAlignmentProps, IMarginProps, ISelectProps, IShadowProps }
+export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps, IAlignmentProps, IMarginProps, ISelectorProps, IShadowProps }
