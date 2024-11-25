@@ -110,7 +110,7 @@ const getComponentNameList = (items: Array<{ [K: string]: any }> = []) => {
   return componentNames
 }
 
-const Parser = (props: IParserProps, events: { [K: string]: any } = {}): ReactElement | null => {
+const Parser = (propName: string = '', props: IParserProps, events: { [K: string]: any } = {}, event?: Function): ReactElement | null => {
   const map = getComponentMap()
   const childProps = props.props
   if (!childProps) {
@@ -131,12 +131,31 @@ const Parser = (props: IParserProps, events: { [K: string]: any } = {}): ReactEl
       <div className="lower-engine-parser-paragraph flex-align-center">
         {componentNameList.map((component: { [K: string]: any } = {}, index: number) => {
           let names = component.componentNames || []
+          let prop = component.prop || {}
           if (names.length === 0) return null
 
           return names.map((item: string = '', i: number) => {
             const Component = map.get(item) || null
             if (!Component) return null
-            return <Component key={i} {...component.prop} {...events} />
+
+            let newEvent: { [K: string]: any } = {}
+            if (event) {
+              let name = item.replace('Setter', '')
+              name = Utils.capitalizeFirstChar(name, false)
+              const eventList = events[name] || {}
+              for (let eventName in eventList) {
+                newEvent[eventName] = (...args: any[]) => {
+                  event?.(propName, prop.name, name, args) // 动态传递参数
+                }
+              }
+            }
+
+            const props = {
+              ...prop,
+              ...newEvent
+            }
+
+            return <Component key={i} {...props} />
           })
         })}
       </div>

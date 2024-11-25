@@ -16,6 +16,19 @@ const Utils = {
   },
 
   /**
+   * 首字母转大写或小写
+   * @param str --- 要转换的字符串
+   * @param needUpperCase --- 首字母是否需要转成大写
+   */
+  capitalizeFirstChar: function (str: string = '', needUpperCase: boolean = true) {
+    if (Utils.isBlank(str)) return ''
+    let firstChar = str.substring(0, 1)
+    let surplusChar = str.substring(1, str.length)
+    firstChar = needUpperCase ? firstChar.toUpperCase() : firstChar.toLowerCase()
+    return firstChar + surplusChar
+  },
+
+  /**
    * 深拷贝
    */
   deepCopy: (o: any) => {
