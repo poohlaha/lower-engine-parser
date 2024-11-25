@@ -11,6 +11,7 @@
 @component_height: 24px;
 @paragraph_height: 32px;
 @font-size: 12px;
+@color_gray_light: #999999;
 
 .lower-engine-parser-box {
   // 段落
@@ -567,17 +568,25 @@
 .lower-engine-popover,
 .lower-engine-dropdown {
   max-width: 176px;
+
+  .ant-dropdown-menu {
+    padding: 10px 0;
+  }
   .lower-engine-content-item:not(:last-child) {
     margin-bottom: 4px;
   }
 
   .ant-dropdown-menu-item {
+    padding: 2px 8px !important;
+
     &:hover {
       background-color: #ffffff !important;
     }
   }
 
   .lower-engine-content-item {
+    padding: 3px 12px;
+
     &:hover,
     &.active {
       background: @hover_background;
@@ -806,8 +815,23 @@
   }
 }
 
-.lower-engine-select {
-  height: @paragraph_height;
+.lower-engine-selector {
+  &:not(.flex-direction-column) {
+    height: @paragraph_height;
+  }
+
+  &.flex-direction-column {
+    button {
+      height: 32px;
+      margin-top: 8px;
+    }
+  }
+
+  &.show-border {
+    button {
+      border: 1px solid @border_color;
+    }
+  }
 
   button {
     &:hover {
@@ -1270,5 +1294,48 @@
 .lower-engine-color {
   .lower-engine-color-header {
     margin-right: 10px;
+  }
+}
+
+.lower-engine-selector,
+.lower-engine-input {
+  &.flex-direction-column {
+    width: 100%;
+  }
+}
+
+.lower-engine-input {
+  .ant-input-affix-wrapper {
+    border-radius: 4px !important;
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &.ant-input-affix-wrapper-focused {
+      box-shadow: none !important;
+      border: 1px solid @border_color!important;
+    }
+
+    &.flex-direction-column {
+      height: 32px;
+    }
+
+    .ant-input {
+      &:hover,
+      &:focus,
+      &:focus-visible,
+      &.ant-input-affix-wrapper-focused {
+        border: unset !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .ant-input-suffix {
+      .ant-input-clear-icon {
+        svg {
+          color: @color_gray_light!important;
+        }
+      }
+    }
   }
 }

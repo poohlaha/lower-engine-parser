@@ -28,7 +28,8 @@ export {
     AlignmentSetter,
     MarginSetter,
     SelectorSetter,
-    ShadowSetter
+    ShadowSetter,
+    InputSetter
 } from './src/index'
 
 export type {
@@ -45,5 +46,6 @@ export type {
     IAlignmentSetterProps,
     IMarginSetterProps,
     ISelectSetterProps,
-    IShadowSetterProps
+    IShadowSetterProps,
+    IInputSetterProps
 } from './src/index'

@@ -201,7 +201,7 @@ const Stroke = (props: IStrokeProps): ReactElement => {
             }}
           />
 
-          <MPopover className="lower-engine-popover lower-engine-stroke-border-popover" placement="topRight" content={getBorderNode()}>
+          <MPopover width={112} className="lower-engine-popover lower-engine-stroke-border-popover" placement="topRight" content={getBorderNode()}>
             <div className="stroke-menu">
               <div className="svg-box-small no-hover border-svg-box">
                 <svg className="border-svg svg-icon" viewBox="0 0 24 24">

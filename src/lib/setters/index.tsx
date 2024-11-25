@@ -13,6 +13,7 @@ import Alignment from './alignment'
 import Margin from './margin'
 import Selector from './selector'
 import Shadow from './shadow'
+import Input from './input'
 
 import type { IOpacityProps } from './opacity'
 import type { IRoundProps } from './round'
@@ -24,7 +25,8 @@ import type { IAlignmentProps } from './alignment'
 import type { IMarginProps } from './margin'
 import type { ISelectorProps } from './selector'
 import type { IShadowProps } from './shadow'
+import type { IInputProps } from './input'
 
-export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow }
+export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow, Input }
 
-export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps, IAlignmentProps, IMarginProps, ISelectorProps, IShadowProps }
+export type { IOpacityProps, IRoundProps, IFillProps, IColorProps, IStrokeProps, IFontSizeProps, IFontBoldProps, IAlignmentProps, IMarginProps, ISelectorProps, IShadowProps, IInputProps }

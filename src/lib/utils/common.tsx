@@ -16,7 +16,6 @@ export interface ICommonProps {
   alignment?: Alignment // 文字和组件的对齐方式, 默认两端对齐(Justify)
   disabled?: boolean
   className?: string
-  arrangement?: number // 排列方式 0: 左右, 1: 上下
   tooltip?: string | React.ReactNode
   [K: string]: any
 }

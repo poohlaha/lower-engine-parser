@@ -52,9 +52,11 @@ const Utils = {
   getComponentAlignmentClassName: (title: string = '', alignment: string = 'justify') => {
     let className = 'flex-align-center'
 
+    /*
     if (Utils.isBlank(title || '')) {
       return `${className} flex-jsc-start`
     }
+     */
 
     if (alignment === 'left') {
       return `${className} flex-jsc-start`

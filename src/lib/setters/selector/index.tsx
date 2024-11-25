@@ -5,7 +5,7 @@
  */
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
-import { MDropdown } from '../../components'
+import { MDropdown, MText } from '../../components'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 
@@ -16,6 +16,7 @@ export interface ISelectorProps extends ICommonProps {
   items?: Array<string | number>
   onChange?: (value: string | number | { [K: string]: any }) => void
   dropdownWidth?: number
+  showBorder?: boolean
 }
 
 const Selector = (props: ISelectorProps): ReactElement => {
@@ -62,32 +63,34 @@ const Selector = (props: ISelectorProps): ReactElement => {
   }
 
   const render = () => {
-    const arrangement = props.arrangement ?? 0
+    const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
+    const showBorder = props.showBorder ?? false
+
     return (
-      <div className={`lower-engine-select flex-align-center ${props.className || ''}`}>
-        <MDropdown
-          className="lower-engine-select-dropdown"
-          menu={props.menu || []}
-          items={props.items || []}
-          selectValue={value}
-          width={props.dropdownWidth}
-          onChange={(value: string | number | { [K: string]: any } = '') => {
-            let newValue = value || ''
-            if (typeof value !== 'string' && typeof value !== 'number') {
-              newValue = value.value || ''
-            }
-            setValue(newValue as string | number)
-            props.onChange?.(value)
-          }}
-        >
-          <div className={`${arrangement === 1 ? 'flex-direction-column' : 'flex-align-center'}`}>
-            {!Utils.isBlank(props.text || '') && <div className="over-ellipsis flex-align-center">{props.text || ''}</div>}
+      <div className={`${props.className || ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
+        <div className={`${alignmentClassName || ''}`}>
+          {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
+          <MDropdown
+            className="lower-engine-select-dropdown"
+            menu={props.menu || []}
+            items={props.items || []}
+            selectValue={value}
+            width={props.dropdownWidth}
+            onChange={(value: string | number | { [K: string]: any } = '') => {
+              let newValue = value || ''
+              if (typeof value !== 'string' && typeof value !== 'number') {
+                newValue = value.value || ''
+              }
+              setValue(newValue as string | number)
+              props.onChange?.(value)
+            }}
+          >
             <button className="flex-align-center">
-              <span className="cursor-pointer text">{getValueText(props.default || '')}</span>
+              <span className="cursor-pointer text flex-1">{getValueText(props.default || '')}</span>
               {Icons.getArrowNode()}
             </button>
-          </div>
-        </MDropdown>
+          </MDropdown>
+        </div>
       </div>
     )
   }

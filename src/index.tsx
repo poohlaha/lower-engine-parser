@@ -5,6 +5,7 @@
  */
 import './assets/reset.less'
 import './assets/common.less'
+import './assets/component.less'
 import { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps } from './lib/utils/common'
 
 import {
@@ -19,6 +20,7 @@ import {
   Margin as MarginSetter,
   Selector as SelectorSetter,
   Shadow as ShadowSetter,
+  Input as InputSetter,
   IOpacityProps as IOpacitySetterProps,
   IRoundProps as IRoundSetterProps,
   IFillProps as IFillSetterProps,
@@ -30,6 +32,7 @@ import {
   IMarginProps as IMarginSetterProps,
   ISelectorProps as ISelectSetterProps,
   IShadowProps as IShadowSetterProps,
+  IInputProps as IInputSetterProps,
 } from './lib/setters'
 
 import Parser from './lib/parser'
@@ -41,7 +44,7 @@ export { Parser as LowerEngineParser }
 
 export type { IParserProps, IParserSchemaProps, IParserSchemaParamsProps }
 
-export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter, MarginSetter, SelectorSetter, ShadowSetter }
+export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter, MarginSetter, SelectorSetter, ShadowSetter, InputSetter }
 
 export type {
   IOpacitySetterProps,
@@ -55,4 +58,5 @@ export type {
   IMarginSetterProps,
   ISelectSetterProps,
   IShadowSetterProps,
+  IInputSetterProps,
 }
