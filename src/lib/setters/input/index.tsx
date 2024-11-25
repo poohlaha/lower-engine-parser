@@ -18,6 +18,7 @@ export interface IInputProps extends ICommonProps {
   showCount?: boolean
   suffix?: React.ReactNode
   type?: string
+  readOnly?: boolean
   onChange?: (value: string) => void
 }
 
@@ -53,6 +54,7 @@ const Input = (props: IInputProps): ReactElement => {
             suffix={props.suffix}
             type={props.type}
             value={value}
+            readOnly={props.readOnly ?? false}
             onChange={e => {
               const newValue = e.target.value || ''
               setValue(newValue)

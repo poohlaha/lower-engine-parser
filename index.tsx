@@ -29,7 +29,8 @@ export {
     MarginSetter,
     SelectorSetter,
     ShadowSetter,
-    InputSetter
+    InputSetter,
+    IconDialogSetter
 } from './src/index'
 
 export type {
@@ -47,5 +48,7 @@ export type {
     IMarginSetterProps,
     ISelectSetterProps,
     IShadowSetterProps,
-    IInputSetterProps
+    IInputSetterProps,
+    IIconDialogSetterProps,
+    IIconDialogTabSetterProps,
 } from './src/index'

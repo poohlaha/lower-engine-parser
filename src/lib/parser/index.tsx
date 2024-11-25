@@ -18,6 +18,7 @@ import {
   Selector as SelectorSetter,
   Shadow as ShadowSetter,
   Input as InputSetter,
+  IconDialog as IconDialogSetter,
 } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
@@ -51,6 +52,7 @@ const componentNameList: Array<string> = [
   'SelectorSetter',
   'ShadowSetter',
   'InputSetter',
+  'IconDialogSetter',
 ]
 
 const getComponentMap = () => {
@@ -67,6 +69,7 @@ const getComponentMap = () => {
   map.set(componentNameList[9], SelectorSetter)
   map.set(componentNameList[10], ShadowSetter)
   map.set(componentNameList[11], InputSetter)
+  map.set(componentNameList[12], IconDialogSetter)
 
   return map
 }
