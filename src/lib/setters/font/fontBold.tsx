@@ -6,7 +6,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Icons from '../../utils/icons'
-import Utils from '../../utils/utils'
 import { Tooltip } from 'antd'
 
 interface IFontBoldExportProps {

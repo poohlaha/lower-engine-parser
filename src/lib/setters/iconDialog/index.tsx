@@ -159,7 +159,7 @@ const MIconDialog = (props: IIconDialogProps): ReactElement => {
                           })
                         }}
                       >
-                        {value.component}
+                        {value.component()}
 
                         {!hasDanger ? <p className="text-c">{content || ''}</p> : content}
                       </div>

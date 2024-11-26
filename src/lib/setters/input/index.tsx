@@ -21,7 +21,15 @@ export interface IInputProps extends ICommonProps {
   readOnly?: boolean
   isSearch?: boolean
   onChange?: (value: string) => void
+  textArea?: IInputTextAreaProps
 }
+
+export interface IInputTextAreaProps {
+  show?: boolean
+  minRows?: number
+  maxRows?: number
+}
+
 
 const Input = (props: IInputProps): ReactElement => {
   const [value, setValue] = useState('')
@@ -34,6 +42,8 @@ const Input = (props: IInputProps): ReactElement => {
 
     if (typeof props.default === 'number') {
       defaultValue = `${props.default}`
+    } else {
+      defaultValue = props.default || ''
     }
 
     setValue(defaultValue)
@@ -41,7 +51,7 @@ const Input = (props: IInputProps): ReactElement => {
 
   const getSearchSvg = () => {
     const isSearch = props.isSearch ?? false
-    if (!isSearch) return props.prefix
+    if (!isSearch) return props.prefix || null
     return (
       <svg viewBox="64 64 896 896" focusable="false" data-icon="search" fill="currentColor" aria-hidden="true">
         <path
@@ -54,34 +64,57 @@ const Input = (props: IInputProps): ReactElement => {
 
   const render = () => {
     const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
+    const textArea: IInputTextAreaProps = props.textArea || {}
     return (
       <div className={`${props.className || ''} lower-engine-input ${alignmentClassName || ''}`}>
         <div className={`${alignmentClassName || ''} lower-engine-input-wrapper flex-1`}>
           {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
-          <AntdInput
-            placeholder={props.placeholder || '请输入'}
-            allowClear={props.allowClear ?? true}
-            disabled={props.disabled ?? false}
-            maxLength={props.maxLength}
-            prefix={getSearchSvg()}
-            showCount={props.showCount}
-            suffix={props.suffix}
-            type={props.type}
-            value={value}
-            readOnly={props.readOnly ?? false}
-            onChange={e => {
-              const newValue = e.target.value || ''
-              setValue(newValue)
-              props.onChange?.(newValue)
-            }}
-            onPressEnter={() => {
-              props.onChange?.(value)
-            }}
-            onClear={() => {
-              setValue('')
-              props.onChange?.('')
-            }}
-          />
+
+          {
+            textArea.show ? (
+                <AntdInput.TextArea
+                    onChange={e => {
+                      const newValue = e.target.value || ''
+                      setValue(newValue)
+                      props.onChange?.(newValue)
+                    }}
+                    placeholder={props.placeholder || '请输入'}
+                    allowClear={props.allowClear ?? true}
+                    disabled={props.disabled ?? false}
+                    maxLength={props.maxLength}
+                    showCount={props.showCount}
+                    value={value}
+                    readOnly={props.readOnly ?? false}
+                    autoSize={{ minRows: textArea.minRows ?? 3, maxRows: textArea.maxRows ?? 3 }}
+                />
+                ) : (
+                <AntdInput
+                    placeholder={props.placeholder || '请输入'}
+                    allowClear={props.allowClear ?? true}
+                    disabled={props.disabled ?? false}
+                    maxLength={props.maxLength}
+                    prefix={getSearchSvg()}
+                    showCount={props.showCount}
+                    suffix={props.suffix}
+                    type={props.type}
+                    value={value}
+                    readOnly={props.readOnly ?? false}
+                    onChange={e => {
+                      const newValue = e.target.value || ''
+                      setValue(newValue)
+                      props.onChange?.(newValue)
+                    }}
+                    onPressEnter={() => {
+                      props.onChange?.(value)
+                    }}
+                    onClear={() => {
+                      setValue('')
+                      props.onChange?.('')
+                    }}
+                />
+            )
+          }
+
         </div>
       </div>
     )

@@ -34,8 +34,9 @@ import {
   ISelectorProps as ISelectSetterProps,
   IShadowProps as IShadowSetterProps,
   IInputProps as IInputSetterProps,
+  IInputTextAreaProps as IInputTextAreaSetterProps,
   IIconDialogProps as IIconDialogSetterProps,
-  IIconDialogTabProps as IIconDialogTabSetterProps,
+  IIconDialogTabProps as IIconDialogTabSetterProps, IInputTextAreaProps,
 } from './lib/setters'
 
 import Parser from './lib/parser'
@@ -62,6 +63,7 @@ export type {
   ISelectSetterProps,
   IShadowSetterProps,
   IInputSetterProps,
+  IInputTextAreaSetterProps,
   IIconDialogSetterProps,
   IIconDialogTabSetterProps,
 }

@@ -49,6 +49,7 @@ export type {
     ISelectSetterProps,
     IShadowSetterProps,
     IInputSetterProps,
+    IInputTextAreaSetterProps,
     IIconDialogSetterProps,
     IIconDialogTabSetterProps,
 } from './src/index'

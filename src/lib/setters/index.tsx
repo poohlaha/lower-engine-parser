@@ -26,7 +26,7 @@ import type { IAlignmentProps } from './alignment'
 import type { IMarginProps } from './margin'
 import type { ISelectorProps } from './selector'
 import type { IShadowProps } from './shadow'
-import type { IInputProps } from './input'
+import type { IInputProps, IInputTextAreaProps } from './input'
 import type { IIconDialogProps, IIconDialogTabProps } from './iconDialog'
 
 export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow, Input, IconDialog }
@@ -44,6 +44,7 @@ export type {
   ISelectorProps,
   IShadowProps,
   IInputProps,
+  IInputTextAreaProps,
   IIconDialogProps,
   IIconDialogTabProps,
 }
