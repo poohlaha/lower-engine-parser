@@ -30,6 +30,7 @@ export {
     SelectorSetter,
     ShadowSetter,
     InputSetter,
+    InputNumberSetter,
     IconDialogSetter
 } from './src/index'
 
@@ -50,6 +51,7 @@ export type {
     IShadowSetterProps,
     IInputSetterProps,
     IInputTextAreaSetterProps,
+    IInputNumberSetterProps,
     IIconDialogSetterProps,
     IIconDialogTabSetterProps,
 } from './src/index'

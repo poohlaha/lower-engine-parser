@@ -19,6 +19,7 @@ import {
   Shadow as ShadowSetter,
   Input as InputSetter,
   IconDialog as IconDialogSetter,
+  InputNumber as InputNumberSetter,
 } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
@@ -52,6 +53,7 @@ const componentNameList: Array<string> = [
   'SelectorSetter',
   'ShadowSetter',
   'InputSetter',
+  'InputNumberSetter',
   'IconDialogSetter',
 ]
 
@@ -69,7 +71,8 @@ const getComponentMap = () => {
   map.set(componentNameList[9], SelectorSetter)
   map.set(componentNameList[10], ShadowSetter)
   map.set(componentNameList[11], InputSetter)
-  map.set(componentNameList[12], IconDialogSetter)
+  map.set(componentNameList[12], InputNumberSetter)
+  map.set(componentNameList[13], IconDialogSetter)
 
   return map
 }
@@ -152,7 +155,7 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
 
             const props = {
               ...prop,
-              ...newEvent
+              ...newEvent,
             }
 
             return <Component key={i} {...props} />

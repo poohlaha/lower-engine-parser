@@ -1295,13 +1295,6 @@
   }
 }
 
-.lower-engine-selector,
-.lower-engine-input {
-  &.flex-direction-column {
-    width: 100%;
-  }
-}
-
 .lower-engine-input {
   .ant-input-prefix {
     svg {
@@ -1355,8 +1348,8 @@
 
   .icon-dialog-text {
     &.has-icon {
-      width: 24px!important;
-      height: 24px!important;
+      width: 24px !important;
+      height: 24px !important;
     }
 
     width: 100%;
@@ -1455,5 +1448,29 @@
         margin-top: 4px;
       }
     }
+  }
+}
+
+.lower-engine-input-number {
+  border-radius: 4px !important;
+
+  &.flex-direction-column {
+    .ant-input-number {
+      width: 100%;
+    }
+  }
+
+  &.show-border {
+    .ant-input-number {
+      border-color: @border_color !important;
+    }
+  }
+}
+
+.lower-engine-selector,
+.lower-engine-input,
+.lower-engine-input-number {
+  &.flex-direction-column {
+    width: 100%;
   }
 }

@@ -14,6 +14,7 @@ import Margin from './margin'
 import Selector from './selector'
 import Shadow from './shadow'
 import Input from './input'
+import InputNumber from './inputNumber'
 import IconDialog from './iconDialog'
 
 import type { IOpacityProps } from './opacity'
@@ -27,9 +28,10 @@ import type { IMarginProps } from './margin'
 import type { ISelectorProps } from './selector'
 import type { IShadowProps } from './shadow'
 import type { IInputProps, IInputTextAreaProps } from './input'
+import type { IInputNumberProps } from './inputNumber'
 import type { IIconDialogProps, IIconDialogTabProps } from './iconDialog'
 
-export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow, Input, IconDialog }
+export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow, Input, InputNumber, IconDialog }
 
 export type {
   IOpacityProps,
@@ -45,6 +47,7 @@ export type {
   IShadowProps,
   IInputProps,
   IInputTextAreaProps,
+  IInputNumberProps,
   IIconDialogProps,
   IIconDialogTabProps,
 }

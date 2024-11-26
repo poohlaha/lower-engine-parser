@@ -30,7 +30,6 @@ export interface IInputTextAreaProps {
   maxRows?: number
 }
 
-
 const Input = (props: IInputProps): ReactElement => {
   const [value, setValue] = useState('')
 
@@ -70,51 +69,48 @@ const Input = (props: IInputProps): ReactElement => {
         <div className={`${alignmentClassName || ''} lower-engine-input-wrapper flex-1`}>
           {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 
-          {
-            textArea.show ? (
-                <AntdInput.TextArea
-                    onChange={e => {
-                      const newValue = e.target.value || ''
-                      setValue(newValue)
-                      props.onChange?.(newValue)
-                    }}
-                    placeholder={props.placeholder || '请输入'}
-                    allowClear={props.allowClear ?? true}
-                    disabled={props.disabled ?? false}
-                    maxLength={props.maxLength}
-                    showCount={props.showCount}
-                    value={value}
-                    readOnly={props.readOnly ?? false}
-                    autoSize={{ minRows: textArea.minRows ?? 3, maxRows: textArea.maxRows ?? 3 }}
-                />
-                ) : (
-                <AntdInput
-                    placeholder={props.placeholder || '请输入'}
-                    allowClear={props.allowClear ?? true}
-                    disabled={props.disabled ?? false}
-                    maxLength={props.maxLength}
-                    prefix={getSearchSvg()}
-                    showCount={props.showCount}
-                    suffix={props.suffix}
-                    type={props.type}
-                    value={value}
-                    readOnly={props.readOnly ?? false}
-                    onChange={e => {
-                      const newValue = e.target.value || ''
-                      setValue(newValue)
-                      props.onChange?.(newValue)
-                    }}
-                    onPressEnter={() => {
-                      props.onChange?.(value)
-                    }}
-                    onClear={() => {
-                      setValue('')
-                      props.onChange?.('')
-                    }}
-                />
-            )
-          }
-
+          {textArea.show ? (
+            <AntdInput.TextArea
+              onChange={e => {
+                const newValue = e.target.value || ''
+                setValue(newValue)
+                props.onChange?.(newValue)
+              }}
+              placeholder={props.placeholder || '请输入'}
+              allowClear={props.allowClear ?? true}
+              disabled={props.disabled ?? false}
+              maxLength={props.maxLength}
+              showCount={props.showCount}
+              value={value}
+              readOnly={props.readOnly ?? false}
+              autoSize={{ minRows: textArea.minRows ?? 3, maxRows: textArea.maxRows ?? 3 }}
+            />
+          ) : (
+            <AntdInput
+              placeholder={props.placeholder || '请输入'}
+              allowClear={props.allowClear ?? true}
+              disabled={props.disabled ?? false}
+              maxLength={props.maxLength}
+              prefix={getSearchSvg()}
+              showCount={props.showCount}
+              suffix={props.suffix}
+              type={props.type}
+              value={value}
+              readOnly={props.readOnly ?? false}
+              onChange={e => {
+                const newValue = e.target.value || ''
+                setValue(newValue)
+                props.onChange?.(newValue)
+              }}
+              onPressEnter={() => {
+                props.onChange?.(value)
+              }}
+              onClear={() => {
+                setValue('')
+                props.onChange?.('')
+              }}
+            />
+          )}
         </div>
       </div>
     )

@@ -21,6 +21,7 @@ import {
   Selector as SelectorSetter,
   Shadow as ShadowSetter,
   Input as InputSetter,
+  InputNumber as InputNumberSetter,
   IconDialog as IconDialogSetter,
   IOpacityProps as IOpacitySetterProps,
   IRoundProps as IRoundSetterProps,
@@ -35,8 +36,10 @@ import {
   IShadowProps as IShadowSetterProps,
   IInputProps as IInputSetterProps,
   IInputTextAreaProps as IInputTextAreaSetterProps,
+  IInputNumberProps as IInputNumberSetterProps,
   IIconDialogProps as IIconDialogSetterProps,
-  IIconDialogTabProps as IIconDialogTabSetterProps, IInputTextAreaProps,
+  IIconDialogTabProps as IIconDialogTabSetterProps,
+  IInputTextAreaProps,
 } from './lib/setters'
 
 import Parser from './lib/parser'
@@ -48,7 +51,22 @@ export { Parser as LowerEngineParser }
 
 export type { IParserProps, IParserSchemaProps, IParserSchemaParamsProps }
 
-export { OpacitySetter, RoundSetter, FillSetter, ColorSetter, StrokeSetter, FontSizeSetter, FontBoldSetter, AlignmentSetter, MarginSetter, SelectorSetter, ShadowSetter, InputSetter, IconDialogSetter }
+export {
+  OpacitySetter,
+  RoundSetter,
+  FillSetter,
+  ColorSetter,
+  StrokeSetter,
+  FontSizeSetter,
+  FontBoldSetter,
+  AlignmentSetter,
+  MarginSetter,
+  SelectorSetter,
+  ShadowSetter,
+  InputSetter,
+  InputNumberSetter,
+  IconDialogSetter,
+}
 
 export type {
   IOpacitySetterProps,
@@ -64,6 +82,7 @@ export type {
   IShadowSetterProps,
   IInputSetterProps,
   IInputTextAreaSetterProps,
+  IInputNumberSetterProps,
   IIconDialogSetterProps,
   IIconDialogTabSetterProps,
 }
