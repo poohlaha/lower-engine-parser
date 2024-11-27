@@ -13,7 +13,7 @@ export interface ISelectorProps extends ICommonProps {
   text?: string
   placement?: string
   menu?: Array<{ [K: string]: any }>
-  items?: Array<string | number>
+  items?: Array<string | number | { [K: string]: any }>
   onChange?: (value: string | number | { [K: string]: any }) => void
   dropdownWidth?: number
   showBorder?: boolean
@@ -40,32 +40,42 @@ const Selector = (props: ISelectorProps): ReactElement => {
 
   const getValueText = (value: any = '') => {
     if (typeof value === 'number') {
-      return value
+      return { text: value, icon: null }
     }
 
     if (typeof value === 'string') {
-      return value || ''
+      return { text: value || '', icon: null }
     }
 
     if (!Utils.isBlank(value.label || '')) {
-      return value.label || ''
+      return { text: value.label || '', icon: value.icon || null }
     }
 
     if (!Utils.isBlank(value.text || '')) {
-      return value.text || ''
+      return { text: value.text || '', icon: value.icon || null }
     }
 
     if (!Utils.isBlank(value.name || '')) {
-      return value.name || ''
+      return { text: value.name || '', icon: value.icon || null }
     }
 
-    return ''
+    return { text: '', icon: null }
+  }
+
+  const getIcon = (icon: any = '') => {
+    if (!icon) return null
+
+    if (typeof icon === 'string') {
+      return <i className={`lower-engine-selector-icon ${icon}`} />
+    }
+
+    return <div className="lower-engine-selector-icon">{icon}</div>
   }
 
   const render = () => {
     const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
     const showBorder = props.showBorder ?? false
-
+    const { text, icon } = getValueText(props.default || '')
     return (
       <div className={`${props.className || ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
         <div className={`${alignmentClassName || ''}`}>
@@ -76,6 +86,7 @@ const Selector = (props: ISelectorProps): ReactElement => {
             items={props.items || []}
             selectValue={value}
             width={props.dropdownWidth}
+            placement={props.placement}
             onChange={(value: string | number | { [K: string]: any } = '') => {
               let newValue = value || ''
               if (typeof value !== 'string' && typeof value !== 'number') {
@@ -86,7 +97,8 @@ const Selector = (props: ISelectorProps): ReactElement => {
             }}
           >
             <button className="flex-align-center">
-              <span className="cursor-pointer text flex-1">{getValueText(props.default || '')}</span>
+              {getIcon(icon)}
+              <span className="cursor-pointer text flex-1">{text || ''}</span>
               {Icons.getArrowNode()}
             </button>
           </MDropdown>

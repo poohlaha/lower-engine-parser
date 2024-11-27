@@ -24,6 +24,16 @@ export interface IDropdownProps {
 }
 
 const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
+  const getIcon = (icon: any = '') => {
+    if (!icon) return null
+
+    if (typeof icon === 'string') {
+      return <i className={`lower-engine-content-item-icon ${icon}`} />
+    }
+
+    return <div className="lower-engine-content-item-icon">{icon}</div>
+  }
+
   const getMenus = () => {
     let menu = props.menu || []
     if (menu.length > 0) return menu
@@ -34,8 +44,10 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
       let suffix: string = ''
       let text = item || ''
       let value = item || ''
+      let icon = null
       if (typeof item !== 'string' && typeof item !== 'number') {
         let newItem: any = item || {}
+        icon = newItem.icon || ''
         suffix = newItem.suffix || ''
         text = newItem.label || newItem.text || newItem.name || ''
         value = newItem.value || ''
@@ -45,6 +57,7 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
         label: (
           <div className={`lower-engine-content-item w100 flex-align-center cursor-pointer ${props.selectValue === value ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
             {Icons.getSuccessNode()}
+            {getIcon(icon)}
             <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
             {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
           </div>
