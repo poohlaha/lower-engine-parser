@@ -859,9 +859,33 @@
   }
 
   button {
-    &:hover {
+    &.readonly {
+      opacity: 1;
+      cursor: not-allowed !important;
+    }
+
+    &.readonly,
+    &.disabled {
+      .text,
+      svg {
+        cursor: not-allowed !important;
+      }
+    }
+
+    &.disabled {
+      cursor: not-allowed !important;
+      opacity: 0.6 !important;
+      background: @hover_background!important;
+    }
+
+    &:not(.disabled):not(.readonly):hover {
       border: 1px solid @border_color;
       border-radius: 4px;
+
+      .svg-icon,
+      svg {
+        color: rgba(0, 0, 0, 0.85) !important;
+      }
     }
 
     .text {
@@ -874,9 +898,13 @@
     }
 
     .arrow-svg-box {
-      color: rgba(0, 0, 0, 0.4);
       height: 24px;
       width: 24px;
+
+      .svg-icon,
+      svg {
+        color: rgba(0, 0, 0, 0.4);
+      }
     }
   }
 }

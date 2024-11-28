@@ -17,6 +17,8 @@ export interface ISelectorProps extends ICommonProps {
   onChange?: (value: string | number | { [K: string]: any }) => void
   dropdownWidth?: number
   showBorder?: boolean
+  readOnly?: boolean
+  disabled?: boolean
 }
 
 const Selector = (props: ISelectorProps): ReactElement => {
@@ -72,36 +74,49 @@ const Selector = (props: ISelectorProps): ReactElement => {
     return <div className="lower-engine-selector-icon">{icon}</div>
   }
 
+  const getButtonNode = (text: string = '', icon: any = null, readOnly: boolean = false, disabled: boolean = false) => {
+    return (
+      <button className={`flex-align-center ${readOnly ? 'readonly' : ''} ${disabled ? 'disabled' : ''}`}>
+        {getIcon(icon)}
+        <span className="cursor-pointer text flex-1">{text || ''}</span>
+        {Icons.getArrowNode()}
+      </button>
+    )
+  }
+
   const render = () => {
     const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
     const showBorder = props.showBorder ?? false
     const { text, icon } = getValueText(props.default || '')
+    const readOnly = props.readOnly ?? false
+    const disabled = props.disabled ?? false
     return (
       <div className={`${props.className || ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
         <div className={`${alignmentClassName || ''}`}>
           {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
-          <MDropdown
-            className="lower-engine-select-dropdown"
-            menu={props.menu || []}
-            items={props.items || []}
-            selectValue={value}
-            width={props.dropdownWidth}
-            placement={props.placement}
-            onChange={(value: string | number | { [K: string]: any } = '') => {
-              let newValue = value || ''
-              if (typeof value !== 'string' && typeof value !== 'number') {
-                newValue = value.value || ''
-              }
-              setValue(newValue as string | number)
-              props.onChange?.(value)
-            }}
-          >
-            <button className="flex-align-center">
-              {getIcon(icon)}
-              <span className="cursor-pointer text flex-1">{text || ''}</span>
-              {Icons.getArrowNode()}
-            </button>
-          </MDropdown>
+
+          {readOnly || disabled ? (
+            getButtonNode(text, icon, readOnly, disabled)
+          ) : (
+            <MDropdown
+              className="lower-engine-select-dropdown"
+              menu={props.menu || []}
+              items={props.items || []}
+              selectValue={value}
+              width={props.dropdownWidth}
+              placement={props.placement}
+              onChange={(value: string | number | { [K: string]: any } = '') => {
+                let newValue = value || ''
+                if (typeof value !== 'string' && typeof value !== 'number') {
+                  newValue = value.value || ''
+                }
+                setValue(newValue as string | number)
+                props.onChange?.(value)
+              }}
+            >
+              {getButtonNode(text, icon, readOnly, disabled)}
+            </MDropdown>
+          )}
         </div>
       </div>
     )

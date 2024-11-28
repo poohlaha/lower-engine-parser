@@ -27,7 +27,7 @@ const Icons = {
     return (
       <div className="svg-box-small no-hover flex-center arrow-svg-box">
         <svg className="arrow-svg svg-icon" viewBox="0 0 26 26">
-          <path fill="#000" fillRule="evenodd" d="M9.65 11.15c.2-.2.5-.2.7 0L13 13.79l2.65-2.64a.5.5 0 0 1 .7.7l-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 0 1 0-.7Z" clipRule="evenodd"></path>
+          <path fill="currentColor" fillRule="evenodd" d="M9.65 11.15c.2-.2.5-.2.7 0L13 13.79l2.65-2.64a.5.5 0 0 1 .7.7l-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 0 1 0-.7Z" clipRule="evenodd"></path>
         </svg>
       </div>
     )
