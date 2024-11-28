@@ -76,7 +76,7 @@ const Selector = (props: ISelectorProps): ReactElement => {
 
   const getButtonNode = (text: string = '', icon: any = null, readOnly: boolean = false, disabled: boolean = false) => {
     return (
-      <button className={`flex-align-center ${readOnly ? 'readonly' : ''} ${disabled ? 'disabled' : ''}`}>
+      <button className={`flex-align-center wh100 ${readOnly ? 'readonly' : ''} ${disabled ? 'disabled' : ''}`}>
         {getIcon(icon)}
         <span className="cursor-pointer text flex-1">{text || ''}</span>
         {Icons.getArrowNode()}
@@ -92,7 +92,7 @@ const Selector = (props: ISelectorProps): ReactElement => {
     const disabled = props.disabled ?? false
     return (
       <div className={`${props.className || ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
-        <div className={`${alignmentClassName || ''}`}>
+        <div className={`${alignmentClassName || ''} wh100`}>
           {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 
           {readOnly || disabled ? (
