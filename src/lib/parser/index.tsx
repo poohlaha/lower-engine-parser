@@ -148,7 +148,7 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
               const eventList = events[name] || {}
               for (let eventName in eventList) {
                 newEvent[eventName] = (...args: any[]) => {
-                  event?.(propName, prop.name, name, args) // 动态传递参数
+                  event?.(propName, prop.name, eventName, args) // 动态传递参数
                 }
               }
             }

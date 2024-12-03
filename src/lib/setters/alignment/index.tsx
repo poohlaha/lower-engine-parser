@@ -49,11 +49,13 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                 Alignment[0],
                 flex
                   ? {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[0],
                       textAlign: Alignment[0],
                       justifyContent: Alignment_FLEX[1],
                     }
                   : {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[0],
                       textAlign: Alignment[0],
                       justifyContent: Alignment_FLEX[0],
@@ -74,11 +76,13 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                 Alignment[1],
                 flex
                   ? {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[1],
                       textAlign: Alignment[1],
                       justifyContent: Alignment_FLEX[1],
                     }
                   : {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[1],
                       textAlign: Alignment[1],
                       justifyContent: Alignment_FLEX[0],
@@ -99,11 +103,13 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                 Alignment[2],
                 flex
                   ? {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[2],
                       textAlign: Alignment[2],
                       justifyContent: Alignment_FLEX[1],
                     }
                   : {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[2],
                       textAlign: Alignment[2],
                       justifyContent: Alignment_FLEX[0],
@@ -124,11 +130,13 @@ const Alignment = (props: IAlignmentProps): ReactElement => {
                 Alignment[3],
                 flex
                   ? {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[1],
                       textAlign: Alignment[3],
                       justifyContent: Alignment_FLEX[1],
                     }
                   : {
+                      display: 'flex',
                       alignItems: Alignment_FLEX[1],
                       textAlign: Alignment[3],
                       justifyContent: Alignment_FLEX[0],
