@@ -40,6 +40,46 @@ const MIconDialog = (props: IIconDialogProps): ReactElement => {
   useEffect(() => {
     setOpen(props.open ?? false)
   }, [props.open])
+
+  useEffect(() => {
+    let defaultValue = props.default
+    if (!defaultValue) return
+
+    setTabActiveKey('0')
+    setSelected({})
+
+    const tabs = props.tabs || []
+    for (let i = 0; i < tabs.length; i++) {
+      const tab = tabs[i] || {}
+      const iconValues = getSearchValues(tab || {}) || []
+      for (let j = 0; j < iconValues.length; j++) {
+        const icon = iconValues[j] || {}
+        if (!Utils.isObjectNull(icon)) {
+          let hasSelected: boolean = false
+          if (typeof defaultValue === 'string') {
+            if (defaultValue === icon.text || '') {
+              hasSelected = true
+            }
+          } else {
+            if (defaultValue.text === icon.text || '') {
+              hasSelected = true
+            }
+          }
+
+          if (hasSelected) {
+            setTabActiveKey(`${i}`)
+            setSelected({
+              ...icon,
+              index: j,
+            })
+            break
+          }
+        }
+      }
+    }
+
+  }, [props.default])
+
   const getTabItems = () => {
     const tabs = props.tabs || []
     if (tabs.length === 0) return []
