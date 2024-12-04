@@ -77,7 +77,6 @@ const MIconDialog = (props: IIconDialogProps): ReactElement => {
         }
       }
     }
-
   }, [props.default])
 
   const getTabItems = () => {
