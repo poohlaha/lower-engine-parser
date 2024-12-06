@@ -43,10 +43,11 @@ const MIconDialog = (props: IIconDialogProps): ReactElement => {
 
   useEffect(() => {
     let defaultValue = props.default
-    if (!defaultValue) return
 
     setTabActiveKey('0')
     setSelected({})
+
+    if (!defaultValue) return
 
     const tabs = props.tabs || []
     for (let i = 0; i < tabs.length; i++) {
