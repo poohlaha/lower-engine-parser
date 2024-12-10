@@ -69,10 +69,7 @@ const MIconDialog = (props: IIconDialogProps): ReactElement => {
 
           if (hasSelected) {
             setTabActiveKey(`${i}`)
-            setSelected({
-              ...icon,
-              index: j,
-            })
+            setSelected(icon)
             break
           }
         }
@@ -194,13 +191,10 @@ const MIconDialog = (props: IIconDialogProps): ReactElement => {
                     }
                     return (
                       <div
-                        className={`tab-icon flex-center flex-direction-column ${selected.index === index ? 'active' : ''}`}
+                        className={`tab-icon flex-center flex-direction-column ${selected.text === value.text ? 'active' : ''}`}
                         key={index}
                         onClick={() => {
-                          setSelected({
-                            ...value,
-                            index,
-                          })
+                          setSelected(value)
                         }}
                       >
                         {value.component?.()}
