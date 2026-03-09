@@ -16,6 +16,7 @@ import Shadow from './shadow'
 import Input from './input'
 import InputNumber from './inputNumber'
 import IconDialog from './iconDialog'
+import Upload from './upload'
 
 import type { IOpacityProps } from './opacity'
 import type { IRoundProps } from './round'
@@ -30,8 +31,9 @@ import type { IShadowProps } from './shadow'
 import type { IInputProps, IInputTextAreaProps } from './input'
 import type { IInputNumberProps } from './inputNumber'
 import type { IIconDialogProps, IIconDialogTabProps } from './iconDialog'
+import type { IUploadProps } from './upload'
 
-export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow, Input, InputNumber, IconDialog }
+export { Opacity, Round, Fill, Color, Stroke, FontSize, FontBold, Alignment, Margin, Selector, Shadow, Input, InputNumber, IconDialog, Upload }
 
 export type {
   IOpacityProps,
@@ -50,4 +52,5 @@ export type {
   IInputNumberProps,
   IIconDialogProps,
   IIconDialogTabProps,
+  IUploadProps,
 }
