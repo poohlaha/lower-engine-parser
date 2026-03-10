@@ -858,6 +858,20 @@
     }
   }
 
+  &:not(.lower-engine-text-inner-selector) button:not(.disabled):not(.readonly):hover, &.lower-engine-text-inner-selector:hover {
+    border: 1px solid @border_color!important;
+    border-radius: 4px;
+
+    .svg-icon,
+    svg {
+      color: rgba(0, 0, 0, 0.85) !important;
+    }
+  }
+
+  &.lower-engine-text-inner-selector {
+    border: 1px solid transparent;
+  }
+
   button {
     &.readonly {
       opacity: 1;
@@ -876,16 +890,6 @@
       cursor: not-allowed !important;
       opacity: 0.6 !important;
       background: @hover_background!important;
-    }
-
-    &:not(.disabled):not(.readonly):hover {
-      border: 1px solid @border_color;
-      border-radius: 4px;
-
-      .svg-icon,
-      svg {
-        color: rgba(0, 0, 0, 0.85) !important;
-      }
     }
 
     .text {

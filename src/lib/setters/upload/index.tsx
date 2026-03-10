@@ -8,6 +8,7 @@ import { ICommonProps } from '../../utils/common'
 import { Upload as AntUpload } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import Utils from '../../utils/utils'
+import { MText } from '../../components'
 
 export interface IUploadProps extends ICommonProps {
   uploadFileName: string
@@ -26,7 +27,7 @@ const Upload = (props: IUploadProps): ReactElement => {
   const [uploadLoading, setUploadLoading] = useState(false)
 
   const getUploadButton = () => {
-    if (Utils.isBlank(props.url || '')) {
+    if (!Utils.isBlank(props.url || '')) {
       return <img className="rounded-md" src={props.url || ''} alt="avatar" style={{ width: '100%', height: '100%' }} />
     }
 
@@ -41,6 +42,8 @@ const Upload = (props: IUploadProps): ReactElement => {
     const listType = props.listType ?? 'picture-card'
     return (
       <div className={`${props.className || ''} lower-engine-upload`}>
+        {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
+
         <AntUpload
           name={props.uploadFileName || ''}
           listType={listType}

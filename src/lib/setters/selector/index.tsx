@@ -11,6 +11,7 @@ import Utils from '../../utils/utils'
 
 export interface ISelectorProps extends ICommonProps {
   text?: string
+  textInner?: boolean
   placement?: string
   menu?: Array<{ [K: string]: any }>
   items?: Array<string | number | { [K: string]: any }>
@@ -90,8 +91,9 @@ const Selector = (props: ISelectorProps): ReactElement => {
     const { text, icon } = getValueText(props.default || '')
     const readOnly = props.readOnly ?? false
     const disabled = props.disabled ?? false
+    const textInner = props.textInner ?? false
     return (
-      <div className={`${props.className || ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
+      <div className={`${props.className || ''} ${textInner ? 'lower-engine-text-inner-selector' : ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
         <div className={`${alignmentClassName || ''} wh100`}>
           {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 

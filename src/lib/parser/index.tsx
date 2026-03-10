@@ -20,6 +20,7 @@ import {
   Input as InputSetter,
   IconDialog as IconDialogSetter,
   InputNumber as InputNumberSetter,
+  Upload as UploadSetter,
 } from '../setters'
 import { ICommonProps } from '../utils/common'
 import MLowerEngine from '../setters/lower'
@@ -55,6 +56,7 @@ const componentNameList: Array<string> = [
   'InputSetter',
   'InputNumberSetter',
   'IconDialogSetter',
+  'UploadSetter'
 ]
 
 const getComponentMap = () => {
@@ -73,6 +75,7 @@ const getComponentMap = () => {
   map.set(componentNameList[11], InputSetter)
   map.set(componentNameList[12], InputNumberSetter)
   map.set(componentNameList[13], IconDialogSetter)
+  map.set(componentNameList[14], UploadSetter)
 
   return map
 }
@@ -82,16 +85,21 @@ const getComponentNameList = (items: Array<{ [K: string]: any }> = []) => {
 
   let componentNames: Array<{ [K: string]: any }> = []
   for (const item of items) {
-    let setter: Array<string> | string = item.setter || ''
+    let setter: Array<string> | string | Record<string, any> = item.setter || ''
     let setters: Array<string> = []
     if (typeof setter === 'string') {
+      // string
       if (Utils.isBlank(setter || '')) {
         setters.push('InputSetter')
       } else {
         setters.push(setter)
       }
     } else if (Array.isArray(setter)) {
+      // array
       setters = setters.concat(setter || [])
+    } else if (typeof setter === 'object') {
+      // object
+      setters.push(setter.name)
     }
 
     let newSetters: Array<string> = []
@@ -130,39 +138,39 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
   const componentNameList = getComponentNameList(parserProps) || []
 
   return (
-    <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
-      <div className="lower-engine-parser-paragraph flex-align-center">
-        {componentNameList.map((component: { [K: string]: any } = {}, index: number) => {
-          let names = component.componentNames || []
-          let prop = component.prop || {}
-          if (names.length === 0) return null
+      <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
+        <div className="lower-engine-parser-paragraph flex-align-center">
+          {componentNameList.map((component: { [K: string]: any } = {}, index: number) => {
+            let names = component.componentNames || []
+            let prop = component.prop || {}
+            if (names.length === 0) return null
 
-          return names.map((item: string = '', i: number) => {
-            const Component = map.get(item) || null
-            if (!Component) return null
+            return names.map((item: string = '', i: number) => {
+              const Component = map.get(item) || null
+              if (!Component) return null
 
-            let newEvent: { [K: string]: any } = {}
-            if (event) {
-              let name = item.replace('Setter', '')
-              name = Utils.capitalizeFirstChar(name, false)
-              const eventList = events[name] || {}
-              for (let eventName in eventList) {
-                newEvent[eventName] = (...args: any[]) => {
-                  event?.(propName, prop.name, eventName, args) // 动态传递参数
+              let newEvent: { [K: string]: any } = {}
+              if (event) {
+                let name = item.replace('Setter', '')
+                name = Utils.capitalizeFirstChar(name, false)
+                const eventList = events[name] || {}
+                for (let eventName in eventList) {
+                  newEvent[eventName] = (...args: any[]) => {
+                    event?.(propName, prop.name, eventName, args) // 动态传递参数
+                  }
                 }
               }
-            }
 
-            const props = {
-              ...prop,
-              ...newEvent,
-            }
+              const props = {
+                ...prop,
+                ...newEvent,
+              }
 
-            return <Component key={i} {...props} />
-          })
-        })}
-      </div>
-    </MLowerEngine>
+              return <Component key={i} {...props} />
+            })
+          })}
+        </div>
+      </MLowerEngine>
   )
 }
 
