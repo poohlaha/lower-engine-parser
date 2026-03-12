@@ -76,6 +76,7 @@ const getComponentMap = () => {
   map.set(componentNameList[12], InputNumberSetter)
   map.set(componentNameList[13], IconDialogSetter)
   map.set(componentNameList[14], UploadSetter)
+  // map.set('CustomerSetter', '<null>')
 
   return map
 }
@@ -136,10 +137,12 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
   }
 
   const componentNameList = getComponentNameList(parserProps) || []
+  const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
 
+  const componentClass = props.alignment === 'upDown' ? 'page-margin-paragraph-top w100' : ''
   return (
       <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
-        <div className="lower-engine-parser-paragraph flex-align-center">
+        <div className={`lower-engine-parser-paragraph flex-align-center w100 ${alignmentClassName || ''}`}>
           {componentNameList.map((component: { [K: string]: any } = {}, index: number) => {
             let names = component.componentNames || []
             let prop = component.prop || {}
@@ -166,7 +169,7 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
                 ...newEvent,
               }
 
-              return <Component key={i} {...props} />
+              return <Component key={i} {...props} className={`${component.className || ''} ${componentClass || ''}`} />
             })
           })}
         </div>
