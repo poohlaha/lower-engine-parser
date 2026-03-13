@@ -56,7 +56,7 @@ const componentNameList: Array<string> = [
   'InputSetter',
   'InputNumberSetter',
   'IconDialogSetter',
-  'UploadSetter'
+  'UploadSetter',
 ]
 
 const getComponentMap = () => {
@@ -140,40 +140,48 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
   const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
 
   const componentClass = props.alignment === 'upDown' ? 'page-margin-paragraph-top w100' : ''
+  const parentName = props.name || ''
   return (
-      <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
-        <div className={`lower-engine-parser-paragraph flex-align-center w100 ${alignmentClassName || ''}`}>
-          {componentNameList.map((component: { [K: string]: any } = {}, index: number) => {
-            let names = component.componentNames || []
-            let prop = component.prop || {}
-            if (names.length === 0) return null
+    <MLowerEngine className={`${props.className || ''} lower-engine-parser-box`} title={props.title || ''} alignment={props.alignment}>
+      <div className={`lower-engine-parser-paragraph flex-align-center w100 ${alignmentClassName || ''}`}>
+        {componentNameList.map((component: { [K: string]: any } = {}, index: number) => {
+          let names = component.componentNames || []
+          let prop = component.prop || {}
+          const show = prop.show ?? true
+          if (names.length === 0 || !show) return null
 
-            return names.map((item: string = '', i: number) => {
-              const Component = map.get(item) || null
-              if (!Component) return null
+          return names.map((item: string = '', i: number) => {
+            const Component = map.get(item) || null
+            if (!Component) return null
 
-              let newEvent: { [K: string]: any } = {}
-              if (event) {
-                let name = item.replace('Setter', '')
-                name = Utils.capitalizeFirstChar(name, false)
-                const eventList = events[name] || {}
-                for (let eventName in eventList) {
-                  newEvent[eventName] = (...args: any[]) => {
-                    event?.(propName, prop.name, eventName, args) // 动态传递参数
+            let newEvent: { [K: string]: any } = {}
+            if (event) {
+              let name = item.replace('Setter', '')
+              name = Utils.capitalizeFirstChar(name, false)
+              const eventList = events[name] || {}
+              for (let eventName in eventList) {
+                newEvent[eventName] = (...args: any[]) => {
+                  let cName = props.name || ''
+                  let parent = parentName
+                  if (!Utils.isBlank(cName || '') && parentName === cName) {
+                    parent = ''
                   }
+
+                  event?.(propName, Utils.isBlank(parent || '') ? cName : { name: cName, parent }, eventName, args) // 动态传递参数
                 }
               }
+            }
 
-              const props = {
-                ...prop,
-                ...newEvent,
-              }
+            const props = {
+              ...prop,
+              ...newEvent,
+            }
 
-              return <Component key={i} {...props} className={`${component.className || ''} ${componentClass || ''}`} />
-            })
-          })}
-        </div>
-      </MLowerEngine>
+            return <Component key={i} {...props} className={`${component.className || ''} ${componentClass || ''}`} />
+          })
+        })}
+      </div>
+    </MLowerEngine>
   )
 }
 
