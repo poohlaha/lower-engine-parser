@@ -44,6 +44,7 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
       let suffix: string = ''
       let text = item || ''
       let value = item || ''
+      let desc = typeof item === 'object' ? item.desc || '' : ''
       let icon = null
       if (typeof item !== 'string' && typeof item !== 'number') {
         let newItem: any = item || {}
@@ -55,14 +56,24 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
 
       options.push({
         label: (
-          <div className={`lower-engine-content-item w100 flex-align-center cursor-pointer ${props.selectValue === value ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
-            {Icons.getSuccessNode()}
-            {getIcon(icon)}
-            <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
-            {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
+          <div className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${props.selectValue === value ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
+            <div className="flex-align-center">
+              {Icons.getSuccessNode()}
+              {getIcon(icon)}
+              <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
+              {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
+            </div>
+
+            {/* 描述 */}
+            {
+              !Utils.isBlank(desc || '') && (
+                    <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />
+              )
+            }
           </div>
         ),
         key: `${index}`,
+        item
       })
     })
 
