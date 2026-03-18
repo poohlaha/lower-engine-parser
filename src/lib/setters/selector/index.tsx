@@ -5,18 +5,17 @@
  */
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
-import { MDropdown, MText } from '../../components'
+import {IDropdownProps, MDropdown, MText} from '../../components'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 
 export interface ISelectorProps extends ICommonProps {
   text?: string
   textInner?: boolean
-  placement?: string
   menu?: Array<{ [K: string]: any }>
   items?: Array<string | number | { [K: string]: any }>
   onChange?: (value: string | number | { [K: string]: any }) => void
-  dropdownWidth?: number
+  dropDownProps?: IDropdownProps
   showBorder?: boolean
   readOnly?: boolean
   disabled?: boolean
@@ -105,8 +104,7 @@ const Selector = (props: ISelectorProps): ReactElement => {
               menu={props.menu || []}
               items={props.items || []}
               selectValue={value}
-              width={props.dropdownWidth}
-              placement={props.placement}
+              {...(props.dropDownProps || {})}
               onChange={(value: string | number | { [K: string]: any } = '') => {
                 let newValue = value || ''
                 if (typeof value !== 'string' && typeof value !== 'number') {

@@ -17,6 +17,7 @@ export interface IDropdownProps {
   items?: Array<string | number | { [K: string]: any }>
   width?: number
   maxWidth?: number
+  maxHeight?: number
   left?: number
   selectValue?: string | number
   onChange?: (value: string | number | { [K: string]: any }) => void
@@ -45,6 +46,7 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
       let text = item || ''
       let value = item || ''
       let desc = typeof item === 'object' ? item.desc || '' : ''
+      let extra = typeof item === 'object' ? item.extra || '' : ''
       let icon = null
       if (typeof item !== 'string' && typeof item !== 'number') {
         let newItem: any = item || {}
@@ -57,17 +59,26 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
       options.push({
         label: (
           <div className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${props.selectValue === value ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
-            <div className="flex-align-center">
-              {Icons.getSuccessNode()}
-              {getIcon(icon)}
-              <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
-              {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
+            <div className="flex-align-center flex-jsc-between">
+              <div className="flex-align-center">
+                {Icons.getSuccessNode()}
+                {getIcon(icon)}
+                <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
+                {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
+              </div>
+
+              {/* extra */}
+              {
+                  !Utils.isBlank(desc || '') && (
+                      <p className="over-two-ellipsis lower-engine-content-item-extra">{extra || ''}</p>
+                  )
+              }
             </div>
 
             {/* 描述 */}
             {
               !Utils.isBlank(desc || '') && (
-                    <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />
+                <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />
               )
             }
           </div>
@@ -86,10 +97,12 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
     let arrow = props.arrow ?? false
     let width = props.width ?? 176
     let maxWidth = props.maxWidth ?? width
+    let maxHeight = props.maxHeight ?? width
 
     let style: CSSProperties = {
       width,
       maxWidth,
+      maxHeight,
     }
 
     if (!(props.left === undefined || props.left === null)) {
