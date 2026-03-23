@@ -48,6 +48,7 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
       let desc = typeof item === 'object' ? item.desc || '' : ''
       let extra = typeof item === 'object' ? item.extra || '' : ''
       let icon = null
+      const disabled = typeof item === 'object' ? item.disabled ?? false : false
       if (typeof item !== 'string' && typeof item !== 'number') {
         let newItem: any = item || {}
         icon = newItem.icon || ''
@@ -58,7 +59,14 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
 
       options.push({
         label: (
-          <div className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${props.selectValue === value ? 'active' : ''}`} key={index} onClick={() => props.onChange?.(item)}>
+          <div
+            className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${disabled ? 'disabled' : ''} ${props.selectValue === value ? 'active' : ''}`}
+            key={index}
+            onClick={() => {
+              if (disabled) return
+              props.onChange?.(item)
+            }}
+          >
             <div className="flex-align-center flex-jsc-between">
               <div className="flex-align-center">
                 {Icons.getSuccessNode()}
@@ -68,23 +76,15 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
               </div>
 
               {/* extra */}
-              {
-                  !Utils.isBlank(desc || '') && (
-                      <p className="over-two-ellipsis lower-engine-content-item-extra">{extra || ''}</p>
-                  )
-              }
+              {!Utils.isBlank(desc || '') && <p className="over-two-ellipsis lower-engine-content-item-extra">{extra || ''}</p>}
             </div>
 
             {/* 描述 */}
-            {
-              !Utils.isBlank(desc || '') && (
-                <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />
-              )
-            }
+            {!Utils.isBlank(desc || '') && <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />}
           </div>
         ),
         key: `${index}`,
-        item
+        item,
       })
     })
 

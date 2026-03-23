@@ -3,39 +3,54 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import Utils from '../../utils/utils'
 import { MPopover } from '../../components'
 import Icons from '../../utils/icons'
 import { Tooltip, Slider, InputNumber } from 'antd'
 import Selector from '../selector'
+import { OTHER_SELECTED, NORMAL_COLOR_LIST, ANT_DESIGN_COLOR_LIST, APPLE_IOS_UL_LIST, MATERIAL_DESIGN_LIST, LINEAR_GRADIENT, RADIAL_GRADIENT, COLOR_SPACE_LIST } from './config'
+import { hexToHsb, hexToRgab, hsbToHex, rgbaToHex, hexWithOpacity, rgbToHex } from './convert'
 
-export type COLOR_SELECT = ['HEX', 'RGBA', 'CSS', 'HSB']
+export type COLOR_SELECT = ['HEX', 'RGB', 'CSS', 'HSB']
 
 export interface IColorProps extends ICommonProps {
   color?: string
   opacity?: number
   colorSelect?: COLOR_SELECT
+  disabledColorSpace?: boolean
+  disabledColorPicker?: boolean
+  needLatestUse?: boolean // 是否需要展示最近使用
   recentlyUsedList?: Array<Array<string | number>>
   onColorChange?: (color: string) => void
-  onOpacityChange?: (opacity: number) => void
 }
 
-const Color = (props: IColorProps): ReactElement => {
-  const COLOR_SELECTED = ['HEX', 'RGBA', 'CSS', 'HSB']
-  const [color, setColor] = useState<string>('#FFFFFF')
-  const [opacity, setOpacity] = useState<number>(1)
+const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
+  const COLOR_SELECTED = ['HEX', 'RGB', 'CSS', 'HSB']
+  const [color, setColor] = useState<{ [K: string]: any }>({ r: 255, g: 255, b: 255, a: 1, rgb: 'rgb(255, 255, 255)', hex: '#ffffff' })
   const [colorSelect, setColorSelect] = useState<string>(COLOR_SELECTED[0])
   const [usedList, setUsedList] = useState<Array<Array<string | number>>>([])
   const [type, setType] = useState<number>(1) // 1: 色彩空间 2: 色板
   const [inputFocus, setInputFocus] = useState<boolean>(false)
-  const [colorItemActiveIndex, setColorItemActiveIndex] = useState<number>(0)
+  const [colorItemActiveIndex, setColorItemActiveIndex] = useState<number>(8)
   const [open, setOpen] = useState(false)
 
+  const [otherSelected, setOtherSelected] = useState(OTHER_SELECTED[0].value)
+
   useEffect(() => {
-    setColor(Utils.isBlank(props.color || '') ? '#FFFFFF' : (props.color || '').toUpperCase())
+    const rgba: { [K: string]: any } = hexToRgab(props.color || '', props.opacity ?? 100) || {}
+    setColor(
+      Utils.isBlank(props.color || '')
+        ? { r: 255, g: 255, b: 255, a: 1, rgb: 'rgb(255, 255, 255)', hex: '#ffffff', value: '#ffffff' }
+        : { r: rgba.r, g: rgba.g, a: rgba.a, rgb: rgba.rgb || '', hex: rgba.hex || '' }
+    )
   }, [props.color])
+
+  useEffect(() => {
+    const disabledColorSpace = props.disabledColorSpace ?? false
+    setType(disabledColorSpace ? 2 : 1)
+  }, [props.disabledColorSpace])
 
   useEffect(() => {
     let o = props.opacity ?? 100
@@ -46,15 +61,112 @@ const Color = (props: IColorProps): ReactElement => {
     if (o > 100) {
       o = 100
     }
-    setOpacity(o)
+
+    setColor(rgbaToHex(color.r, color.g, color.b, o))
   }, [props.opacity])
 
   useEffect(() => {
     setUsedList((props.recentlyUsedList || []).length > 0 ? props.recentlyUsedList || [] : [])
   }, [props.recentlyUsedList])
 
+  const getOtherColorList = () => {
+    if (otherSelected === OTHER_SELECTED[0].value) {
+      return NORMAL_COLOR_LIST || []
+    }
+
+    if (otherSelected === OTHER_SELECTED[1].value) {
+      return ANT_DESIGN_COLOR_LIST || []
+    }
+
+    if (otherSelected === OTHER_SELECTED[2].value) {
+      return APPLE_IOS_UL_LIST || []
+    }
+
+    if (otherSelected === OTHER_SELECTED[3].value) {
+      return MATERIAL_DESIGN_LIST || []
+    }
+
+    if (otherSelected === OTHER_SELECTED[4].value) {
+      return LINEAR_GRADIENT || []
+    }
+
+    if (otherSelected === OTHER_SELECTED[5].value) {
+      return LINEAR_GRADIENT || []
+    }
+
+    return []
+  }
+
+  /**
+   * 设置颜色
+   */
+  const setColorValue = (str: string = '', a: number) => {
+    const rgba: { [K: string]: any } = hexToRgab(str || '', a) || {}
+    setColor(rgba)
+    console.log('rgba: ', rgba)
+    return rgba
+  }
+
+  /**
+   * 其他颜色选择
+   */
+  const getOtherList = () => {
+    const selected = OTHER_SELECTED.find((item: { [K: string]: any } = {}) => item.value === otherSelected) || {}
+    const otherColorList = getOtherColorList()
+    return (
+      <div className="workspace-select flex-direction-column">
+        <div className="flex-align-center flex-jsc-between workspace-select-header">
+          <Selector
+            className="lower-engine-color-workspace-selector"
+            name="Selector"
+            setter="SelectorSetter"
+            title=""
+            items={OTHER_SELECTED}
+            default={selected}
+            onChange={(value: any = {}) => {
+              setOtherSelected(value.value || '')
+            }}
+          />
+
+          <div className="svg-box flex-center no-hover">
+            <svg className="svg-icon" xmlns="http://www.w3.org/2000/svg">
+              <path d="M.424 4.667a.6.6 0 0 1 0-.849L3.818.424a.6.6 0 0 1 .848 0l3.395 3.394a.6.6 0 1 1-.849.849l-2.97-2.97-2.97 2.97a.6.6 0 0 1-.848 0z" fill="currentColor"></path>
+            </svg>
+          </div>
+        </div>
+
+        {/* 选择的颜色列表 */}
+        <div className="current-palette">
+          {(otherColorList || []).map((c: { [K: string]: any } = {}, index: number) => {
+            return (
+              <div className="current-palette-color" key={index}>
+                <li
+                  className={`gradient-bg ${c.value === 'transparent' ? 'transparent' : ''} ${color.rgb === c.value ? 'active' : ''}`}
+                  onClick={() => {
+                    const cc = rgbToHex(c.value || '', color.a) || {}
+                    setColor(cc)
+                    setColorItemActiveIndex(-1)
+                    props.onColorChange?.(cc.hex || '')
+                  }}
+                >
+                  <div className="color-box" style={{ background: c.value || '' }}></div>
+                </li>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
   const getContent = () => {
-    let inputColor = (color || '').replace('#', '').toUpperCase()
+    let inputColor = rgbaToHex(color.r, color.g, color.b, 100).hex || ''
+    if (colorSelect === COLOR_SELECTED[2]) {
+      inputColor = color.rgb || ''
+    }
+    const needLatestUse = props.needLatestUse ?? true
+    const disabledColorSpace = props.disabledColorSpace ?? false
+    const disabledColorPicker = props.disabledColorPicker ?? false
     return (
       <div className="lower-engine-color-popover-content">
         {/* tab */}
@@ -80,8 +192,9 @@ const Color = (props: IColorProps): ReactElement => {
             <span>{type === 2 ? '色板' : '色彩空间'}</span>
             <div className="selector-sc flex-align-center">
               <div
-                className={`color-space flex-align-center ${type === 1 ? 'active' : ''}`}
+                className={`color-space flex-align-center ${disabledColorSpace ? 'disabled' : ''} ${type === 1 ? 'active' : ''}`}
                 onClick={() => {
+                  if (disabledColorSpace) return
                   setType(1)
                 }}
               >
@@ -91,7 +204,6 @@ const Color = (props: IColorProps): ReactElement => {
                 className={`color-swatch flex-align-center ${type === 2 ? 'active' : ''}`}
                 onClick={() => {
                   setType(2)
-                  setColorItemActiveIndex(0)
                 }}
               >
                 {Icons.getColorSwatchNode()}
@@ -127,434 +239,50 @@ const Color = (props: IColorProps): ReactElement => {
 
             {type === 2 && (
               <div className="colors-container">
-                <div
-                  className={`color-item ${colorItemActiveIndex === 1 ? 'active' : ''}`}
-                  style={{ background: '#000000' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(1)
-                    setColor('#000000')
-                    props.onColorChange?.('#000000')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 2 ? 'active' : ''}`}
-                  style={{ background: '#333333' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(2)
-                    setColor('#333333')
-                    props.onColorChange?.('#333333')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 3 ? 'active' : ''}`}
-                  style={{ background: '#4F4F4F' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(3)
-                    setColor('#4F4F4F')
-                    props.onColorChange?.('#4F4F4F')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 4 ? 'active' : ''}`}
-                  style={{ background: '#6c6c6c' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(4)
-                    setColor('#6c6c6c')
-                    props.onColorChange?.('#6c6c6c')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 5 ? 'active' : ''}`}
-                  style={{ background: '#9a9a9a' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(5)
-                    setColor('#9a9a9a')
-                    props.onColorChange?.('#9a9a9a')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 6 ? 'active' : ''}`}
-                  style={{ background: '#bebebe' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(6)
-                    setColor('#bebebe')
-                    props.onColorChange?.('#bebebe')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 7 ? 'active' : ''}`}
-                  style={{ background: '#cecece' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(7)
-                    setColor('#cecece')
-                    props.onColorChange?.('#cecece')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 8 ? 'active' : ''}`}
-                  style={{ background: '#efefef' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(8)
-                    setColor('#efefef')
-                    props.onColorChange?.('#efefef')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 9 ? 'active' : ''}`}
-                  style={{ background: '#ffffff' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(9)
-                    setColor('#ffffff')
-                    props.onColorChange?.('#ffffff')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 10 ? 'active' : ''}`}
-                  style={{ background: '#de868f' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(10)
-                    setColor('#de868f')
-                    props.onColorChange?.('#de868f')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 11 ? 'active' : ''}`}
-                  style={{ background: '#fcca00' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(11)
-                    setColor('#fcca00')
-                    props.onColorChange?.('#fcca00')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 12 ? 'active' : ''}`}
-                  style={{ background: '#f4ce98' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(12)
-                    setColor('#f4ce98')
-                    props.onColorChange?.('#f4ce98')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 13 ? 'active' : ''}`}
-                  style={{ background: '#fefa83' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(13)
-                    setColor('#fefa83')
-                    props.onColorChange?.('#fefa83')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 14 ? 'active' : ''}`}
-                  style={{ background: '#ccf783' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(14)
-                    setColor('#ccf783')
-                    props.onColorChange?.('#ccf783')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 15 ? 'active' : ''}`}
-                  style={{ background: '#B4FDFF' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(15)
-                    setColor('#B4FDFF')
-                    props.onColorChange?.('#B4FDFF')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 16 ? 'active' : ''}`}
-                  style={{ background: '#93D2F3' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(16)
-                    setColor('#93D2F3')
-                    props.onColorChange?.('#93D2F3')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 17 ? 'active' : ''}`}
-                  style={{ background: '#7F83F7' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(17)
-                    setColor('#7F83F7')
-                    props.onColorChange?.('#7F83F7')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 18 ? 'active' : ''}`}
-                  style={{ background: '#B886F8' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(18)
-                    setColor('#B886F8')
-                    props.onColorChange?.('#B886F8')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 19 ? 'active' : ''}`}
-                  style={{ background: '#BD3124' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(19)
-                    setColor('#BD3124')
-                    props.onColorChange?.('#BD3124')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 20 ? 'active' : ''}`}
-                  style={{ background: '#E99D42' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(20)
-                    setColor('#E99D42')
-                    props.onColorChange?.('#E99D42')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 21 ? 'active' : ''}`}
-                  style={{ background: '#FFBF6B' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(21)
-                    setColor('#FFBF6B')
-                    props.onColorChange?.('#FFBF6B')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 22 ? 'active' : ''}`}
-                  style={{ background: '#FFF81D' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(22)
-                    setColor('#FFF81D')
-                    props.onColorChange?.('#FFF81D')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 23 ? 'active' : ''}`}
-                  style={{ background: '#A2EF4D' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(23)
-                    setColor('#A2EF4D')
-                    props.onColorChange?.('#A2EF4D')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 24 ? 'active' : ''}`}
-                  style={{ background: '#75F9FD' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(24)
-                    setColor('#75F9FD')
-                    props.onColorChange?.('#75F9FD')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 25 ? 'active' : ''}`}
-                  style={{ background: '#4095E5' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(25)
-                    setColor('#4095E5')
-                    props.onColorChange?.('#4095E5')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 26 ? 'active' : ''}`}
-                  style={{ background: '#0F40F5' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(26)
-                    setColor('#0F40F5')
-                    props.onColorChange?.('#0F40F5')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 27 ? 'active' : ''}`}
-                  style={{ background: '#7728F5' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(27)
-                    setColor('#7728F5')
-                    props.onColorChange?.('#7728F5')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 28 ? 'active' : ''}`}
-                  style={{ background: '#951D1D' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(28)
-                    setColor('#951D1D')
-                    props.onColorChange?.('#951D1D')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 29 ? 'active' : ''}`}
-                  style={{ background: '#A16222' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(29)
-                    setColor('#A16222')
-                    props.onColorChange?.('#A16222')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 30 ? 'active' : ''}`}
-                  style={{ background: '#CBA43F' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(30)
-                    setColor('#CBA43F')
-                    props.onColorChange?.('#CBA43F')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 31 ? 'active' : ''}`}
-                  style={{ background: '#BFBF3D' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(31)
-                    setColor('#BFBF3D')
-                    props.onColorChange?.('#BFBF3D')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 32 ? 'active' : ''}`}
-                  style={{ background: '#81B337' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(32)
-                    setColor('#81B337')
-                    props.onColorChange?.('#81B337')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 33 ? 'active' : ''}`}
-                  style={{ background: '#54BCBD' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(33)
-                    setColor('#54BCBD')
-                    props.onColorChange?.('#54BCBD')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 34 ? 'active' : ''}`}
-                  style={{ background: '#347CAF' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(34)
-                    setColor('#347CAF')
-                    props.onColorChange?.('#347CAF')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 35 ? 'active' : ''}`}
-                  style={{ background: '#0014B7' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(35)
-                    setColor('#0014B7')
-                    props.onColorChange?.('#0014B7')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 36 ? 'active' : ''}`}
-                  style={{ background: '#591BB7' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(36)
-                    setColor('#591BB7')
-                    props.onColorChange?.('#591BB7')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 37 ? 'active' : ''}`}
-                  style={{ background: '#641013' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(37)
-                    setColor('#641013')
-                    props.onColorChange?.('#641013')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 38 ? 'active' : ''}`}
-                  style={{ background: '#744E20' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(38)
-                    setColor('#744E20')
-                    props.onColorChange?.('#744E20')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 39 ? 'active' : ''}`}
-                  style={{ background: '#9B7D31' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(39)
-                    setColor('#9B7D31')
-                    props.onColorChange?.('#9B7D31')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 40 ? 'active' : ''}`}
-                  style={{ background: '#817F26' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(40)
-                    setColor('#817F26')
-                    props.onColorChange?.('#817F26')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 41 ? 'active' : ''}`}
-                  style={{ background: '#567722' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(41)
-                    setColor('#567722')
-                    props.onColorChange?.('#567722')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 42 ? 'active' : ''}`}
-                  style={{ background: '#377F7F' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(42)
-                    setColor('#377F7F')
-                    props.onColorChange?.('#377F7F')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 43 ? 'active' : ''}`}
-                  style={{ background: '#215476' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(43)
-                    setColor('#215476')
-                    props.onColorChange?.('#215476')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 44 ? 'active' : ''}`}
-                  style={{ background: '#000A7B' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(44)
-                    setColor('#000A7B')
-                    props.onColorChange?.('#000A7B')
-                  }}
-                />
-                <div
-                  className={`color-item ${colorItemActiveIndex === 45 ? 'active' : ''}`}
-                  style={{ background: '#3B0E7B' }}
-                  onClick={() => {
-                    setColorItemActiveIndex(45)
-                    setColor('#3B0E7B')
-                    props.onColorChange?.('#3B0E7B')
-                  }}
-                />
+                {(COLOR_SPACE_LIST || []).map((c, index: number) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`color-item ${colorItemActiveIndex === index ? 'active' : ''}`}
+                      style={{ background: c.value || '' }}
+                      onClick={() => {
+                        setColorItemActiveIndex(index)
+                        const cc = rgbToHex(c.value || '', color.a) || {}
+                        setColor(cc)
+                        props.onColorChange?.(cc.hex || '')
+                      }}
+                    />
+                  )
+                })}
               </div>
             )}
 
             <div className="opacity-box flex-jsc-between flex-align-center">
               <div className="opacity flex-align-center flex-jsc-start">
-                <div className="color-picker-btn flex-center">{Icons.getColorPickerNode()}</div>
+                <div className={`color-picker-btn flex-center ${disabledColorPicker ? 'disabled' : ''}`}>{Icons.getColorPickerNode()}</div>
                 <div className="opacity-band">
                   <div
                     style={{
                       width: '100%',
                       height: '100%',
                       borderRadius: 8,
-                      background: `linear-gradient(to right, transparent 0%, rgb(251, 244, 244) 100%)`,
+                      background: `linear-gradient(to right, transparent 0%, ${color.rgb || ''} 100%)`,
                     }}
                   ></div>
                   <div className="rail">
                     <Slider
                       min={0}
                       max={100}
-                      value={opacity}
+                      value={color.a}
                       onChange={(value: number) => {
-                        setOpacity(value)
-                        props.onOpacityChange?.(value)
+                        const hex = hexWithOpacity(color.hex, value)
+                        setColor({
+                          ...color,
+                          hex,
+                          a: value,
+                        })
+
+                        props.onColorChange?.(hex || '')
                       }}
                       tooltip={{
                         open: false,
@@ -576,34 +304,112 @@ const Color = (props: IColorProps): ReactElement => {
                 items={COLOR_SELECTED}
                 default={colorSelect}
                 onChange={value => {
+                  // rgb
+                  if (value === COLOR_SELECTED[1]) {
+                    setColor(hexToRgab(color.hex || '', color.a))
+                    console.log(hexToRgab(color.hex || '', color.a))
+                  } else if (value === COLOR_SELECTED[2]) {
+                    setColor(hexToRgab(color.hex || '', color.a))
+                    console.log(hexToRgab(color.hex || '', color.a))
+                  } else if (value === COLOR_SELECTED[3]) {
+                    setColor(hexToHsb(color.hex || '', color.a))
+                    console.log(hexToHsb(color.hex || '', color.a))
+                  }
                   setColorSelect(`${value || ''}`)
                 }}
               />
 
-              <div className={`hex-input flex-align-center ${inputFocus ? 'focused' : ''}`}>
-                <a className="hex-suffix">#</a>
-                <input
-                  className="bg-color-text"
-                  value={inputColor || ''}
-                  onFocus={() => setInputFocus(true)}
-                  onBlur={() => setInputFocus(false)}
-                  onChange={event => {
-                    let value = (event.target.value || '').toUpperCase()
-                    if (/\s/.test(value)) {
-                      // 颜色补齐
-                      setColor(value)
-                    }
-                  }}
-                />
+              <div className={`hex-input flex-align-center ${colorSelect.toLowerCase()}-hex-input ${inputFocus ? 'focused' : ''}`}>
+                {colorSelect === COLOR_SELECTED[0] && <a className="hex-suffix">#</a>}
+                {/* hex|css */}
+                {(colorSelect === COLOR_SELECTED[0] || colorSelect === COLOR_SELECTED[2]) && (
+                  <input
+                    className="bg-color-text"
+                    value={inputColor || ''}
+                    onFocus={() => setInputFocus(true)}
+                    onBlur={() => setInputFocus(false)}
+                    onChange={event => {
+                      let value = (event.target.value || '').toUpperCase()
+                      if (/\s/.test(value)) {
+                        // 颜色补齐
+                        setColorValue(value, color.a)
+                      }
+                    }}
+                  />
+                )}
+
+                {/* rgb | hsb */}
+                {(colorSelect === COLOR_SELECTED[1] || colorSelect === COLOR_SELECTED[3]) && (
+                  <div className="hex-input-rgb flex-align-center">
+                    <InputNumber
+                      className="bg-color-text"
+                      value={color.r}
+                      min={0}
+                      max={255}
+                      onFocus={() => setInputFocus(true)}
+                      onBlur={() => setInputFocus(false)}
+                      onChange={value => {
+                        let c
+                        if (colorSelect === COLOR_SELECTED[3]) {
+                          c = hsbToHex(value || 0, color.g, color.b, color.a)
+                        } else {
+                          c = rgbaToHex(value || 0, color.g, color.b, color.a)
+                        }
+                        setColor(c)
+                        console.log(c)
+                      }}
+                    />
+                    <InputNumber
+                      className="bg-color-text"
+                      value={color.g}
+                      onFocus={() => setInputFocus(true)}
+                      onBlur={() => setInputFocus(false)}
+                      onChange={value => {
+                        let c
+                        if (colorSelect === COLOR_SELECTED[3]) {
+                          c = hsbToHex(color.r, value || 0, color.b, color.a)
+                        } else {
+                          c = rgbaToHex(color.r, value || 0, color.b, color.a)
+                        }
+                        setColor(c)
+                        console.log(c)
+                      }}
+                    />
+                    <InputNumber
+                      className="bg-color-text"
+                      value={color.b}
+                      onFocus={() => setInputFocus(true)}
+                      onBlur={() => setInputFocus(false)}
+                      onChange={value => {
+                        let c
+                        if (colorSelect === COLOR_SELECTED[3]) {
+                          c = hsbToHex(color.r, color.g, value || 0, color.a)
+                        } else {
+                          c = rgbaToHex(color.r, color.g, value || 0, color.a)
+                        }
+                        setColor(c)
+                        console.log(c)
+                      }}
+                    />
+                  </div>
+                )}
+
                 <div className="hex-input-opacity flex-1 flex">
                   <InputNumber
+                    className="hex-input-opacity-input"
                     min={0}
                     max={100}
                     style={{ width: 53 }}
-                    value={opacity}
+                    value={color.a}
                     onChange={value => {
-                      setOpacity(value ?? 0)
-                      props.onOpacityChange?.(value ?? 0)
+                      const hex = hexWithOpacity(color.hex, value)
+                      setColor({
+                        ...color,
+                        hex,
+                        a: value,
+                      })
+
+                      props.onColorChange?.(hex || '')
                     }}
                   />
 
@@ -617,39 +423,45 @@ const Color = (props: IColorProps): ReactElement => {
 
           <div className="divider-setter"></div>
 
-          <div className="panel-color-list">
-            <header className="flex-jsc-between flex-align-center">
-              <span>最近使用</span>
-            </header>
-            <div className="current-palette">
-              {(usedList || []).length > 0 &&
-                usedList.map((used, index: number) => {
-                  if (used.length === 0) return null
-                  let usedColor = ''
-                  let useOpacity = 1
-                  if (used.length === 1) {
-                    usedColor = (used[0] as string) || ''
-                  }
+          {/* 最近使用 */}
+          {needLatestUse && (
+            <div className="panel-color-list">
+              <header className="flex-jsc-between flex-align-center">
+                <span>最近使用</span>
+              </header>
+              <div className="current-palette">
+                {(usedList || []).length > 0 &&
+                  usedList.map((used, index: number) => {
+                    if (used.length === 0) return null
+                    let usedColor = ''
+                    let useOpacity = 1
+                    if (used.length === 1) {
+                      usedColor = (used[0] as string) || ''
+                    }
 
-                  if (used.length > 1) {
-                    usedColor = (used[0] as string) || ''
-                    useOpacity = (used[0] as number) || 1
-                  }
+                    if (used.length > 1) {
+                      usedColor = (used[0] as string) || ''
+                      useOpacity = (used[0] as number) || 1
+                    }
 
-                  return (
-                    <div className="current-palette-color" key={index}>
-                      <div
-                        className="color-box"
-                        style={{
-                          background: usedColor || '',
-                          opacity: useOpacity,
-                        }}
-                      />
-                    </div>
-                  )
-                })}
+                    return (
+                      <div className="current-palette-color" key={index}>
+                        <div
+                          className="color-box"
+                          style={{
+                            background: usedColor || '',
+                            opacity: useOpacity,
+                          }}
+                        />
+                      </div>
+                    )
+                  })}
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* 其他颜色列表 */}
+          {getOtherList()}
         </div>
       </div>
     )
@@ -669,16 +481,22 @@ const Color = (props: IColorProps): ReactElement => {
           }}
         >
           <div className="flex-align-center">
-            {!Utils.isBlank(props.text || '') && <div className="lower-engine-color-header">{props.text || ''}</div>}
-            <div className="lower-engine-color-thumbnail">
-              <div
-                className="thumbnail"
-                style={{
-                  background: color,
-                  opacity,
-                }}
-              ></div>
-            </div>
+            {props.children ? (
+              props.children
+            ) : (
+              <>
+                {!Utils.isBlank(props.text || '') && <div className="lower-engine-color-header">{props.text || ''}</div>}
+                <div className="lower-engine-color-thumbnail">
+                  <div
+                    className="thumbnail"
+                    style={{
+                      background: `rgb(${color.r}, ${color.g}, ${color.b})`,
+                      opacity: color.a,
+                    }}
+                  ></div>
+                </div>
+              </>
+            )}
           </div>
         </MPopover>
       </div>

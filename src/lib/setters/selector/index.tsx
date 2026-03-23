@@ -5,7 +5,7 @@
  */
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
-import {IDropdownProps, MDropdown, MText} from '../../components'
+import { IDropdownProps, MDropdown, MText } from '../../components'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 

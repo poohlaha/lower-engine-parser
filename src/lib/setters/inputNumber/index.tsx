@@ -44,6 +44,7 @@ const InputNumber = (props: IInputNumberProps): ReactElement => {
           {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 
           <AntdInputNumber
+            className={`${props.alignment === 'left' || props.alignment === 'right' ? 'flex-1' : ''}`}
             value={value}
             min={props.min ?? 0}
             max={props.max}

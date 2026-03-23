@@ -177,7 +177,7 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
               ...newEvent,
             }
 
-            return <Component key={i} {...props} className={`${component.className || ''} ${componentClass || ''}`} />
+            return <Component key={i} {...props} className={`${component.className || prop.className || ''} ${componentClass || ''}`} />
           })
         })}
       </div>
