@@ -23,7 +23,7 @@ export interface IColorProps extends ICommonProps {
   disabledColorPicker?: boolean
   needLatestUse?: boolean // 是否需要展示最近使用
   recentlyUsedList?: Array<Array<string | number>>
-  onColorChange?: (color: string) => void
+  onColorChange?: (value: string, color: { [K: string]: any }, noSupportText?: string, cancelText?: string) => void
 }
 
 const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
@@ -35,6 +35,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
   const [inputFocus, setInputFocus] = useState<boolean>(false)
   const [colorItemActiveIndex, setColorItemActiveIndex] = useState<number>(8)
   const [open, setOpen] = useState(false)
+  const [toggleOtherColor, setToggleOtherColor] = useState(true)
 
   const [otherSelected, setOtherSelected] = useState(OTHER_SELECTED[0].value)
 
@@ -128,7 +129,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
             }}
           />
 
-          <div className="svg-box flex-center no-hover">
+          <div className="svg-box flex-center no-hover" onClick={() => setToggleOtherColor(!toggleOtherColor)}>
             <svg className="svg-icon" xmlns="http://www.w3.org/2000/svg">
               <path d="M.424 4.667a.6.6 0 0 1 0-.849L3.818.424a.6.6 0 0 1 .848 0l3.395 3.394a.6.6 0 1 1-.849.849l-2.97-2.97-2.97 2.97a.6.6 0 0 1-.848 0z" fill="currentColor"></path>
             </svg>
@@ -136,25 +137,27 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
         </div>
 
         {/* 选择的颜色列表 */}
-        <div className="current-palette">
-          {(otherColorList || []).map((c: { [K: string]: any } = {}, index: number) => {
-            return (
-              <div className="current-palette-color" key={index}>
-                <li
-                  className={`gradient-bg ${c.value === 'transparent' ? 'transparent' : ''} ${color.rgb === c.value ? 'active' : ''}`}
-                  onClick={() => {
-                    const cc = rgbToHex(c.value || '', color.a) || {}
-                    setColor(cc)
-                    setColorItemActiveIndex(-1)
-                    props.onColorChange?.(cc.hex || '')
-                  }}
-                >
-                  <div className="color-box" style={{ background: c.value || '' }}></div>
-                </li>
-              </div>
-            )
-          })}
-        </div>
+        {toggleOtherColor && (
+          <div className="current-palette">
+            {(otherColorList || []).map((c: { [K: string]: any } = {}, index: number) => {
+              return (
+                <div className="current-palette-color" key={index}>
+                  <li
+                    className={`gradient-bg ${c.value === 'transparent' ? 'transparent' : ''} ${color.rgb === c.value ? 'active' : ''}`}
+                    onClick={() => {
+                      const cc = rgbToHex(c.value || '', color.a) || {}
+                      setColor(cc)
+                      setColorItemActiveIndex(-1)
+                      props.onColorChange?.(cc.hex || '', color || {})
+                    }}
+                  >
+                    <div className="color-box" style={{ background: c.value || '' }}></div>
+                  </li>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
@@ -249,7 +252,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                         setColorItemActiveIndex(index)
                         const cc = rgbToHex(c.value || '', color.a) || {}
                         setColor(cc)
-                        props.onColorChange?.(cc.hex || '')
+                        props.onColorChange?.(cc.hex || '', color || {})
                       }}
                     />
                   )
@@ -259,7 +262,32 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
 
             <div className="opacity-box flex-jsc-between flex-align-center">
               <div className="opacity flex-align-center flex-jsc-start">
-                <div className={`color-picker-btn flex-center ${disabledColorPicker ? 'disabled' : ''}`}>{Icons.getColorPickerNode()}</div>
+                <div
+                  className={`color-picker-btn flex-center ${disabledColorPicker ? 'disabled' : ''}`}
+                  onClick={async () => {
+                    if (disabledColorPicker) {
+                      return
+                    }
+
+                    if (!('EyeDropper' in window)) {
+                      props.onColorChange?.('', {}, '浏览器不支持取色器')
+                      return
+                    }
+
+                    const eyeDropper = new (window as any).EyeDropper()
+                    try {
+                      const result = await eyeDropper.open()
+                      const cc = hexToRgab(result.sRGBHex || '', color.a) || {}
+                      setColor(cc)
+                      setColorItemActiveIndex(-1)
+                      props.onColorChange?.(cc.hex || '', cc)
+                    } catch (e) {
+                      props.onColorChange?.('', {}, '', '取消颜色选择')
+                    }
+                  }}
+                >
+                  {Icons.getColorPickerNode()}
+                </div>
                 <div className="opacity-band">
                   <div
                     style={{
@@ -282,7 +310,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                           a: value,
                         })
 
-                        props.onColorChange?.(hex || '')
+                        props.onColorChange?.(hex || '', color || {})
                       }}
                       tooltip={{
                         open: false,
@@ -409,7 +437,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                         a: value,
                       })
 
-                      props.onColorChange?.(hex || '')
+                      props.onColorChange?.(hex || '', color || {})
                     }}
                   />
 
