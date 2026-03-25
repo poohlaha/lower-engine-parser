@@ -23,6 +23,7 @@ import {
   Input as InputSetter,
   InputNumber as InputNumberSetter,
   IconDialog as IconDialogSetter,
+  Upload as UploadSetter,
   IOpacityProps as IOpacitySetterProps,
   IRoundProps as IRoundSetterProps,
   IFillProps as IFillSetterProps,
@@ -39,7 +40,7 @@ import {
   IInputNumberProps as IInputNumberSetterProps,
   IIconDialogProps as IIconDialogSetterProps,
   IIconDialogTabProps as IIconDialogTabSetterProps,
-  IInputTextAreaProps,
+  IUploadProps as IUploadSetterProps,
 } from './lib/setters'
 
 import Parser from './lib/parser'
@@ -66,6 +67,7 @@ export {
   InputSetter,
   InputNumberSetter,
   IconDialogSetter,
+  UploadSetter
 }
 
 export type {
@@ -85,4 +87,5 @@ export type {
   IInputNumberSetterProps,
   IIconDialogSetterProps,
   IIconDialogTabSetterProps,
+  IUploadSetterProps
 }

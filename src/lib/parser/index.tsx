@@ -167,7 +167,7 @@ const Parser = (propName: string = '', props: IParserProps, events: { [K: string
                     parent = ''
                   }
 
-                  event?.(propName, Utils.isBlank(parent || '') ? cName : { name: cName, parent }, eventName, args) // 动态传递参数
+                  event?.(propName, Utils.isBlank(parent || '') ? cName : { name: cName, parent }, eventName, args, item) // 动态传递参数
                 }
               }
             }

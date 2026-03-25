@@ -3,7 +3,7 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, { ReactElement, useState } from 'react'
+import React, {ReactElement, useEffect, useState} from 'react'
 import { ICommonProps } from '../../utils/common'
 import { Upload as AntUpload } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -16,15 +16,22 @@ export interface IUploadProps extends ICommonProps {
   action?: string
   className?: string
   uploadClassName?: string
-  url: string
+  url?: string
   accept?: string
+  maxUploadSize?: number
+  showUploadList?: boolean
   headers?: Record<string, any>
   beforeUpload?: (file: any) => boolean
-  onChange?: (response: any) => void
+  onChange?: (response: Record<string, any>, size: Record<string, any>) => void
 }
 
 const Upload = (props: IUploadProps): ReactElement => {
   const [uploadLoading, setUploadLoading] = useState(false)
+  const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    setUrl(props.url || '')
+  }, [props.url])
 
   const getUploadButton = () => {
     if (!Utils.isBlank(props.url || '')) {
@@ -36,6 +43,24 @@ const Upload = (props: IUploadProps): ReactElement => {
     }
 
     return <PlusOutlined />
+  }
+
+  const getImageSize = (file: File): Promise<{ width: number; height: number }> => {
+    return new Promise((resolve, reject) => {
+      if (!file.type.startsWith('image/')) {
+        reject(new Error('不是图片文件'))
+        return
+      }
+
+      const img = new Image()
+      img.onload = () => {
+        resolve({ width: img.width, height: img.height })
+        URL.revokeObjectURL(img.src) // 释放内存
+      }
+      img.onerror = reject
+
+      img.src = URL.createObjectURL(file)
+    })
   }
 
   const render = () => {
@@ -52,11 +77,25 @@ const Upload = (props: IUploadProps): ReactElement => {
           accept={props.accept || '*'}
           disabled={uploadLoading}
           headers={props.headers || {}}
+          showUploadList={props.showUploadList ?? false}
           beforeUpload={(file: any) => {
+            const maxUploadSize = props.maxUploadSize ?? 0
+            if (maxUploadSize === 0) {
+              return true
+            }
+
             return props.beforeUpload?.(file) || true
           }}
-          onChange={(info: Record<string, any> = {}) => {
+          onChange={async (info: Record<string, any> = {}) => {
             let file = info.file || {}
+
+            const maxUploadSize = props.maxUploadSize ?? 0
+            if (maxUploadSize > 0) {
+              if (file.size > maxUploadSize * 1024) {
+                return
+              }
+            }
+
             if (file.status === 'uploading') {
               setUploadLoading(true)
               return
@@ -65,7 +104,10 @@ const Upload = (props: IUploadProps): ReactElement => {
             if (file.status === 'done') {
               setUploadLoading(false)
               const response = file.response || {}
-              props.onChange?.(response)
+
+              setUrl(response.code !== '0' ? '' : (response.url || ''))
+              const imageSize: Record<string, any> = (await getImageSize(file.originFileObj)) || {}
+              props.onChange?.(response, imageSize)
             }
           }}
         >

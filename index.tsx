@@ -31,7 +31,8 @@ export {
     ShadowSetter,
     InputSetter,
     InputNumberSetter,
-    IconDialogSetter
+    IconDialogSetter,
+    UploadSetter
 } from './src/index'
 
 export type {
@@ -54,4 +55,5 @@ export type {
     IInputNumberSetterProps,
     IIconDialogSetterProps,
     IIconDialogTabSetterProps,
+    IUploadSetterProps
 } from './src/index'
