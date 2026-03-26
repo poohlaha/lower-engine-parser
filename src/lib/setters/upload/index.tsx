@@ -22,6 +22,7 @@ export interface IUploadProps extends ICommonProps {
   maxUploadSize?: number
   showUploadList?: boolean
   needPreview?: boolean
+  needCut?: boolean
   headers?: Record<string, any>
   beforeUpload?: (file: any) => boolean
   onChange?: (response: Record<string, any>, size: Record<string, any>) => void
@@ -137,11 +138,12 @@ const Upload = (props: IUploadProps): ReactElement => {
 
   const render = () => {
     const needPreview = props.needPreview ?? true
+    const needCut = props.needCut ?? false
     return (
       <div className={`${props.className || ''} lower-engine-upload`}>
         {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 
-        {needPreview ? <ImgCrop rotationSlider>{getNode(needPreview)}</ImgCrop> : getNode(needPreview)}
+        {needCut ? <ImgCrop rotationSlider>{getNode(needPreview)}</ImgCrop> : getNode(needPreview)}
       </div>
     )
   }
