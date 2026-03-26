@@ -5,4 +5,11 @@ yarn.lock
 package-lock.json
 node_modules
 yarn-error.log
-
+.prettierignore
+.prettierrc.js
+.eslintrc.js
+.eslintignore
+pnpm-lock.yaml
+.editorconfig
+.commitlintrc.js
+scripts/

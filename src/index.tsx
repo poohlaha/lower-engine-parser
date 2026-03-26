@@ -3,9 +3,9 @@
  * @date 2024-11-14
  * @author poohlaha
  */
-import './assets/reset.less'
-import './assets/common.less'
-import './assets/component.less'
+import './assets/reset.css'
+import './assets/common.css'
+import './assets/component.css'
 import { OpacityProps, BackgroundProps, FontSizeProps, AlignmentProps, MarginProps, RoundProps, FillProps, StrokeProps, ShadowProps, ColorProps, FontBoldProps } from './lib/utils/common'
 
 import {

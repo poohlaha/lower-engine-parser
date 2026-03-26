@@ -14,9 +14,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "types": ["react", "react-dom"],
   "include": ["./src"],

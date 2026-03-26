@@ -2,7 +2,6 @@
   "name": "lower-engine-parser",
   "version": "1.0.0",
   "description": "低代码平台引擎解析器, 用于解析组件面板属性",
-  "main": "index.tsx",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poohlaha/lower-engine-parser.git"
@@ -13,30 +12,46 @@
     "Engine",
     "Parser"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "author": "poohlaha",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/poohlaha/lower-engine-parser/issues"
   },
   "homepage": "https://github.com/poohlaha/lower-engine-parser#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "sideEffects": [
+    "src/assets/**/*.css",
+    "src/assets/**/*.less"
+  ],
   "scripts": {
+    "build": "node scripts/build.js && tsup",
+    "types": "tsc --emitDeclarationOnly",
+    "build:all": "npm run build && npm run types",
     "preinstall": "npx only-allow pnpm",
     "format": "npx prettier --write src"
   },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
   "dependencies": {
-    "antd": "^5.29.3",
+    "antd": "^6.3.1",
     "antd-mobile": "^5.38.1",
     "@ant-design/icons": "^5.6.1",
     "crypto-js": "^4.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "^4.3.2",
-    "@types/react": "^18.0.12",
-    "@types/react-dom": "^18.0.5",
     "dayjs": "^1.11.13",
     "antd-img-crop": "^4.30.0"
   },
   "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
     "core-js": "3",
     "husky": "^8.0.3",
     "prettier": "^2.4.1",
@@ -50,7 +65,11 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "@typescript-eslint/parser": "^4.26.0"
+    "@typescript-eslint/parser": "^4.26.0",
+    "@bale-tools/utils": "^2.0.8",
+    "less": "^4.6.4",
+    "fs-extra": "^10.1.0",
+    "tsup": "^8.5.1"
   },
   "browserslist": [
     "> 1%",
