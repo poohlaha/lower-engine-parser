@@ -67,7 +67,7 @@ export {
   InputSetter,
   InputNumberSetter,
   IconDialogSetter,
-  UploadSetter
+  UploadSetter,
 }
 
 export type {
@@ -87,5 +87,5 @@ export type {
   IInputNumberSetterProps,
   IIconDialogSetterProps,
   IIconDialogTabSetterProps,
-  IUploadSetterProps
+  IUploadSetterProps,
 }

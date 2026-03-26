@@ -3,12 +3,13 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, {ReactElement, useEffect, useState} from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
-import { Upload as AntUpload } from 'antd'
+import { Upload as AntUpload, UploadFile } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import Utils from '../../utils/utils'
 import { MText } from '../../components'
+import ImgCrop from 'antd-img-crop'
 
 export interface IUploadProps extends ICommonProps {
   uploadFileName: string
@@ -20,6 +21,7 @@ export interface IUploadProps extends ICommonProps {
   accept?: string
   maxUploadSize?: number
   showUploadList?: boolean
+  needPreview?: boolean
   headers?: Record<string, any>
   beforeUpload?: (file: any) => boolean
   onChange?: (response: Record<string, any>, size: Record<string, any>) => void
@@ -63,56 +65,83 @@ const Upload = (props: IUploadProps): ReactElement => {
     })
   }
 
-  const render = () => {
+  const getNode = (needPreview: boolean = true) => {
     const listType = props.listType ?? 'picture-card'
+    return (
+      <AntUpload
+        name={props.uploadFileName || ''}
+        listType={listType}
+        action={props.action || ''}
+        className={props.uploadClassName || ''}
+        accept={props.accept || '*'}
+        disabled={uploadLoading}
+        headers={props.headers || {}}
+        showUploadList={props.showUploadList ?? false}
+        onPreview={async (file: UploadFile) => {
+          if (!needPreview) return
+          await onPreview(file)
+        }}
+        beforeUpload={(file: any) => {
+          const maxUploadSize = props.maxUploadSize ?? 0
+          if (maxUploadSize === 0) {
+            return true
+          }
+
+          return props.beforeUpload?.(file) || true
+        }}
+        onChange={async (info: Record<string, any> = {}) => {
+          let file = info.file || {}
+
+          const maxUploadSize = props.maxUploadSize ?? 0
+          if (maxUploadSize > 0) {
+            if (file.size > maxUploadSize * 1024) {
+              return
+            }
+          }
+
+          if (file.status === 'uploading') {
+            setUploadLoading(true)
+            return
+          }
+
+          if (file.status === 'done') {
+            setUploadLoading(false)
+            const response = file.response || {}
+
+            setUrl(response.code !== '0' ? '' : response.url || '')
+            const imageSize: Record<string, any> = (await getImageSize(file.originFileObj)) || {}
+            props.onChange?.(response, imageSize)
+          }
+        }}
+      >
+        {getUploadButton()}
+      </AntUpload>
+    )
+  }
+
+  // 预览
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string
+    if (!src) {
+      src = await new Promise(resolve => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file.originFileObj as any)
+        reader.onload = () => resolve(reader.result as string)
+      })
+    }
+    const image = new Image()
+    image.src = src
+    const imgWindow = window.open(src)
+    imgWindow?.document.write(image.outerHTML)
+  }
+
+  const render = () => {
+    const needPreview = props.needPreview ?? true
     return (
       <div className={`${props.className || ''} lower-engine-upload`}>
         {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 
-        <AntUpload
-          name={props.uploadFileName || ''}
-          listType={listType}
-          action={props.action || ''}
-          className={props.uploadClassName || ''}
-          accept={props.accept || '*'}
-          disabled={uploadLoading}
-          headers={props.headers || {}}
-          showUploadList={props.showUploadList ?? false}
-          beforeUpload={(file: any) => {
-            const maxUploadSize = props.maxUploadSize ?? 0
-            if (maxUploadSize === 0) {
-              return true
-            }
-
-            return props.beforeUpload?.(file) || true
-          }}
-          onChange={async (info: Record<string, any> = {}) => {
-            let file = info.file || {}
-
-            const maxUploadSize = props.maxUploadSize ?? 0
-            if (maxUploadSize > 0) {
-              if (file.size > maxUploadSize * 1024) {
-                return
-              }
-            }
-
-            if (file.status === 'uploading') {
-              setUploadLoading(true)
-              return
-            }
-
-            if (file.status === 'done') {
-              setUploadLoading(false)
-              const response = file.response || {}
-
-              setUrl(response.code !== '0' ? '' : (response.url || ''))
-              const imageSize: Record<string, any> = (await getImageSize(file.originFileObj)) || {}
-              props.onChange?.(response, imageSize)
-            }
-          }}
-        >
-          {getUploadButton()}
-        </AntUpload>
+        {needPreview ? <ImgCrop rotationSlider>{getNode(needPreview)}</ImgCrop> : getNode(needPreview)}
       </div>
     )
   }
