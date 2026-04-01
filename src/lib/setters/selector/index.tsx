@@ -13,8 +13,8 @@ export interface ISelectorProps extends ICommonProps {
   text?: string
   textInner?: boolean
   menu?: Array<{ [K: string]: any }>
-  items?: Array<string | number | { [K: string]: any }>
-  onChange?: (value: string | number | { [K: string]: any }) => void
+  items?: Array<string | { [K: string]: any }>
+  onChange?: (value: string | number | { [K: string]: any }, mode: string, values: Array<{[K: string]: any}>) => void
   dropDownProps?: IDropdownProps
   showBorder?: boolean
   readOnly?: boolean
@@ -22,22 +22,22 @@ export interface ISelectorProps extends ICommonProps {
 }
 
 const Selector = (props: ISelectorProps): ReactElement => {
-  const [value, setValue] = useState<string | number>('')
+  const [value, setValue] = useState<Array<{[K: string]: any}>>([])
 
   useEffect(() => {
     setValue(getValue(props.default || ''))
   }, [props.default])
 
   const getValue = (value: any = '') => {
-    if (typeof value === 'number') {
-      return value
-    }
-
     if (typeof value === 'string') {
-      return value || ''
+      return [{value, label: value, icon: null}]
     }
 
-    return value.value || ''
+    if (Array.isArray(value)) {
+      return value || []
+    }
+
+    return [{value: value.value, label: value.label || value.text || value.name || '', icon: value.icon || null}]
   }
 
   const getValueText = (value: any = '') => {
@@ -49,17 +49,24 @@ const Selector = (props: ISelectorProps): ReactElement => {
       return { text: value || '', icon: null }
     }
 
-    if (!Utils.isBlank(value.label || '')) {
-      return { text: value.label || '', icon: value.icon || null }
+    if (Array.isArray(value)) {
+      if (value.length === 0) {
+        return { text: '', icon: null }
+      }
+
+      const mode = props.dropDownProps?.mode || ''
+      if (mode === 'multiple') {
+        let text = []
+        for (let v of value) {
+          text.push(v.label || '')
+        }
+
+        return { text: text.join(','), icon: value[0].icon || null }
+      }
+
+      return { text: value[0].label, icon: value[0].icon || null }
     }
 
-    if (!Utils.isBlank(value.text || '')) {
-      return { text: value.text || '', icon: value.icon || null }
-    }
-
-    if (!Utils.isBlank(value.name || '')) {
-      return { text: value.name || '', icon: value.icon || null }
-    }
 
     return { text: '', icon: null }
   }
@@ -84,13 +91,27 @@ const Selector = (props: ISelectorProps): ReactElement => {
     )
   }
 
+  const getSelectValue = (values: Array<{[K: string]: any}> = []) => {
+    if (values.length === 0) {
+      return []
+    }
+
+    let selectValue = []
+    for(let v of values) {
+      selectValue.push(v.value)
+    }
+
+    return selectValue
+  }
+
   const render = () => {
     const alignmentClassName = Utils.getComponentAlignmentClassName(props.title || '', props.alignment || '')
     const showBorder = props.showBorder ?? false
-    const { text, icon } = getValueText(props.default || '')
+    const { text, icon } = getValueText(value)
     const readOnly = props.readOnly ?? false
     const disabled = props.disabled ?? false
     const textInner = props.textInner ?? false
+    const selectValue = getSelectValue(value)
     return (
       <div className={`${props.className || ''} ${textInner ? 'lower-engine-text-inner-selector' : ''} lower-engine-selector ${alignmentClassName || ''} ${showBorder ? 'show-border' : ''}`}>
         <div className={`${alignmentClassName || ''} wh100`}>
@@ -103,15 +124,44 @@ const Selector = (props: ISelectorProps): ReactElement => {
               className="lower-engine-select-dropdown"
               menu={props.menu || []}
               items={props.items || []}
-              selectValue={value}
+              selectValue={selectValue}
               {...(props.dropDownProps || {})}
-              onChange={(value: string | number | { [K: string]: any } = '') => {
-                let newValue = value || ''
-                if (typeof value !== 'string' && typeof value !== 'number') {
-                  newValue = value.value || ''
+              onChange={(v: string | { [K: string]: any } = '') => {
+                const mode = props.dropDownProps?.mode || ''
+                let values = value || []
+                let newValue: string = ''
+
+                if (typeof v !== 'string') {
+                  newValue = v.value || ''
+                } else {
+                  newValue = v || ''
                 }
-                setValue(newValue as string | number)
-                props.onChange?.(value)
+
+                if (Utils.isBlank(newValue || '')) {
+                  return
+                }
+
+                if (mode === 'multiple') {
+                  const index = values.findIndex((v) => v.value === newValue)
+                  if (index !== -1) {
+                    values.splice(index, 1)
+                  } else {
+                    if (typeof v === 'string') {
+                      values.push({value: v, label: v || '', icon: null})
+                    } else {
+                      values.push({value: newValue, label: v.label || v.text || v.name || '', icon: v.icon || null})
+                    }
+                  }
+                } else {
+                  if (typeof v === 'string') {
+                    values = [{value: v, label: v || '', icon: null}]
+                  } else {
+                    values = [{value: newValue, label: v.label || v.text || v.name || '', icon: v.icon || null}]
+                  }
+                }
+
+                setValue(values)
+                props.onChange?.(v, mode, values)
               }}
             >
               {getButtonNode(text, icon, readOnly, disabled)}

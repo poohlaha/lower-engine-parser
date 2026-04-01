@@ -1,6 +1,6 @@
 {
   "name": "lower-engine-parser",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "低代码平台引擎解析器, 用于解析组件面板属性",
   "repository": {
     "type": "git",

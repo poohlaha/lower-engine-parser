@@ -12,17 +12,17 @@ import { MDropdown } from '../../components'
 import Color, { IColorProps } from '../color'
 
 export interface IFontSizeProps extends ICommonProps, IColorProps {
-  items?: Array<number>
-  selected?: number
-  onChange?: (value: number, color: string, opacity: number) => void
+  items?: Array<string>
+  selected?: string
+  onChange?: (value: string, color: string, opacity: number) => void
 }
 
 const FontSize = (props: IFontSizeProps): ReactElement => {
-  const DEFAULT_ITEMS: Array<number> = [12, 13, 14, 16, 18, 20, 28, 36, 48, 72]
+  const DEFAULT_ITEMS: Array<string> = ['12', '13', '14', '16', '18', '20', '28', '36', '48', '72']
   const inputBoxRef = useRef(null)
 
-  const [value, setValue] = useState<number>(14) // 值
-  const [items, setItems] = useState<Array<number>>(DEFAULT_ITEMS)
+  const [value, setValue] = useState<string>(DEFAULT_ITEMS[2]) // 值
+  const [items, setItems] = useState<Array<string>>(DEFAULT_ITEMS)
   const [open, setOpen] = useState<boolean>(false)
 
   useEffect(() => {
@@ -50,9 +50,8 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
             min={DEFAULT_ITEMS[0]}
             value={value}
             onChange={(value: number | string | null) => {
-              let newValue: number = Utils.getInputNumberValue(value, 0)
-              setValue(newValue)
-              props.onChange?.(newValue, props.color || '', props.opacity || 100)
+              setValue(`${value || 0}`)
+              props.onChange?.(`${value || 0}`, props.color || '', props.opacity || 100)
             }}
           />
 
@@ -61,9 +60,8 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
             items={items}
             selectValue={value}
             onChange={value => {
-              let newValue: number = Utils.getInputNumberValue(value as number, 0)
-              setValue(newValue)
-              props.onChange?.(newValue, props.color || '', props.opacity || 100)
+              setValue(value as string)
+              props.onChange?.(value as string, props.color || '', props.opacity || 100)
             }}
             onOpenChange={(o: boolean) => {
               setOpen(o)

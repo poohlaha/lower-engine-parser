@@ -14,13 +14,14 @@ export interface IDropdownProps {
   arrow?: boolean
   placement?: string
   menu?: Array<{ [K: string]: any }>
-  items?: Array<string | number | { [K: string]: any }>
+  items?: Array<string | { [K: string]: any }>
   width?: number
   maxWidth?: number
   maxHeight?: number
   left?: number
-  selectValue?: string | number
-  onChange?: (value: string | number | { [K: string]: any }) => void
+  mode?: 'multiple' | 'tags' | ''
+  selectValue?: string | Array<string>
+  onChange?: (value: string | { [K: string]: any }) => void
   onOpenChange?: (open: boolean) => void
 }
 
@@ -41,7 +42,7 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
 
     let items = props.items || []
     let options: any = []
-    items.forEach((item: string | number | { [K: string]: any }, index: number) => {
+    items.forEach((item: string | { [K: string]: any }, index: number) => {
       let suffix: string = ''
       let text = item || ''
       let value = item || ''
@@ -49,7 +50,7 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
       let extra = typeof item === 'object' ? item.extra || '' : ''
       let icon = null
       const disabled = typeof item === 'object' ? item.disabled ?? false : false
-      if (typeof item !== 'string' && typeof item !== 'number') {
+      if (typeof item !== 'string') {
         let newItem: any = item || {}
         icon = newItem.icon || ''
         suffix = newItem.suffix || ''
@@ -57,10 +58,25 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
         value = newItem.value || ''
       }
 
+      let hasActive = false
+      const mode = props.mode
+      if (mode === 'multiple') {
+        hasActive = (props.selectValue || []).indexOf(value as string) !== -1
+      } else {
+        const selectValue = props.selectValue
+        if (Array.isArray(selectValue)) {
+          if (selectValue.length > 0) {
+            hasActive = selectValue[0] === value
+          }
+        } else {
+          hasActive = props.selectValue === value
+        }
+      }
+
       options.push({
         label: (
           <div
-            className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${disabled ? 'disabled' : ''} ${props.selectValue === value ? 'active' : ''}`}
+            className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${disabled ? 'disabled' : ''} ${hasActive ? 'active' : ''}`}
             key={index}
             onClick={() => {
               if (disabled) return
