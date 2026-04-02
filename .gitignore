@@ -32,6 +32,7 @@ node_modules
 pnpm-lock.yaml
 bale-web/request/**/*.js
 src/*.js
+lib/*.js
 *.css
 dist/
 

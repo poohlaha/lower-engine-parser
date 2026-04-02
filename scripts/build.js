@@ -8,7 +8,7 @@ const fs= require('fs-extra')
 const path = require('path')
 const less = require('less')
 
-const srcDir = path.resolve(__dirname, '../src')
+const srcDir = path.resolve(__dirname, '../lib')
 const outDir = path.resolve(__dirname, '../dist')
 
 async function compileLess(filePath) {

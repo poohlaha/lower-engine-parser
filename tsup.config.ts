@@ -1,5 +1,5 @@
 export default {
-    entry: ['index.tsx', 'src/**/*.tsx'],
+    entry: ['index.tsx', 'lib/**/*.tsx'],
     format: ['esm', 'cjs'],
     dts: true,
     splitting: false,

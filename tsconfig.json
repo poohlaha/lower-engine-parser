@@ -20,6 +20,6 @@
     "emitDeclarationOnly": true
   },
   "types": ["react", "react-dom"],
-  "include": ["./src"],
+  "include": ["./lib"],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 {
   "name": "lower-engine-parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "低代码平台引擎解析器, 用于解析组件面板属性",
   "repository": {
     "type": "git",
@@ -12,9 +12,6 @@
     "Engine",
     "Parser"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "author": "poohlaha",
   "license": "MIT",
   "bugs": {
@@ -26,15 +23,15 @@
     "access": "public"
   },
   "sideEffects": [
-    "src/assets/**/*.css",
-    "src/assets/**/*.less"
+    "lib/assets/**/*.css",
+    "lib/assets/**/*.less"
   ],
   "scripts": {
     "build": "node scripts/build.js && tsup",
     "types": "tsc --emitDeclarationOnly",
     "build:all": "npm run build && npm run types",
     "preinstall": "npx only-allow pnpm",
-    "format": "npx prettier --write src"
+    "format": "npx prettier --write lib"
   },
   "peerDependencies": {
     "react": ">=19",
