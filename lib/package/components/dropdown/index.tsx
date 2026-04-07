@@ -3,7 +3,7 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, { CSSProperties, PropsWithChildren, ReactElement } from 'react'
+import React, {CSSProperties, PropsWithChildren, ReactElement, useEffect, useState} from 'react'
 import Utils from '../../utils/utils'
 import { Dropdown } from 'antd'
 import Icons from '../../utils/icons'
@@ -21,11 +21,18 @@ export interface IDropdownProps {
   left?: number
   mode?: 'multiple' | 'tags' | ''
   selectValue?: string | Array<string>
+  open?: boolean
   onChange?: (value: string | { [K: string]: any }) => void
   onOpenChange?: (open: boolean) => void
 }
 
 const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
+  const [open, setOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    setOpen(props.open ?? false)
+  }, [props.open])
+
   const getIcon = (icon: any = '') => {
     if (!icon) return null
 
@@ -133,7 +140,11 @@ const MDropdown = (props: PropsWithChildren<IDropdownProps>): ReactElement => {
         trigger={trigger}
         arrow={arrow}
         placement={placement}
-        onOpenChange={(open: boolean) => props.onOpenChange?.(open)}
+        open={open}
+        onOpenChange={(open: boolean) => {
+          setOpen(open)
+          props.onOpenChange?.(open)
+        }}
       >
         {props.children}
       </Dropdown>

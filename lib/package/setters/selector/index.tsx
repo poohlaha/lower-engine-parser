@@ -5,7 +5,7 @@
  */
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
-import { IDropdownProps, MDropdown, MText } from '../../components'
+import {IPopoverProps, MPopover, MText} from '../../components'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 
@@ -15,7 +15,7 @@ export interface ISelectorProps extends ICommonProps {
   menu?: Array<{ [K: string]: any }>
   items?: Array<string | { [K: string]: any }>
   onChange?: (value: string | number | { [K: string]: any }, mode: string, values: Array<{ [K: string]: any }>) => void
-  dropDownProps?: IDropdownProps
+  dropDownProps?: IPopoverProps
   showBorder?: boolean
   readOnly?: boolean
   disabled?: boolean
@@ -23,6 +23,7 @@ export interface ISelectorProps extends ICommonProps {
 
 const Selector = (props: ISelectorProps): ReactElement => {
   const [value, setValue] = useState<Array<{ [K: string]: any }>>([])
+  const [openDropdown, setOpenDropdown] = useState<boolean>(false)
 
   useEffect(() => {
     setValue(getValue(props.default || ''))
@@ -119,12 +120,16 @@ const Selector = (props: ISelectorProps): ReactElement => {
           {readOnly || disabled ? (
             getButtonNode(text, icon, readOnly, disabled)
           ) : (
-            <MDropdown
+            <MPopover
               className="lower-engine-select-dropdown"
-              menu={props.menu || []}
               items={props.items || []}
               selectValue={selectValue}
               {...(props.dropDownProps || {})}
+              onOpenChange={(open) => {
+                setOpenDropdown(open)
+                props.dropDownProps?.onOpenChange?.(open)
+              }}
+              open={openDropdown}
               onChange={(v: string | { [K: string]: any } = '') => {
                 const mode = props.dropDownProps?.mode || ''
                 let values = value || []
@@ -157,6 +162,8 @@ const Selector = (props: ISelectorProps): ReactElement => {
                   } else {
                     values = [{ value: newValue, label: v.label || v.text || v.name || '', icon: v.icon || null }]
                   }
+
+                  setOpenDropdown(false)
                 }
 
                 setValue(values)
@@ -164,7 +171,7 @@ const Selector = (props: ISelectorProps): ReactElement => {
               }}
             >
               {getButtonNode(text, icon, readOnly, disabled)}
-            </MDropdown>
+            </MPopover>
           )}
         </div>
       </div>
