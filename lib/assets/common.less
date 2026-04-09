@@ -238,7 +238,15 @@
 
   // color
   .lower-engine-color {
-    height: @paragraph_height;
+    min-height: @paragraph_height;
+
+    .lower-engine-color-box {
+      .flex-direction-column {
+        .lower-engine-color-thumbnail {
+          margin-top: 4px;
+        }
+      }
+    }
 
     .lower-engine-color-header {
       margin-right: 4px;

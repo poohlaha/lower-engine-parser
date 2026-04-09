@@ -39,7 +39,7 @@ const rgbToHex = (str: string = '', opacity: number) => {
 /**
  * RGBA -> HEX
  */
-const rgbaToHex = (r: number, g: number, b: number, a: number) => {
+const rgbaToHex = (r: number, g: number, b: number, a: number = 1) => {
   const toHex = (x: number) => x.toString(16).padStart(2, '0').toUpperCase()
   const alphaHex = a < 1 ? toHex(Math.round(a * 255)) : ''
   return {
