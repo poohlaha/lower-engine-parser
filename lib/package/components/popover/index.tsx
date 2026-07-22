@@ -17,7 +17,7 @@ export interface IPopoverProps {
   items?: Array<string | Record<string, any>>
   width?: number
   maxWidth?: number
-  selectValue?:string | Array<string>
+  selectValue?: string | Array<string>
   open?: boolean
   mode?: 'multiple' | ''
   onChange?: (value: string | Record<string, any>) => void
@@ -25,7 +25,6 @@ export interface IPopoverProps {
 }
 
 const MPopover = (props: PropsWithChildren<IPopoverProps>): ReactElement => {
-
   const getIcon = (icon: any = '') => {
     if (!icon) return null
 
@@ -74,29 +73,29 @@ const MPopover = (props: PropsWithChildren<IPopoverProps>): ReactElement => {
           }
 
           return (
-              <div
-                  className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${disabled ? 'disabled' : ''} ${hasActive ? 'active' : ''}`}
-                  key={index}
-                  onClick={() => {
-                    if (disabled) return
-                    props.onChange?.(item)
-                  }}
-              >
-                <div className="flex-align-center flex-jsc-between">
-                  <div className="flex-align-center">
-                    {Icons.getSuccessNode()}
-                    {getIcon(icon)}
-                    <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
-                    {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
-                  </div>
-
-                  {/* extra */}
-                  {!Utils.isBlank(desc || '') && <p className="over-two-ellipsis lower-engine-content-item-extra">{extra || ''}</p>}
+            <div
+              className={`lower-engine-content-item w100 flex-direction-column cursor-pointer ${disabled ? 'disabled' : ''} ${hasActive ? 'active' : ''}`}
+              key={index}
+              onClick={() => {
+                if (disabled) return
+                props.onChange?.(item)
+              }}
+            >
+              <div className="flex-align-center flex-jsc-between">
+                <div className="flex-align-center">
+                  {Icons.getSuccessNode()}
+                  {getIcon(icon)}
+                  <p className="lower-engine-content-item-text flex-1">{`${text || ''}`}</p>
+                  {!Utils.isBlank(suffix) && <div className="lower-engine-content-item-suffix">{suffix || ''}</div>}
                 </div>
 
-                {/* 描述 */}
-                {!Utils.isBlank(desc || '') && <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />}
+                {/* extra */}
+                {!Utils.isBlank(desc || '') && <p className="over-two-ellipsis lower-engine-content-item-extra">{extra || ''}</p>}
               </div>
+
+              {/* 描述 */}
+              {!Utils.isBlank(desc || '') && <div className="over-two-ellipsis lower-engine-content-item-desc" dangerouslySetInnerHTML={{ __html: desc || '' }} />}
+            </div>
           )
         })}
       </div>

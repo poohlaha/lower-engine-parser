@@ -5,7 +5,7 @@
  */
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
-import {IPopoverProps, MPopover, MText} from '../../components'
+import { IPopoverProps, MPopover, MText } from '../../components'
 import Icons from '../../utils/icons'
 import Utils from '../../utils/utils'
 
@@ -125,7 +125,7 @@ const Selector = (props: ISelectorProps): ReactElement => {
               items={props.items || []}
               selectValue={selectValue}
               {...(props.dropDownProps || {})}
-              onOpenChange={(open) => {
+              onOpenChange={open => {
                 setOpenDropdown(open)
                 props.dropDownProps?.onOpenChange?.(open)
               }}

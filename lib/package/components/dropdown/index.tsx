@@ -3,7 +3,7 @@
  * @date 2023-08-28
  * @author poohlaha
  */
-import React, {CSSProperties, PropsWithChildren, ReactElement, useEffect, useState} from 'react'
+import React, { CSSProperties, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 import Utils from '../../utils/utils'
 import { Dropdown } from 'antd'
 import Icons from '../../utils/icons'

@@ -114,7 +114,7 @@ const Upload = (props: IUploadProps): ReactElement => {
         name={props.uploadFileName || ''}
         listType={listType}
         action={props.action || ''}
-        className={props.uploadClassName || ''}
+        className={`${props.uploadClassName || ''} ${Utils.isBlank(props.url || '') ? '' : 'w100'}`}
         accept={props.accept || '*'}
         disabled={uploadLoading}
         headers={props.headers || {}}
@@ -181,7 +181,7 @@ const Upload = (props: IUploadProps): ReactElement => {
     const needPreview = props.needPreview ?? true
     const needCut = props.needCut ?? false
     return (
-      <div className={`${props.className || ''} lower-engine-upload`}>
+      <div className={`${props.className || ''} ${Utils.isBlank(props.url || '') ? '' : 'uploader-has-image'} lower-engine-upload`}>
         {!Utils.isBlank(props.text || '') && <MText text={props.text || ''} tooltip={props.tooltip || ''} textClassName="over-ellipsis" />}
 
         {needCut ? <ImgCrop rotationSlider>{getNode(needPreview)}</ImgCrop> : getNode(needPreview)}

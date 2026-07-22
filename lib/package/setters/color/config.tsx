@@ -26,12 +26,12 @@ const OTHER_SELECTED: Array<{ [K: string]: any }> = [
     label: '径向渐变',
     value: '6',
   },
-   */
   {
     label: '我的收藏',
     value: '7',
     disabled: true,
   },
+   */
 ]
 
 /**
