@@ -6,7 +6,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { ICommonProps } from '../../utils/common'
 import { InputNumber } from 'antd'
-import Utils from '../../utils/utils'
 import Icons from '../../utils/icons'
 import { MDropdown } from '../../components'
 import Color, { IColorProps } from '../color'
@@ -14,6 +13,7 @@ import Color, { IColorProps } from '../color'
 export interface IFontSizeProps extends ICommonProps, IColorProps {
   items?: Array<string>
   selected?: string
+  onlyColor?: boolean
   onChange?: (value: string, color: string, opacity: number) => void
 }
 
@@ -43,34 +43,37 @@ const FontSize = (props: IFontSizeProps): ReactElement => {
   }
 
   const render = () => {
+    const onlyColor = props.onlyColor ?? false
     return (
       <div className={`${props.className || ''} lower-engine-font-size flex-align-center`}>
-        <div className={`lower-engine-input-box flex-align-center ${open ? 'visible' : ''}`} ref={inputBoxRef}>
-          <InputNumber
-            min={DEFAULT_ITEMS[0]}
-            value={value}
-            onChange={(value: number | string | null) => {
-              setValue(`${value || 0}`)
-              props.onChange?.(`${value || 0}`, props.color || '', props.opacity || 100)
-            }}
-          />
+        {!onlyColor && (
+          <div className={`lower-engine-input-box flex-align-center ${open ? 'visible' : ''}`} ref={inputBoxRef}>
+            <InputNumber
+              min={DEFAULT_ITEMS[0]}
+              value={value}
+              onChange={(value: number | string | null) => {
+                setValue(`${value || 0}`)
+                props.onChange?.(`${value || 0}`, props.color || '', props.opacity || 100)
+              }}
+            />
 
-          <MDropdown
-            className="lower-engine-font-size-dropdown"
-            items={items}
-            selectValue={value}
-            onChange={value => {
-              setValue(value as string)
-              props.onChange?.(value as string, props.color || '', props.opacity || 100)
-            }}
-            onOpenChange={(o: boolean) => {
-              setOpen(o)
-            }}
-            left={getLeftPoint()}
-          >
-            <div className="lower-engine-input-action">{Icons.getArrowNode()}</div>
-          </MDropdown>
-        </div>
+            <MDropdown
+              className="lower-engine-font-size-dropdown"
+              items={items}
+              selectValue={value}
+              onChange={value => {
+                setValue(value as string)
+                props.onChange?.(value as string, props.color || '', props.opacity || 100)
+              }}
+              onOpenChange={(o: boolean) => {
+                setOpen(o)
+              }}
+              left={getLeftPoint()}
+            >
+              <div className="lower-engine-input-action">{Icons.getArrowNode()}</div>
+            </MDropdown>
+          </div>
+        )}
 
         <Color
           name="color"

@@ -197,7 +197,8 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                       setColor(newColor)
                       setColorItemActiveIndex(-1)
                       updateFromPicker.current = true
-                      props.onColorChange?.(newColor.hex || '', color || {})
+                      onSetPickerPosition(c.value || '')
+                      props.onColorChange?.(newColor.hex || '', newColor || {})
                     }}
                   >
                     <div className="color-box" style={{ background: c.value || '' }}></div>
@@ -247,6 +248,38 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
     setColor(newColor)
     updateFromPicker.current = true
     props.onColorChange?.(newColor.hex || '', newColor || {})
+  }
+
+  /**
+   * 设置对应的色彩空间位置
+   */
+  const onSetPickerPosition = (value: string = '') => {
+    if (Utils.isBlank(value || '')) {
+      return
+    }
+
+    const rgb: Record<string, any> = rgbToHex(value, 100) || {}
+    if (Utils.isObjectNull(rgb)) {
+      return
+    }
+
+    const hsb: Record<string, any> = hexToHsb(rgb.hex, 100)
+    if (Utils.isObjectNull(hsb)) {
+      return
+    }
+
+    setHue(hsb.r)
+
+    setHsb({
+      h: hsb.r,
+      s: hsb.g,
+      v: hsb.b,
+    })
+
+    setPointerPosition({
+      left: `${hsb.g}%`,
+      top: `${100 - hsb.b}%`,
+    })
   }
 
   const getContent = () => {
@@ -358,7 +391,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                       setColor(newColor)
 
                       updateFromPicker.current = true
-                      props.onColorChange?.(newColor.hex || '', newColor)
+                      props.onColorChange?.(newColor.hex || '', newColor || {})
                     }}
                   />
                 </div>
@@ -378,6 +411,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                         const newColor = rgbToHex(c.value || '', color.a) || {}
                         setColor(newColor)
                         updateFromPicker.current = true
+                        onSetPickerPosition(c.value || '')
                         props.onColorChange?.(newColor.hex || '', newColor || {})
                       }}
                     />
@@ -408,7 +442,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                       setColor(newColor)
                       setColorItemActiveIndex(-1)
                       updateFromPicker.current = true
-                      props.onColorChange?.(newColor.hex || '', newColor)
+                      props.onColorChange?.(newColor.hex || '', newColor || {})
                     } catch (e) {
                       updateFromPicker.current = true
                       props.onColorChange?.('', {}, '', '取消颜色选择')
@@ -436,7 +470,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                         const newColor = {
                           ...color,
                           hex,
-                          a: value
+                          a: value,
                         }
 
                         setColor(newColor)
@@ -566,7 +600,7 @@ const Color = (props: PropsWithChildren<IColorProps>): ReactElement => {
                       const newColor = {
                         ...color,
                         hex,
-                        a: value
+                        a: value,
                       }
 
                       setColor(newColor)
